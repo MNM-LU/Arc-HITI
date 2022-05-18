@@ -19,7 +19,7 @@ animal_list = [20, 21, 22, 23, 24]
 
 read_fwd = True
 filterlitteral = 'GGACGACGGCAACTACAAGACCCGCGCCGAGGTGAAGTTCGAGGGCGACACCCTGGTGAACCGCATCGAGCTGAAGG'
-lliteral = ' literal=GGACGACGGCAACTACAAGA'
+lliteral = ' literal=GGACGACGGCAACTACAAGA' 
 rliteral = ' literal=GGAGCTGGACCATATGACCAC'
 base_path = '/media/data/AtteR/projects/hiti/FASTQ_Generation_2020-03-09_08_30_27Z-13364364/'
 export_path = '/media/data/AtteR/projects/hiti/pipeline_output_reorg/'
@@ -31,7 +31,7 @@ full_df=analyze_all(base_path,transgene,assay_end,filterlitteral,lliteral,rliter
 # data_dict=create_datadict(base_path,transgene, animal_list)
 # full_df=import_reads_process(data_dict, transgene,assay_end,filterlitteral,lliteral,rliteral,export_path,read_fwd)
 full_df_trim=calculate_perc_sd2(full_df)
-result="unaligned/Exp1_3p_GFP_LP1_TB.fasta"
+result="unaligned/Exp1_3p_GFP_LP1.fasta"
 csv_file="/".join(result.split("/")[:-1]) +"/"+ result.split("/")[-1].split(".")[0] + ".csv"
 full_df_trim.to_csv(csv_file)
 save_fasta(result, full_df_trim, target_sequence)
@@ -49,10 +49,13 @@ aligner(full_df_trim, target_sequence, "align_local2", result, output_path, llit
 
 #AA
 ####################
-# corr_frame=1
-# result="aligned/Exp1_3p_GFP_LP1.fasta"
-# df_aa=translate_nt_aa(result, 1)
-# output_html="aligned/Exp1_3p_GFP_LP1_AA.html"
+corr_frame=2
+result="unaligned/Exp1_3p_GFP_LP1.fasta"
+out_csv="aligned/AA/Exp1_3p_GFP_LP1_AA.csv"
+df_aa=translate_nt_aa_csv(result,corr_frame, out_csv)
+
+#df_aa=translate_nt_aa(result, 1)
+output_html="aligned/AA/Exp1_3p_GFP_LP1_AA.html"
 # visualise_aa_hybrid_alignments(df_aa, output_html)
 
 # df_full=import_reads_process_mini(base_path, target_sequence, filterlitteral,read_fwd)
@@ -67,15 +70,22 @@ transgene = 'GFP'
 assay_end = '5p'
 read_fwd = True
 animal_list = [13, 14, 15, 16, 17, 18] 
+
+(2561-2210)%3
 filterlitteral = 'GCGCGGGTCTTGTAGTTGCCGTCGTCCTTGAAGAAGATGGTGCGCTCCTGGACG'
-lliteral = ' literal=GCTTCTGCCTCAGAGGAGTTCT'
+lliteral = ' literal=GCTTCTGCCTCAGAGGAGTTCT' 
 rliteral = ' literal=CGAGGTGAAGTTCGAGGGC'
+
+#primer further down so that more mcherry shown
+rliteral = ' literal=GAACGGCCACGAGTTCGAGA'
 base_path = '/media/data/AtteR/projects/hiti/FASTQ_Generation_2020-03-09_08_30_27Z-13364364/'
 export_path = '/media/data/AtteR/projects/hiti/pipeline_output_reorg/'
+#the one for rliteral v2
+target_sequence="CCCTCCCGGTGGGAGGCGCGCAGCAGAGCACATTAGTCACTCGGGGCTGTGAAGGGGCGGGTCCTTGAGGGCACCCACGGGAGGGGAGCGAGTAGGCGCGGAAGGCGGGGCCTGCGGCAGGAGAGGGCGCGGGCGGGCTCTGGCGCGGAGCCTGGGCGCCGCCAATGGGAGCCAGGGCTCCACGAGCTGCCGCCCACGGGCCCCGCGCAGCATAAATAGCCGCTGGTGGCGGTTTCGGTGCAGAGCTCAAGCGAGTTCTCCCGCAGCCGCAGTCTCTGGGCCTCTCTAGCTTCAGCGGCGACGAGCCTGCCACACTCGCTAAGCTCCTCCGGCACCGCACACCTGCCACTGCCGCTGCAGCCGCCGGCTCTGCTCCCTTCCGGCTTCTGCCTCAGAGGAGTTCTTAGCCTGTTCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCATATGACGTCATATGGTCCAGCTCGGgtgagcaagggcgaggaggataacatggccatcatcaaggagttcatgcgcttcaaggtgcacatggagggctccgt"
 target_sequence = "tagcctgttaacaggCGCGCCACCATGGTGAGCAAGGGCGAGGAGCTGTTCACCGGGGTGGTGCCCATCCTGGTCGAGCTGGACGGCGACGTAAACGGCCACAAGTTCAGCGTGTCCGGCGAGGGCGAGGGCGATGCCACCTACGGCAAGCTGACCCTGAAGTTCATCTGCACCACCGGCAAGCTGCCCGTGCCCTGGCCCACCCTCGTGACCACCCTGACCTACGGCGTGCAGTGCTTCAGCCGCTACCCCGACCACATGAAGCAGCACGACTTCTTCAAGTCCGCCATGCCCGAAGGCTACGTCCAGGAGCGCACCATCTTCTTCAAGGACGACGGCAACTACAAGACCCGCGC"
 target_sequence=target_sequence.upper()
 #########
-full_df=analyze_all()
+#full_df=analyze_all()
 
 full_df=analyze_all(base_path,transgene,assay_end,filterlitteral,lliteral,rliteral,export_path,read_fwd, animal_list, target_sequence)
 
@@ -100,10 +110,13 @@ test_res=aligner(full_df_trim, target_sequence, "align_local2", result, output_p
 
 #AA
 ####################
-# corr_frame=1
-# result="aligned/Exp1_5p_GFP_LP1.fasta"
-# df_aa=translate_nt_aa(result, 1)
-# output_html="aligned/Exp1_5p_GFP_LP1_AA.html"
+corr_frame=1
+result="aligned/Exp1_5p_GFP_LP1.fasta"
+out_csv="aligned/AA/Exp1_3p_GFP_LP1_AA.csv"
+df_aa=translate_nt_aa_csv(result,corr_frame, out_csv)
+
+#df_aa=translate_nt_aa(result, 1)
+output_html="aligned/AA/Exp1_5p_GFP_LP1_AA.html"
 # visualise_aa_hybrid_alignments(df_aa, output_html)
 # df_full=import_reads_process_mini(base_path, target_sequence, filterlitteral,read_fwd)
 #############
