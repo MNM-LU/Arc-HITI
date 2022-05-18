@@ -33,27 +33,28 @@ df_full=import_reads_process_mini(base_path, target_sequence, filterlitteral, ll
 #starcode produces files with exactly same seqs, counts and percs
 #files do have different number of reads but for some reason starcode clusters all of them as the same
 df_trim_full2=calculate_perc_sd2(df_full)
-result="unaligned/Exp2_3p_mcherry_mcherry_SP4_var.fasta"
+result="unaligned/Exp2_3p_mcherry_SP4.fasta"
 save_fasta(result, df_trim_full2, target_sequence)
 
 csv_file="/".join(result.split("/")[:-1]) +"/"+ result.split("/")[-1].split(".")[0] + ".csv"
-full_df_trim_orig.to_csv(csv_file)
+df_trim_full2.to_csv(csv_file)
 
 #NT
 ####################
-output_path="aligned/"
+output_path="aligned/NT/"
 # result=output_path+"Exp2_3p_mcherry_mcherry_SP4_local3.fasta"
 # aligner(df_trim_full2, target_sequence, "align_local3", result, output_path, -3,-1)
-result=output_path + "Exp2_3p_mcherry_mcherry_SP4_local2.fasta"
+result=output_path + "Exp2_3p_mcherry_mcherry_SP4_local2_prim.fasta"
 aligner(df_trim_full2, target_sequence, "align_local2", result, output_path,lliteral, rliteral, 3,1)
 #AA
 ####################
-# corr_frame=1
-# result="/media/data/AtteR/projects/hiti/pipeline_output_reorg/fastas/unaligned_seqs/Exp2_3p_mcherry_mcherry_SP4.fasta"
-# output_html="/media/data/AtteR/projects/hiti/pipeline_output_reorg/AA_aligned_html/Exp2_3p_mcherry_mcherry_SP4_AA.html"
-# translate_nt_aa_hiti2(result, corr_frame, output_html)
+corr_frame=0
+result="unaligned/Exp2_3p_mcherry_SP4.fasta"
+output_html="aligned/AA/Exp2_3p_mcherry_SP4_AA.html"
+out_csv="aligned/AA/Exp2_3p_mcherry_SP4_AA.csv"
+df_aa=translate_nt_aa_csv(result,corr_frame, out_csv)
 ####################
-
+#take each of the columns, align them and save into output files
 
 #5'
 #############
@@ -80,7 +81,7 @@ base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-
 #########
 df_full=import_reads_process_mini(base_path, target_sequence, filterlitteral, lliteral, rliteral, read_fwd)
 df_trim_full2=calculate_perc_sd2(df_full)
-result="unaligned/Exp2_5p_mcherry_mcherry_SP4.fasta"
+result="unaligned/Exp2_5p_mcherry_SP4.fasta"
 save_fasta(result, df_trim_full2, target_sequence)
 
 csv_file="/".join(result.split("/")[:-1]) +"/"+ result.split("/")[-1].split(".")[0] + ".csv"
@@ -88,18 +89,20 @@ df_trim_full2.to_csv(csv_file)
 
 #NT
 ####################
-output_path="aligned/"
+output_path="aligned/NT/"
 #result="aligned/Exp2_5p_mcherry_mcherry_SP4_local3.fasta"
 # test_res=aligner(df_trim_full2, target_sequence, "align_local3", result, output_path, -3,-1)
-result=output_path + "Exp2_5p_mcherry_mcherry_SP4_local2.fasta"
+result=output_path + "Exp2_5p_mcherry_SP4_local2_prim.fasta"
 #gop and gep got rid of an annoying shift in NTs which made part of the alignments off so changed to 4 and
 aligner(df_trim_full2, target_sequence, "align_local2", result, output_path, lliteral, rliteral,4,2)
 ####################
 
 #AA
+#484%3
 ####################
-# corr_frame=1
-# result="aligned//Exp2_5p_mcherry_mcherry_SP4.fasta"
-# output_html="/media/data/AtteR/projects/hiti/pipeline_output_reorg/AA_aligned_html/Exp2_5p_mcherry_mcherry_SP4_AA.html"
-# translate_nt_aa_hiti2(result, corr_frame, output_html)
+corr_frame=1
+result="unaligned/Exp2_5p_mcherry_SP4.fasta"
+output_html="aligned/AA/Exp2_5p_mcherry_SP4_AA.html"
+out_csv="aligned/AA/Exp2_5p_mcherry_SP4_AA.csv"
+df_aa=translate_nt_aa_csv(result,corr_frame, out_csv)
 ####################
