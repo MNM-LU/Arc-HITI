@@ -26,6 +26,7 @@ import math
 
 os.getcwd()
 os.chdir("/media/data/AtteR/projects/hiti/pipeline_output_reorg/hiti-arc-analysis")
+#from alignment_scripts import *
 import Bio.Align.Applications; dir(Bio.Align.Applications)
 from Bio.Align.Applications import MuscleCommandline#Read in unfiltered data
 from Bio import AlignIO
@@ -766,6 +767,54 @@ def translate_nt_aa(result, corr_frame):
         ref_x_alig_list.append([keys]+list(values))
 
     df = pd.DataFrame(data= {seq_info[0]: seq_info[1:], ref_x_alig_list[0][0]:ref_x_alig_list[0][1:], ref_x_alig_list[1][0]:ref_x_alig_list[1][1:], ref_x_alig_list[2][0]:ref_x_alig_list[2][1:]})
+    return(df)
+
+def translate_nt_aa_csv(result,corr_frame, out_csv):
+    all_frames=[0,1,2]
+    #out_of_frames.remove(corr_frame) dont take out any of the frames as the seqs after the scar may be in frame
+    refs_aa_frames={}
+    aa_and_perc={}
+
+    len(aa_and_perc)
+    for record in SeqIO.parse(result, "fasta"):
+        for alt_frame in all_frames:
+            if record.id=="0":
+                refs_aa_frames["Frame:" + str(corr_frame)]=str(Seq(record.seq[corr_frame:]).translate())
+            refs_aa_frames["Frame:" + str(alt_frame)]=str(Seq(record.seq[alt_frame:]).translate())
+            aa_and_perc[">"+str(record.description) + "_transl.frame:" + str(alt_frame)]=str(Seq(record.seq[alt_frame:]).translate())
+
+    #you go over the ref seqs in different frames and align all the amplicons to them. save the alignment into the df's specific column. initially
+    #save into a list or such
+    ref_x_alignment={}
+    for frame_ref in refs_aa_frames.keys():
+        alignments_per_ref=[]
+        for ampl in aa_and_perc.keys():
+            matches=SequenceMatcher(None,refs_aa_frames[frame_ref],aa_and_perc[ampl])
+            seqs=[]
+            #you use range_line so that when you fill the remnants from left side of the match, you wont keep adding from
+            #beginning since in the end, we merge the seq list elements into the whole alignment of the amplicon against the ref
+            range_line=0
+            for i in range(len(matches.get_matching_blocks())):
+                match=matches.get_matching_blocks()[i]
+                seqs.append(len(refs_aa_frames[frame_ref][range_line:match.a])*"-"+str(aa_and_perc[ampl])[match.b:match.b+match.size])
+                range_line=match.a+match.size
+            alignments_per_ref.append(''.join(seqs))
+        ref_x_alignment[frame_ref + "|Ref:" +refs_aa_frames[frame_ref]]=alignments_per_ref
+    seq_info={"Seq_info:":aa_and_perc.keys()}
+    keys=list(aa_and_perc.keys())
+
+    seq_info=["Seq_info"]+list(aa_and_perc.keys())
+    ref_x_alig_list=[]
+    for keys, values in ref_x_alignment.items():
+        #print("".join(list((keys))[:]))
+        #ref_x_alig_list.append([("".join(list((keys))))]+list(values))
+        ref_x_alig_list.append([keys]+list(values))
+
+    df = pd.DataFrame(data= {seq_info[0]: seq_info[1:], ref_x_alig_list[0][0]:ref_x_alig_list[0][1:], ref_x_alig_list[1][0]:ref_x_alig_list[1][1:], ref_x_alig_list[2][0]:ref_x_alig_list[2][1:]})
+    df.columns
+    df.to_csv(out_csv)
+    print("AA data saved into " + out_csv)
+
     return(df)
 def translate_nt_aa_hiti2(result, corr_frame, output_html):
     refs_aa_frames={}
