@@ -55,6 +55,8 @@ out_csv="aligned/AA/Exp1_3p_GFP_LP1_AA.csv"
 df_aa=translate_nt_aa_csv(result,corr_frame, out_csv)
 #df_aa=translate_nt_aa(result, 1)
 output_html="aligned/AA/Exp1_3p_GFP_LP1_AA.html"
+translation_new(df_aa, output_html)
+
 # visualise_aa_hybrid_alignments(df_aa, output_html)
 
 # df_full=import_reads_process_mini(base_path, target_sequence, filterlitteral,read_fwd)
@@ -113,9 +115,11 @@ corr_frame=1
 result="unaligned/Exp1_5p_GFP_LP1.fasta"
 out_csv="aligned/AA/Exp1_5p_GFP_LP1_AA.csv"
 df_aa=translate_nt_aa_csv(result,corr_frame, out_csv)
+output_html="aligned/AA/Exp1_5p_GFP_LP1_AA.html"
+
+translation_new(df_aa, output_html)
 
 #df_aa=translate_nt_aa(result, 1)
-output_html="aligned/AA/Exp1_5p_GFP_LP1_AA.html"
 # visualise_aa_hybrid_alignments(df_aa, output_html)
 # df_full=import_reads_process_mini(base_path, target_sequence, filterlitteral,read_fwd)
 #############

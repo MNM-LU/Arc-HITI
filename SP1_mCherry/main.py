@@ -43,7 +43,7 @@ csv_file="/".join(result.split("/")[:-1]) +"/"+ result.split("/")[-1].split(".")
 df_trim_full2.to_csv(csv_file)
 
 #NT
-output_path="aligned/"
+output_path="aligned/NT/"
 #result="aligned/Exp2_3p_mcherry_SP1_local3.fasta"
 #test_res=aligner(df_trim_full2, target_sequence, "align_local3", result, output_path, -3,-1)
 result=output_path + "Exp2_3p_mcherry_SP1_local2_prim.fasta"
@@ -56,6 +56,8 @@ result="unaligned/Exp2_3p_mcherry_SP1.fasta"
 output_html="aligned/AA/Exp2_3p_mcherry_mcherry_SP1_AA.html"
 out_csv="aligned/AA/Exp2_3p_mcherry_SP1_AA.csv"
 df_aa=translate_nt_aa_csv(result,corr_frame, out_csv)
+translation_new(df_aa, output_html)
+
 ####################
 
 
@@ -108,6 +110,8 @@ result="unaligned/Exp2_5p_mcherry_SP1.fasta"
 output_html="aligned/AA/Exp2_5p_mcherry_SP1_AA.html"
 out_csv="aligned/AA/Exp2_5p_mcherry_SP1_AA.csv"
 df_aa=translate_nt_aa_csv(result,corr_frame, out_csv)
+translation_new(df_aa, output_html)
+
 #translate_nt_aa_hiti2(result, corr_frame, output_html)
 ####################
 

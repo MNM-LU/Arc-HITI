@@ -56,10 +56,11 @@ test_res=aligner(full_df_trim, target_sequence, "align_local2", result, output_p
 corr_frame=0
 result="unaligned/Exp1_3p_mcherry_LP1.fasta"
 out_csv="aligned/AA/Exp2_3p_mcherry_LP1_AA.csv"
+output_html="aligned/AA/Exp1_5p_GFP_LP1_AA.html"
+
 df_aa=translate_nt_aa_csv(result,corr_frame, out_csv)
 
 #df_aa=translate_nt_aa(result, 1)
-output_html="aligned/AA/Exp1_3p_mcherry_LP1_AA.html"
 #visualise_aa_hybrid_alignments(df_aa, output_html)
 
 # df_full=import_reads_process_mini(base_path, target_sequence, filterlitteral,read_fwd)
@@ -107,10 +108,12 @@ corr_frame=1
 result="/media/data/AtteR/projects/hiti/pipeline_output_reorg/fastas/Exp1_5p_mcherry_LP1.fasta"
 result="unaligned/Exp1_5p_mcherry_LP1.fasta"
 out_csv="aligned/AA/Exp1_5p_mcherry_LP1_AA.csv"
+output_html="aligned/AA/Exp1_5p_mcherry_LP1_AA.html"
+
 df_aa=translate_nt_aa_csv(result,corr_frame, out_csv)
+translation_new(df_aa, output_html)
 
 # df_aa=translate_nt_aa(result, 1)
-# output_html="aligned/AA/Exp1_5p_mcherry_LP1_AA.html"
 # visualise_aa_hybrid_alignments(df_aa, output_html)
 # df_full=import_reads_process_mini(base_path, target_sequence, filterlitteral,read_fwd)
 #############
