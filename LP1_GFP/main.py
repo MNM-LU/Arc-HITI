@@ -53,7 +53,6 @@ corr_frame=2
 result="unaligned/Exp1_3p_GFP_LP1.fasta"
 out_csv="aligned/AA/Exp1_3p_GFP_LP1_AA.csv"
 df_aa=translate_nt_aa_csv(result,corr_frame, out_csv)
-
 #df_aa=translate_nt_aa(result, 1)
 output_html="aligned/AA/Exp1_3p_GFP_LP1_AA.html"
 # visualise_aa_hybrid_alignments(df_aa, output_html)

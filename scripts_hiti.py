@@ -797,7 +797,7 @@ def translate_nt_aa_csv(result,corr_frame, out_csv):
             else:
                 aa_ampls.append(str(Seq(record.seq[alt_frame:]).translate()))
         ref_aa[ref_key]=aa_ampls
-
+    ref_aa_cor.update(ref_aa)
     ref_x_alignment={}
     #go over each ref's aa seqs, match them against ref and create a dict that has key with ref and frame info and a list of aligned 
     #AAs against the ref as values

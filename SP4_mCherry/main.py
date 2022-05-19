@@ -55,7 +55,6 @@ out_csv="aligned/AA/Exp2_3p_mcherry_SP4_AA.csv"
 df_aa=translate_nt_aa_csv(result,corr_frame, out_csv)
 
 
-
 #########################
 
 #5'
