@@ -811,11 +811,18 @@ def translate_nt_aa_csv(result,corr_frame, out_csv):
             range_line=0
             for i in range(len(matches.get_matching_blocks())):
                 match=matches.get_matching_blocks()[i]
-                seqs.append(len(frame_ref.split("|")[1][range_line:match.a])*"-"+str(ref_aa_cor[frame_ref])[match.b:match.b+match.size])
-                range_line=match.a+match.size
-            alignments_per_ref.append(''.join(seqs))
+                aa_seq=str(ref_aa_cor[frame_ref])[match.b:match.b+match.size]
+                odds=["['", "[", "]","', '", ",", "',", "'", "',"]
+                if aa_seq in odds:
+                    continue
+                #if any(ext in aa_seq for ext in odds):
+                else:
+                    seqs.append(len(frame_ref.split("|")[1][range_line:match.a])*"-"+aa_seq)
+                    range_line=match.a+match.size
+                #if there are empty elements, remove them as they mess up the next stage when joining the elements into a string
+            mer_seq=''.join(seqs)
+            alignments_per_ref.append(mer_seq)
         ref_x_alignment[frame_ref]=alignments_per_ref
-    ref_x_alignment.keys()
 
     df=pd.DataFrame.from_dict(ref_x_alignment)
 
