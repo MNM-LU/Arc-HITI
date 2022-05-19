@@ -26,6 +26,7 @@ import math
 
 os.getcwd()
 os.chdir("/media/data/AtteR/projects/hiti/pipeline_output_reorg/hiti-arc-analysis")
+#from alignment_scripts import *
 import Bio.Align.Applications; dir(Bio.Align.Applications)
 from Bio.Align.Applications import MuscleCommandline#Read in unfiltered data
 from Bio import AlignIO
@@ -406,7 +407,6 @@ def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,re
     return(df_all_lanes)
 
 def create_datadict(base_path, transgene):
-
     #hip_folders = [folder for folder in os.listdir(base_path) if "mCherry" in folder and "h_" in folder or "s_" in folder]
     group_folders = [folder for folder in os.listdir(base_path) if transgene in folder]
     #str_folders = [folder for folder in os.listdir(base_path) if "mCherry" in folder and "s_" in folder]
@@ -722,6 +722,9 @@ def aligner(full_df, target_sequence, align_method, filename, output_path, llite
     #os.system('/media/data/AtteR/Attes_bin/mview -in fasta -html head -css on -coloring any {} > {}'.format(str(filename), str(mview_file))) 
     #subprocess.run(['/media/data/AtteR/Attes_bin/mview', '-in fasta', '-html head', '-css on', '-coloring any', filename, '>', mview_file])
 
+#Original one, translates NTs to AAs and returns a DF. function visualise_hybrid alignments puts the AAs next to each other
+#i.e. the one in correct frame next to the frame which the has the highest match from the rest of frames. This is not ideal
+#but i have kept to modify the visualise_hybrid alignments later if need be.
 def translate_nt_aa(result, corr_frame):
     out_of_frames=[0,1,2]
     #out_of_frames.remove(corr_frame) dont take out any of the frames as the seqs after the scar may be in frame
@@ -767,6 +770,67 @@ def translate_nt_aa(result, corr_frame):
 
     df = pd.DataFrame(data= {seq_info[0]: seq_info[1:], ref_x_alig_list[0][0]:ref_x_alig_list[0][1:], ref_x_alig_list[1][0]:ref_x_alig_list[1][1:], ref_x_alig_list[2][0]:ref_x_alig_list[2][1:]})
     return(df)
+
+def translate_nt_aa_csv(result,corr_frame, out_csv):
+    alt_frames=[0,1,2]
+    alt_frames.remove(corr_frame)
+    #first create a dict which has keys containing the translated ref and frame info and value containing a list of amplicons translated in
+    #same ref
+    ref_aa_cor=dict()
+    aa_ampls=[]
+    seq_info=[] #this will be merged later with the final dict that has the aligned AAs against the ref at certain frame
+    for record in SeqIO.parse(result, "fasta"):
+        if "Ref" in record.description:
+            #refs_aa_frames["Frame:" + str(alt_frame)]=str(Seq(record.seq[alt_frame:]).translate())
+            ref_key="Frame_corr:" + str(corr_frame) +"|" +str(Seq(record.seq[corr_frame:]).translate())
+        else:
+            seq_info.append(record.description)
+            aa_ampls.append(str(Seq(record.seq[corr_frame:]).translate()))
+    ref_aa_cor[ref_key]=aa_ampls
+    ref_aa=dict()
+    for alt_frame in alt_frames:
+        aa_ampls=[]
+        for record in SeqIO.parse(result, "fasta"):
+            if "Ref" in record.description:
+                #refs_aa_frames["Frame:" + str(alt_frame)]=str(Seq(record.seq[alt_frame:]).translate())
+                ref_key="Frame:" + str(alt_frame) +"|" +str(Seq(record.seq[alt_frame:]).translate())
+            else:
+                aa_ampls.append(str(Seq(record.seq[alt_frame:]).translate()))
+        ref_aa[ref_key]=aa_ampls
+
+    ref_x_alignment={}
+    #go over each ref's aa seqs, match them against ref and create a dict that has key with ref and frame info and a list of aligned 
+    #AAs against the ref as values
+    for frame_ref in ref_aa_cor.keys():
+        alignments_per_ref=[]
+        for ampl in ref_aa_cor[frame_ref]:
+            matches=SequenceMatcher(None, frame_ref.split("|")[1],ampl)
+            seqs=[]
+            #you use range_line so that when you fill the remnants from left side of the match, you wont keep adding from
+            #beginning since in the end, we merge the seq list elements into the whole alignment of the amplicon against the ref
+            range_line=0
+            for i in range(len(matches.get_matching_blocks())):
+                match=matches.get_matching_blocks()[i]
+                seqs.append(len(frame_ref.split("|")[1][range_line:match.a])*"-"+str(ref_aa_cor[frame_ref])[match.b:match.b+match.size])
+                range_line=match.a+match.size
+            alignments_per_ref.append(''.join(seqs))
+        ref_x_alignment[frame_ref]=alignments_per_ref
+    ref_x_alignment.keys()
+
+    df=pd.DataFrame.from_dict(ref_x_alignment)
+
+    df["Seq_info"]=seq_info
+    # shift column 'Name' to first position
+    first_column = df.pop('Seq_info')
+    
+    # insert column using insert(position,column_name,
+    # first_column) function
+    df.insert(0, 'Seq_info', first_column)
+    df.to_csv(out_csv)
+
+    print("data frame generated and saved as csv at " + out_csv)
+    return(df)
+#translates NTs to AAs, visualises them
 def translate_nt_aa_hiti2(result, corr_frame, output_html):
     refs_aa_frames={}
 

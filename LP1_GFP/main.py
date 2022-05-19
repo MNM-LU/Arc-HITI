@@ -39,10 +39,10 @@ full_df_trim=pd.read_csv(csv_file,  index_col=[0])
 #########
 #NT
 ####################
-output_path="aligned/"
+output_path="aligned/NT/"
 #result="aligned/Exp1_3p_GFP_LP1_local3.fasta"
 #test_res=aligner(full_df_trim, target_sequence, "align_local3", result, output_path, -3,-1)
-result=output_path + "Exp1_3p_GFP_LP1_local2_TB.fasta"
+result=output_path + "Exp1_3p_GFP_LP1_local2.fasta"
 aligner(full_df_trim, target_sequence, "align_local2", result, output_path, lliteral, rliteral, 3,1)
 ####################
 
@@ -71,7 +71,7 @@ assay_end = '5p'
 read_fwd = True
 animal_list = [13, 14, 15, 16, 17, 18] 
 
-(2561-2210)%3
+#(2561-2210)%3
 filterlitteral = 'GCGCGGGTCTTGTAGTTGCCGTCGTCCTTGAAGAAGATGGTGCGCTCCTGGACG'
 lliteral = ' literal=GCTTCTGCCTCAGAGGAGTTCT' 
 rliteral = ' literal=CGAGGTGAAGTTCGAGGGC'
@@ -92,7 +92,7 @@ full_df=analyze_all(base_path,transgene,assay_end,filterlitteral,lliteral,rliter
 # data_dict=create_datadict(base_path,transgene, animal_list)
 # full_df=import_reads_process(data_dict, transgene,assay_end,filterlitteral,lliteral,rliteral,export_path,read_fwd)
 full_df_trim=calculate_perc_sd2(full_df)
-result="unaligned/Exp1_5p_GFP_LP1_TB.fasta"
+result="unaligned/Exp1_5p_GFP_LP1.fasta"
 csv_file="/".join(result.split("/")[:-1]) +"/"+ result.split("/")[-1].split(".")[0] + ".csv"
 full_df_trim.to_csv(csv_file)
 save_fasta(result, full_df_trim, target_sequence)
@@ -101,18 +101,18 @@ full_df_trim=pd.read_csv(csv_file,  index_col=[0])
 
 #NT
 ####################
-output_path="aligned/"
+output_path="aligned/NT/"
 #result="aligned/Exp1_5p_GFP_LP1_local3.fasta"
 #test_res=aligner(full_df_trim, target_sequence, "align_local3", result, output_path, -3,-1)
-result=output_path+"Exp1_5p_GFP_LP1_local2_TB.fasta"
+result=output_path+"Exp1_5p_GFP_LP1_local2.fasta"
 test_res=aligner(full_df_trim, target_sequence, "align_local2", result, output_path, lliteral, rliteral,3,1)
 ####################
 
 #AA
 ####################
 corr_frame=1
-result="aligned/Exp1_5p_GFP_LP1.fasta"
-out_csv="aligned/AA/Exp1_3p_GFP_LP1_AA.csv"
+result="unaligned/Exp1_5p_GFP_LP1.fasta"
+out_csv="aligned/AA/Exp1_5p_GFP_LP1_AA.csv"
 df_aa=translate_nt_aa_csv(result,corr_frame, out_csv)
 
 #df_aa=translate_nt_aa(result, 1)

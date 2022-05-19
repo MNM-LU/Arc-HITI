@@ -53,8 +53,10 @@ result="unaligned/Exp2_3p_mcherry_SP4.fasta"
 output_html="aligned/AA/Exp2_3p_mcherry_SP4_AA.html"
 out_csv="aligned/AA/Exp2_3p_mcherry_SP4_AA.csv"
 df_aa=translate_nt_aa_csv(result,corr_frame, out_csv)
-####################
-#take each of the columns, align them and save into output files
+
+
+
+#########################
 
 #5'
 #############
