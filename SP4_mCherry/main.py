@@ -1,5 +1,6 @@
 from cmath import nan
 from heapq import merge
+from xml.dom.expatbuilder import theDOMImplementation
 import pandas as pd
 import os 
 os.getcwd()
@@ -16,23 +17,36 @@ trimmed_df="/media/data/AtteR/projects/hiti/dfs/full_df_trim_mcherry_p3_HITI_SP4
 transgene = 'mCherry'
 assay_end = '3p'
 read_fwd = True
+direc = "3p"
+
 base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-only/SP4_3p"
 filterlitteral = 'CTCCCTCCACACGTGCATCTCACGCTTGACCCAGCGCTCCAGGTTGGCGATGGT' #region prior to r2 primer
+filterlitteral='CGGCGGCATGGACGAGCTGTACAAGATGGAGCTGGACCATATGACCCGGTGCACCGGCGGC'
+#filterlitteral= 'cggcggcatggacgagctgtacaagATGGAGCTGGACCATATGACCCGGTGCACCGGCGGCC'
 lliteral=" literal=CGGCGGCATGGACGAG"
 rliteral=" literal=CTGGGTCAAGCGTGAGATG"
 
-target_sequence="ctgtacaagATGGAGCTGGACCATATGACCCGGTGCACCGGCGGCCTCCACGCCTACCCTGCCCCGCGGGGTGGGCCGGCCGCCAAACCCAATGTGATCCTGCAGATTGGTAAGTGCCGAGCTGAGATGCTGGAACACGTACGGAGGACCCACCGGCATCTGTTGACCGAAGTGTCCAAGCAGGTGGAGCGAGAGCTGAAAGGGTTGCACAGGTCGGTGGGCAAGCTGGAGAACAACTTGGACGGCTACGTGCCCACCGGCGACTCACAGCGCTGGAAGAAGTCCATCAAGGCCTGTCTTTGCCGCTGCCAGGAGACCATCGCCAACCTGGAGCG"
+#target_sequence="ctgtacaagATGGAGCTGGACCATATGACCCGGTGCACCGGCGGCCTCCACGCCTACCCTGCCCCGCGGGGTGGGCCGGCCGCCAAACCCAATGTGATCCTGCAGATTGGTAAGTGCCGAGCTGAGATGCTGGAACACGTACGGAGGACCCACCGGCATCTGTTGACCGAAGTGTCCAAGCAGGTGGAGCGAGAGCTGAAAGGGTTGCACAGGTCGGTGGGCAAGCTGGAGAACAACTTGGACGGCTACGTGCCCACCGGCGACTCACAGCGCTGGAAGAAGTCCATCAAGGCCTGTCTTTGCCGCTGCCAGGAGACCATCGCCAACCTGGAGCG"
+#target_sequence="ctgtacaagATGGAGCTGGACCATATGACCCGGTGCACCGGCGGCCTCCACGCCTACCCTGCCCCGCGGGGTGGGCCGGCCGCC"
+target_sequence="ctgtacaagATGGAGCTGGACCATATGACCCGGTGCACCGGCGGCCTCCACGCCTACCCTGCCCCGCGGGGTGGGCCGGCCGCCAAAC"
 target_sequence=target_sequence.upper()
+#prim incl.
+# target_sequence="cggcggcatggacgagctgtacaagATGGAGCTGGACCATATGACCCGGTGCACCGGCGGCCTCCACGCCTACCCTGCCCCGCGGGGTGGGCCG"
+# target_sequence=target_sequence.upper()
 #########
 #########
 
 #The counts and percs for each animal regarding cluster seq are identical
 
 #########
-df_full=import_reads_process_mini(base_path, target_sequence, filterlitteral, lliteral, rliteral, read_fwd)
+#df_full=import_reads_process_noprimtrim(base_path,target_sequence,filterlitteral,read_fwd)
+
+df_full=import_reads_process_mini(base_path, target_sequence, filterlitteral, lliteral, rliteral, read_fwd, direc)
 #starcode produces files with exactly same seqs, counts and percs
 #files do have different number of reads but for some reason starcode clusters all of them as the same
 df_trim_full2=calculate_perc_sd2(df_full)
+#A-the original full ref between primers, B-90ish bps from leftliteral, C-no trim, target samme as in B
+
 result="unaligned/Exp2_3p_mcherry_SP4.fasta"
 save_fasta(result, df_trim_full2, target_sequence)
 
@@ -44,7 +58,7 @@ df_trim_full2.to_csv(csv_file)
 output_path="aligned/NT/"
 # result=output_path+"Exp2_3p_mcherry_mcherry_SP4_local3.fasta"
 # aligner(df_trim_full2, target_sequence, "align_local3", result, output_path, -3,-1)
-result=output_path + "Exp2_3p_mcherry_mcherry_SP4_local2_prim.fasta"
+result=output_path + "Exp2_3p_mcherry_SP4_local2_prim.fasta"
 aligner(df_trim_full2, target_sequence, "align_local2", result, output_path,lliteral, rliteral, 3,1)
 #AA
 ####################
@@ -53,6 +67,8 @@ result="unaligned/Exp2_3p_mcherry_SP4.fasta"
 output_html="aligned/AA/Exp2_3p_mcherry_SP4_AA.html"
 out_csv="aligned/AA/Exp2_3p_mcherry_SP4_AA.csv"
 df_aa=translate_nt_aa_csv(result,corr_frame, out_csv)
+
+
 translation_new(df_aa, output_html)
 
 #AAs against the ref as values
@@ -106,17 +122,25 @@ rliteral gggcgaggaggataacatgg
 '''
 transgene = 'mCherry'
 assay_end = '5p'
-lliteral = ' literal=GTGTCTCCGGTCCCCAAAAT'
-rliteral = ' literal=GGGCGAGGAGGATAACATGG'
+lliteral = ' literal=CCATGTTATCCTCCTCGCCC'
+rliteral = ' literal=ATTTTGGGGACCGGAGACAC'
+direc = "5p"
+#make into reverse lit 
 filterlitteral = 'CCCTCCCGGTGGGAGGCGCGCAGCAGAGCACATTAGTCACTCGGGGCTGTGAAG'
-filterlitteral='AGCCTGTTAACAGGCGCGCCACCATGGTGAGCAAGGGCGAGGAGGATAACATGG'
-target_sequence = "GTGTCTCCGGTCCCCAAAATCCCTCCCGGTGGGAGGCGCGCAGCAGAGCACATTAGTCACTCGGGGCTGTGAAGGGGCGGGTCCTTGAGGGCACCCACGGGAGGGGAGCGAGTAGGCGCGGAAGGCGGGGCCTGCGGCAGGAGAGGGCGCGGGCGGGCTCTGGCGCGGAGCCTGGGCGCCGCCAATGGGAGCCAGGGCTCCACGAGCTGCCGCCCACGGGCCCCGCGCAGCATAAATAGCCGCTGGTGGCGGTTTCGGTGCAGAGCTCAAGCGAGTTCTCCCGCAGCCGCAGTCTCTGGGCCTCTCTAGCTTCAGCGGCGACGAGCCTGCCACACTCGCTAAGCTCCTCCGGCACCGCACACCTGCCACTGCCGCTGCAGCCGCCGGCTCTGCTCCCTTCCGGCTTCTGCCTCAGAGGAGTTCTTAGCCTGTTCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCATATGACGTCATATGGTCCAGCTCGGgtgagcaagggcgaggaggataacatgg"
-target_sequence="CCCTCCCGGTGGGAGGCGCGCAGCAGAGCACATTAGTCACTCGGGGCTGTGAAGGGGCGGGTCCTTGAGGGCACCCACGGGAGGGGAGCGAGTAGGCGCGGAAGGCGGGGCCTGCGGCAGGAGAGGGCGCGGGCGGGCTCTGGCGCGGAGCCTGGGCGCCGCCAATGGGAGCCAGGGCTCCACGAGCTGCCGCCCACGGGCCCCGCGCAGCATAAATAGCCGCTGGTGGCGGTTTCGGTGCAGAGCTCAAGCGAGTTCTCCCGCAGCCGCAGTCTCTGGGCCTCTCTAGCTTCAGCGGCGACGAGCCTGCCACACTCGCTAAGCTCCTCCGGCACCGCACACCTGCCACTGCCGCTGCAGCCGCCGGCTCTGCTCCCTTCCGGCTTCTGCCTCAGAGGAGTTCTTAGCCTGTTCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCATATGACGTCATATGGTCCAGCTCGGgtgagcaa"
+filterlitteral='CATATGACGTCATATGGTCCAGCTCGGGTGAGCAAGGGCGAGGAGGATAACATGG'
+
+#revcompl
+filterlitteral="CCATGTTATCCTCCTCGCCCTTGCTCACCCGAGCTGGACCATATGACGTCATATGGT"
+#target_sequence = "GTGTCTCCGGTCCCCAAAATCCCTCCCGGTGGGAGGCGCGCAGCAGAGCACATTAGTCACTCGGGGCTGTGAAGGGGCGGGTCCTTGAGGGCACCCACGGGAGGGGAGCGAGTAGGCGCGGAAGGCGGGGCCTGCGGCAGGAGAGGGCGCGGGCGGGCTCTGGCGCGGAGCCTGGGCGCCGCCAATGGGAGCCAGGGCTCCACGAGCTGCCGCCCACGGGCCCCGCGCAGCATAAATAGCCGCTGGTGGCGGTTTCGGTGCAGAGCTCAAGCGAGTTCTCCCGCAGCCGCAGTCTCTGGGCCTCTCTAGCTTCAGCGGCGACGAGCCTGCCACACTCGCTAAGCTCCTCCGGCACCGCACACCTGCCACTGCCGCTGCAGCCGCCGGCTCTGCTCCCTTCCGGCTTCTGCCTCAGAGGAGTTCTTAGCCTGTTCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCATATGACGTCATATGGTCCAGCTCGGgtgagcaagggcgaggaggataacatgg"
+target_sequence="TCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCATATGACGTCATATGGTCCAGCTCGGgtgagca"
+#rev compl
+target_sequence="tgctcacCCGAGCTGGACCATATGACGTCATATGGTCCAGCTCCATCTGGTCGTCGGTGCTGCGGCTCCG"
 target_sequence=target_sequence.upper()
 read_fwd = True
 base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-only/SP4_5p"
 #########
-df_full=import_reads_process_mini(base_path, target_sequence, filterlitteral, lliteral, rliteral, read_fwd)
+
+df_full=import_reads_process_mini(base_path, target_sequence, filterlitteral, lliteral, rliteral, read_fwd, direc)
 df_trim_full2=calculate_perc_sd2(df_full)
 result="unaligned/Exp2_5p_mcherry_SP4.fasta"
 save_fasta(result, df_trim_full2, target_sequence)
@@ -141,7 +165,8 @@ corr_frame=1
 result="unaligned/Exp2_5p_mcherry_SP4.fasta"
 output_html="aligned/AA/Exp2_5p_mcherry_SP4_AA.html"
 out_csv="aligned/AA/Exp2_5p_mcherry_SP4_AA.csv"
-df_aa=translate_nt_aa_csv(result,corr_frame, out_csv)
+
+df_aa=translate_nt_aa_csv(result,corr_frame, out_csv, "5p")
 translation_new(df_aa, output_html)
 
 ####################

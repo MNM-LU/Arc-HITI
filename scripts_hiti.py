@@ -122,10 +122,10 @@ def create_datadict2(base_path, transgene):
                 data_dict[animal_group]=lanes
 
     return(data_dict)
-def trimRead_hiti(animal_nr,base_path,transgene,assay_end,filterlitteral,lliteral,rliteral,export_path,read_fwd):
+def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral,read_fwd,direc):
     animal_nr = str(animal_nr)
     "Filters and trims the reads"
-    search_path = base_path+animal_nr+'*'+transgene+'*'+assay_end+'*/'
+    search_path = base_path+animal_nr+'*'+transgene+'*'+direc+'*/'
     
     animal_p5_cat = tempfile.NamedTemporaryFile(suffix = '.fastq.gz').name
     animal_p7_cat = tempfile.NamedTemporaryFile(suffix = '.fastq.gz').name
@@ -140,13 +140,14 @@ def trimRead_hiti(animal_nr,base_path,transgene,assay_end,filterlitteral,llitera
         animal_p5 = glob.glob(search_path+'*R2*')
         animal_p7 = glob.glob(search_path+'*R1*')
     
+    stats_out = "trim_data/"+animal_nr+ "_" + direc +'_stats-filter.txt'
 
     cat_p5= "cat "+" ".join(animal_p5)+" > "+animal_p5_cat
     call([cat_p5], shell=True)
     cat_p7= "cat "+" ".join(animal_p7)+" > "+animal_p7_cat
     call([cat_p7], shell=True)
 
-    stats_out = export_path+animal_nr+'_'+transgene+'_'+assay_end+'_stats-filter.txt'
+    #stats_out = export_path+animal_nr+'_'+transgene+'_'+assay_end+'_stats-filter.txt'
     
     kmer = '20'
     hdist = '3'
@@ -178,17 +179,18 @@ def trimRead_hiti(animal_nr,base_path,transgene,assay_end,filterlitteral,llitera
     df = df.rename(columns={'percent':animal_nr+'_percent','count':animal_nr+'_count',})
     
     return df
-def analyze_all(base_path,transgene,assay_end,filterlitteral,lliteral,rliteral,export_path,read_fwd, animal_list, target_sequence):
+
+def analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd,animal_list, target_sequence, direc):
     complete_df = pd.DataFrame({'sequence': [target_sequence]})
     for animal in animal_list:
-        df_this = trimRead_hiti(animal,base_path,transgene,assay_end,filterlitteral,lliteral,rliteral,export_path,read_fwd)
+        df_this = trimRead_hiti(animal,base_path,transgene,filterlitteral,lliteral,rliteral,read_fwd,direc)
         complete_df = pd.merge(complete_df, df_this, on="sequence", how='outer')
     
     complete_df = complete_df.fillna(value=0)
     perc_cols = [col for col in complete_df.columns if 'percent' in col]
     #complete_df['percent_sum'] = complete_df[perc_cols].sum(axis=1)
-    export_csv = export_path+transgene+'_'+assay_end+'.csv'
-    complete_df.to_csv(export_csv, index=False)
+    #export_csv = export_path+transgene+'_'+assay_end+'.csv'
+    #complete_df.to_csv(export_csv, index=False)
     return complete_df
 
 #saves file as fasta and csv
@@ -332,7 +334,11 @@ def import_reads_process(data_dict, transgene,assay_end,filterlitteral,lliteral,
     return(complete_df)
 from functools import reduce
 
-def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,read_fwd):
+
+#make a function that counts the number of reads in the fasta file before and after trimming for each sub_sample
+#save into df
+
+def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,read_fwd, direc):
     complete_df = pd.DataFrame({'sequence': [ref]})
     df_animal=[]
     seq_animal=[]
@@ -369,9 +375,12 @@ def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,re
             kmer = '20'
             hdist = '3'
             param=" k="+kmer+" hdist="+hdist+" rcomp=f skipr2=t threads=32 overwrite=true"
+            stats_out = "trim_data/"+animal_group_name+ "_" + direc +'_stats-filter.txt'
 
             #to check if the read is an amplicon
-            call_sequence = "/media/data/AtteR/Attes_bin/bbmap/bbduk.sh in="+animal_p7_cat+" in2="+animal_p5_cat+" outm1="+test_file_p7_out+" outm2="+test_file_p5_out+" literal="+filterlitteral+param
+            #call_sequence = "/media/data/AtteR/Attes_bin/bbmap/bbduk.sh in="+animal_p7_cat+" in2="+animal_p5_cat+" outm1="+test_file_p7_out+" outm2="+test_file_p5_out+" literal="+filterlitteral+param
+            call_sequence = "/media/data/AtteR/Attes_bin/bbmap/bbduk.sh in="+ animal_p5_cat +" outm1="+test_file_p5_out+" literal="+filterlitteral+" stats="+stats_out + param
+
             call([call_sequence], shell=True)
             #actual trimming
             call_sequence = "/media/data/AtteR/Attes_bin/bbmap/bbduk.sh in="+test_file_p5_out+" out="+test_file_p5_filter+ " literal=AAAAAAAAA,CCCCCCCCC,GGGGGGGGG,TTTTTTTTT k=9 mm=f overwrite=true minlength=40"
@@ -430,6 +439,7 @@ def create_datadict(base_path, transgene):
     animals = animal_names(group_folders)
     animals
 
+#add daa file containing how many reads before and after filtering
     #key: animal number and whether it comes from striatum or hippocampus, value: the paths to all lane subdirs
 
     data_dict = dict()
@@ -770,33 +780,88 @@ def translate_nt_aa(result, corr_frame):
 
     df = pd.DataFrame(data= {seq_info[0]: seq_info[1:], ref_x_alig_list[0][0]:ref_x_alig_list[0][1:], ref_x_alig_list[1][0]:ref_x_alig_list[1][1:], ref_x_alig_list[2][0]:ref_x_alig_list[2][1:]})
     return(df)
-def translate_nt_aa_csv(result,corr_frame, out_csv):
-    alt_frames=[0,1,2]
-    alt_frames.remove(corr_frame)
-    #first create a dict which has keys containing the translated ref and frame info and value containing a list of amplicons translated in
-    #same ref
-    ref_aa_cor=dict()
-    aa_ampls=[]
-    seq_info=[] #this will be merged later with the final dict that has the aligned AAs against the ref at certain frame
-    for record in SeqIO.parse(result, "fasta"):
-        if "Ref" in record.description:
-            #refs_aa_frames["Frame:" + str(alt_frame)]=str(Seq(record.seq[alt_frame:]).translate())
-            ref_key="Frame_corr:" + str(corr_frame) +"|" +str(Seq(record.seq[corr_frame:]).translate())
-        else:
-            seq_info.append(record.description)
-            aa_ampls.append(str(Seq(record.seq[corr_frame:]).translate()))
-    ref_aa_cor[ref_key]=aa_ampls
-    ref_aa=dict()
-    for alt_frame in alt_frames:
+
+
+class translate_3p:
+    def __init__(self, result, corr_frame):
+        self.result=result
+        self.corr_frame=corr_frame
+    def translate_nt(self):
+        ref_aa_cor=dict()
         aa_ampls=[]
+        seq_info=[] #this will be merged later with the final dict that has the aligned AAs against the ref at certain frame
+
+        alt_frames=[0,1,2]
+        alt_frames.remove(self.corr_frame)    
+        for record in SeqIO.parse(self.result, "fasta"):
+            if "Ref" in record.description:
+                #refs_aa_frames["Frame:" + str(alt_frame)]=str(Seq(record.seq[alt_frame:]).translate())
+                ref_key="Frame_corr:" + str(self.corr_frame) +"|" +str(Seq(record.seq[self.corr_frame:]).translate())
+            else:
+                seq_info.append(record.description)
+                aa_ampls.append(str(Seq(record.seq[self.corr_frame:]).translate()))
+        ref_aa_cor[ref_key]=aa_ampls
+        ref_aa=dict()
+        for alt_frame in alt_frames:
+            aa_ampls=[]
+            for record in SeqIO.parse(self.result, "fasta"):
+                if "Ref" in record.description:
+                    #refs_aa_frames["Frame:" + str(alt_frame)]=str(Seq(record.seq[alt_frame:]).translate())
+                    ref_key="Frame:" + str(alt_frame) +"|" +str(Seq(record.seq[alt_frame:]).translate())
+                else:
+                    aa_ampls.append(str(Seq(record.seq[alt_frame:]).translate()))
+            ref_aa[ref_key]=aa_ampls
+        ref_aa_cor.update(ref_aa)
+        return([ref_aa_cor, seq_info])
+
+class translate_5p:
+    def __init__(self, result, corr_frame):
+        self.result=result
+        self.corr_frame=corr_frame
+
+    def translate_nt(self):
+        ref_aa_cor=dict()
+        aa_ampls=[]
+        seq_info=[] #this will be merged later with the final dict that has the aligned AAs against the ref at certain frame
+        alt_frames=[0,1,2]
+        alt_frames.remove(corr_frame)    
         for record in SeqIO.parse(result, "fasta"):
             if "Ref" in record.description:
                 #refs_aa_frames["Frame:" + str(alt_frame)]=str(Seq(record.seq[alt_frame:]).translate())
-                ref_key="Frame:" + str(alt_frame) +"|" +str(Seq(record.seq[alt_frame:]).translate())
+                rev_compl_seq=Seq(record.seq).reverse_complement()
+                ref_key="Frame_corr:" + str(corr_frame) +"|" +str(rev_compl_seq[corr_frame:].translate())
             else:
-                aa_ampls.append(str(Seq(record.seq[alt_frame:]).translate()))
-        ref_aa[ref_key]=aa_ampls
-    ref_aa_cor.update(ref_aa)
+                seq_info.append(record.description)
+                rev_compl_seq=Seq(record.seq).reverse_complement()
+                print(str(rev_compl_seq[corr_frame:].translate()))
+                aa_ampls.append(str(rev_compl_seq[corr_frame:].translate()))
+        ref_aa_cor[ref_key]=aa_ampls
+        ref_aa=dict()
+        for alt_frame in alt_frames:
+            aa_ampls=[]
+            for record in SeqIO.parse(result, "fasta"):
+                if "Ref" in record.description:
+                    rev_compl_seq=Seq(record.seq).reverse_complement()
+                    #refs_aa_frames["Frame:" + str(alt_frame)]=str(Seq(record.seq[alt_frame:]).translate())
+                    ref_key="Frame:" + str(alt_frame) +"|" +str(rev_compl_seq[alt_frame:].translate())
+                else:
+                    rev_compl_seq=Seq(record.seq).reverse_complement()
+                    aa_ampls.append(str(rev_compl_seq[alt_frame:].translate()))
+            ref_aa[ref_key]=aa_ampls
+
+        return([ref_aa_cor, seq_info])
+
+
+def translate_nt_aa_csv(result,corr_frame, out_csv, direc):
+    #first create a dict which has keys containing the translated ref and frame info and value containing a list of amplicons translated in
+    #same ref
+    strand_dir= {"3p": translate_3p,
+            "5p": translate_5p}  
+
+    aligner_init = strand_dir.get(str(direc), None)  # Get the chosen class, or None if input is bad
+    AA_and_seq_info = aligner_init(result, corr_frame).translate_nt()
+    ref_aa_cor=AA_and_seq_info[0]
+    seq_info=AA_and_seq_info[1]
     ref_x_alignment={}
     #go over each ref's aa seqs, match them against ref and create a dict that has key with ref and frame info and a list of aligned 
     #AAs against the ref as values

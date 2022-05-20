@@ -1,0 +1,5 @@
+#File	/tmp/tmp3zeiajpc.fastq.gz	/tmp/tmpnixrrym1.fastq.gz
+#Total	1838932
+#Matched	53	0.00288%
+#Name	Reads	ReadsPct
+1	53	0.00288%

@@ -1,315 +1,140 @@
 >0 Ref
 CGGCGGCATGGACGAG-CTGTACAAGCCGAACGTTCGGAGCCGCAGCACCGACGACCAGA
-TGGAGCTGGACCATATGACCACCGGCGGCCTCCACGCCTACCCTGCCCCGCGGGGTGGGC
-CGGCCGCCAAACCCAATGTGATCCTGCAGATTGGTAAGTGCCGAGCTGAGATGCTGGAAC
-ACGTACGGAGGACCCACCGGCATCTGTTGACCGAAGTGTCCAAGCAGGTGGAGCGAGAGC
-TGAAAGGGTTGCACAGGTCGGTGGGCAAGCTGGAGAACAACTTGGACGGCTACGTGCCCA
-CCGGCGACTCACAGCGCTGGAAGAAGTCCATCAAGGCCTGTCTTTGCCGCTGCCAGGAGA
-CCATCGCCAACCTGGAGCGCTGGGTCAAGCGTGAGATGCACGTGTGGAGGGAG-GTCTTC
-TACCGTCTGGAGAGG
->1 CluSeq:0.24513_sd:0.04785
+TGGAGCTGGACCATATGACCACCGGCGGCCTCCACGCCTACCCT-GTCTTCTACCGTCTG
+GAGAGG
+>1 CluSeq:0.24563_sd:0.04858
 CGGCGGCATGGACGAG-CTGTACAAGCCGAACAGTTCGGAGCCGCAGCACCGACGACCAG
-ATGGAGCTGGACCATA--------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->2 CluSeq:0.15696_sd:0.06
+ATGGAGCTGGACCATA-----------------------------GTCTTCTACCGTCTG
+GAGAGG
+>2 CluSeq:0.15751_sd:0.06107
 CGGCGGCATGGACGAG-CTGTACAAGCCGAACAGGTTCGGAGCCGCAGCACCGACGACCA
-GATGGAGCTGGACCAT--------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->3 CluSeq:0.14361_sd:0.01225
+GATGGAGCTGGACCAT-----------------------------GTCTTCTACCGTCTG
+GAGAGG
+>3 CluSeq:0.14422_sd:0.01225
 CGGCGGCATGGACGAG-CTGTACAAGCCGAACTGTTCGGAGCCGCAGCACCGACGACCAG
-ATGGAGCTGGACCATA--------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->4 CluSeq:0.10852_sd:0.01304
+ATGGAGCTGGACCATA-----------------------------GTCTTCTACCGTCTG
+GAGAGG
+>4 CluSeq:0.10832_sd:0.01304
 CGGCGGCATGGACGAG-CTGTACAAGCCGAACATGTTCGGAGCCGCAGCACCGACGACCA
-GATGGAGCTGGACCAT--------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->5 CluSeq:0.06515_sd:0.01581
+GATGGAGCTGGACCAT-----------------------------GTCTTCTACCGTCTG
+GAGAGG
+>5 CluSeq:0.06513_sd:0.01581
 CGGCGGCATGGACGAG-CTGTACAAGCCGAACGTTCGGAGCCGCAGCACCGACGACCAGA
-TGGAGCTGGACCATAT--------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->6 CluSeq:0.05326_sd:0.04243
+TGGAGCTGGACCATAT-----------------------------GTCTTCTACCGTCTG
+GAGAGG
+>6 CluSeq:0.05337_sd:0.04336
 CGGCGGCATGGACGAG-CTGTACAAGCCGAACCTGTTCGGAGCCGCAGCACCGACGACCA
-GATGGAGCTGGACCAT--------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->7 CluSeq:0.04459_sd:0.07057
+GATGGAGCTGGACCAT-----------------------------GTCTTCTACCGTCTG
+GAGAGG
+>7 CluSeq:0.04456_sd:0.07176
 CGGCGGCATGGACGAG-CTGTACAAG---------CGGAGCCGCAGCACCGACGACCAGA
-TGGAGCTGGACCATATGACCACCGG-----------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->8 CluSeq:0.03678_sd:0.03536
+TGGAGCTGGACCATATGACCACCGG--------------------GTCTTCTACCGTCTG
+GAGAGG
+>8 CluSeq:0.03675_sd:0.03578
 CGGCGGCATGGACGAG-CTGTACAAGCCGAACACTGTTCGGAGCCGCAGCACCGACGACC
-AGATGGAGCTGGACCA--------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->9 CluSeq:0.01367_sd:0.02121
+AGATGGAGCTGGACCA-----------------------------GTCTTCTACCGTCTG
+GAGAGG
+>9 CluSeq:0.01346_sd:0.02168
 CGGCGGCATGGACGAG-CTGTACAAGCCGAACAGTGTTCGGAGCCGCAGCACCGACGACC
-AGATGGAGCTGGACCA--------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->10 CluSeq:0.01344_sd:0.01342
+AGATGGAGCTGGACCA-----------------------------GTCTTCTACCGTCTG
+GAGAGG
+>10 CluSeq:0.01333_sd:0.01342
 CGGCGGCATGGACGAG-CTGTACAAGCCGAACAGCTGTTCGGAGCCGCAGCACCGACGAC
-CAGATGGAGCTGGACC--------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->11 CluSeq:0.0099_sd:0.01549
+CAGATGGAGCTGGACC-----------------------------GTCTTCTACCGTCTG
+GAGAGG
+>11 CluSeq:0.00969_sd:0.01581
 CGGCGGCATGGACGAG-CTGTACAAGCCGAA----CAGAGCCGCAGCACCGACGACCAGA
-TGGAGCTGGACCATATGACC----------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->12 CluSeq:0.00718_sd:0.00837
-CGGCGGCATGGACGAG----------------GTTCGGAGCCGCAGCACCGACGACCAGA
-TGGAGCTGGACCATATGACCACCGGCG---------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->13 CluSeq:0.00693_sd:0.0114
+TGGAGCTGGACCATATGACC-------------------------GTCTTCTACCGTCTG
+GAGAGG
+>12 CluSeq:0.00694_sd:0.0114
 CGGCGGCATGGACGAG-CTGTACAAGCCG-ATGTTCGGAGCCGCAGCACCGACGACCAGA
-TGGAGCTGGACCATATG-------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->14 CluSeq:0.00579_sd:0.00949
-CGGCGGCATGGACGAG--------------------------------------------
----------------------------------ACGCCTACCCTGCCCCGCGGGGTGGGC
-CGGCCGCCAAACCCAATGTGATCCTGCA--------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->15 CluSeq:0.00492_sd:0.00852
+TGGAGCTGGACCATATG----------------------------GTCTTCTACCGTCTG
+GAGAGG
+>13 CluSeq:0.0069_sd:0.00837
 CGGCGGCATGGACGAG----------------GTTCGGAGCCGCAGCACCGACGACCAGA
-TGGAGCTGGACCATATGACCACCGGCGGC-------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->16 CluSeq:0.00484_sd:0.00775
-CGGCGGCATGGACGAG--------------------GGAGCCGCAGCACCGACGACCAGA
-TGGAGCTGGACCATATGACCACCGGCGGCCTCC---------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->17 CluSeq:0.00481_sd:0.00775
+TGGAGCTGGACCATATGACCACCGGCG------------------GTCTTCTACCGTCTG
+GAGAGG
+>14 CluSeq:0.00589_sd:0.00949
+CGGCGGCATGGACGAG--------------------------------------------
+---------------------------------ACGCCTACCCT-GTCTTCTACCGTCTG
+GAGAGG
+>15 CluSeq:0.00562_sd:0.00949
 CGGCGGCATGGACGAG-CTGTACAAGC----CGTTCGGAGCCGCAGCACCGACGACCAGA
-TGGAGCTGGACCATATGACC----------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->18 CluSeq:0.00477_sd:0.00316
+TGGAGCTGGACCATATGACC-------------------------GTCTTCTACCGTCTG
+GAGAGG
+>16 CluSeq:0.00508_sd:0.00316
 CGGCGGCATGGACGAG-CTGTACAAGCCGAAC----------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->19 CluSeq:0.0044_sd:0.00707
-CGGCGGCATGGACGAG-CTGTACAAGCCGAAC-ACCCGAGCCGCAGCACCGACGACCAGA
-TGGAGCTGGACCATATG-------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->20 CluSeq:0.00271_sd:0.00447
-CGGCGGCATGGACGAG-CTGTACAAGCCGAAC--TCGGAGCCGCAGCACCGACGACCAGA
-TGGAGCTGGACCATATGA------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->21 CluSeq:0.00434_sd:0.00752
-CGGCGGCATGGACGAG-CTGTACAAGCCGAACAGGTGTTCGGAGCCGCAGCACCGACGAC
-CAGATGGAGCTGGACC--------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->22 CluSeq:0.00413_sd:0.00715
-CGGCGGCATGGACGAG--------------------------------------------
------------------ACCACCGGCGGCCTCCACGCCTACCCTGCCCCGCGGGGTGGGC
-C-----------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->23 CluSeq:0.0041_sd:0.0071
-CGGCGGCATGGACGAG-CTGTACAAGCCGAAC---AGGCTAAGAACTCCTCGTGC-GGAC
-CGAGCGGCC-GCA-GGA-----ACCA----------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->24 CluSeq:0.00325_sd:0.00563
-CGGCGGCATGGACGAG--------------------------------------------
------CTGTA-CA-A-G-CCGAACCGGCGGCCTCCACGCCTACCCTGCCCCGCGGGGTGG
-GCCGGCCG----------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->25 CluSeq:0.00247_sd:0.00428
+---------------------------------------------GTCTTCTACCGTCTG
+GAGAGG
+>17 CluSeq:0.00506_sd:0.00877
 CGGCGGCATGGACGAG----------------GTTCGGAGCCGCAGCACCGACGACCAGA
-TGGAGCTGGACCATATGACCAC--------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->26 CluSeq:0.00229_sd:0.00396
-CGGCGGCATGGACGAG---------------CGTTCGGAGCCGCAGCACCGACGACCAGA
-TGGAGCTGGACCATATGACCACCGGCGGCC------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->27 CluSeq:0.0019_sd:0.00328
-CGGCGGCATGGACGAG-CTGTACAAGCCGAACAG--CGGAGCCGCAGCACCGACGACCAG
-ATGGAGCTGGACCATATG------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->28 CluSeq:0.00165_sd:0.00316
-CGGCGGCATGGACGAG-CTGTACAAGCCGAAC-----GAGCCGCAGCACCGACGACCAGA
-TGGAGCTGGACCATATGACCA---------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->29 CluSeq:0.00144_sd:0.00316
-CGGCGGCATGGACGAG-CTGTACAAG-----CGTTCGGAGCCGCAGCACCGACGACCAGA
-TGGAGCTGGACCATATGACCA---------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->30 CluSeq:0.00143_sd:0.00316
-CGGCGGCATGGACGAG-CTGTACAAGCCGAACAAAAGGTCGCCCG-GCCTCAGTGAGCGA
-GCGAGCGCGCAGA--GAG------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->31 CluSeq:0.00134_sd:0.00232
+TGGAGCTGGACCATATGACCACCGGCGGC----------------GTCTTCTACCGTCTG
+GAGAGG
+>18 CluSeq:0.00464_sd:0.00775
+CGGCGGCATGGACGAG--------------------GGAGCCGCAGCACCGACGACCAGA
+TGGAGCTGGACCATATGACCACCGGCGGCCTCC------------GTCTTCTACCGTCTG
+GAGAGG
+>19 CluSeq:0.00458_sd:0.00775
+CGGCGGCATGGACGAG-CTGTACAAGCCGAACAGGTGTTCGGAGCCGCAGCACCGACGAC
+CAGATGGAGCTGGACC-----------------------------GTCTTCTACCGTCTG
+GAGAGG
+>20 CluSeq:0.00425_sd:0.00707
+CGGCGGCATGGACGAG-CTGTACAAGCCGAAC---AGGCTAAGAACTCCTCGTGC-GGAC
+CGAGCGGCC-GCA-GGA-----ACCA-------------------GTCTTCTACCGTCTG
+GAGAGG
+>21 CluSeq:0.00417_sd:0.00722
+CGGCGGCATGGACGAG--------------------------------------------
+-----------------ACCACCGGCGGCCTCCACGCCTACCCT-GTCTTCTACCGTCTG
+GAGAGG
+>22 CluSeq:0.00415_sd:0.00707
+CGGCGGCATGGACGAG-CTGTACAAGCCGAAC-ACCCGAGCCGCAGCACCGACGACCAGA
+TGGAGCTGGACCATATG----------------------------GTCTTCTACCGTCTG
+GAGAGG
+>23 CluSeq:0.00326_sd:0.00565
+CGGCGGCATGGACGAG--------------------------------------------
+-----CTGTA-CA-A-G-CCGAACCGGCGGCCTCCACGCCTACC-GTCTTCTACCGTCTG
+GAGAGG
+>24 CluSeq:0.00243_sd:0.0042
 CGGCGGCATGGACGAG-CTGTACAAGCCGAAC--TCGGAGCCGCAGCACCGACGACCAGA
-TGGAGCTGGACCATATG-------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->32 CluSeq:0.00133_sd:0.0
+TGGAGCTGGACCATATGA---------------------------GTCTTCTACCGTCTG
+GAGAGG
+>25 CluSeq:0.00217_sd:0.00375
+CGGCGGCATGGACGAG---------------CGTTCGGAGCCGCAGCACCGACGACCAGA
+TGGAGCTGGACCATATGACCACCGGCGGCC---------------GTCTTCTACCGTCTG
+GAGAGG
+>26 CluSeq:0.00201_sd:0.00348
+CGGCGGCATGGACGAG----------------GTTCGGAGCCGCAGCACCGACGACCAGA
+TGGAGCTGGACCATATGACCAC-----------------------GTCTTCTACCGTCTG
+GAGAGG
+>27 CluSeq:0.00191_sd:0.0033
+CGGCGGCATGGACGAG-CTGTACAAGCCGAACAG--CGGAGCCGCAGCACCGACGACCAG
+ATGGAGCTGGACCATATG---------------------------GTCTTCTACCGTCTG
+GAGAGG
+>28 CluSeq:0.00162_sd:0.00316
+CGGCGGCATGGACGAG-CTGTACAAGCCGAAC-----GAGCCGCAGCACCGACGACCAGA
+TGGAGCTGGACCATATGACCA------------------------GTCTTCTACCGTCTG
+GAGAGG
+>29 CluSeq:0.0015_sd:0.0026
+CGGCGGCATGGACGAG-CTGTACAAGCCGAAC--TCGGAGCCGCAGCACCGACGACCAGA
+TGGAGCTGGACCATATG----------------------------GTCTTCTACCGTCTG
+GAGAGG
+>30 CluSeq:0.0015_sd:0.00316
+CGGCGGCATGGACGAG-CTGTACAAGCCGAACAAAAGGTCGCCCG-GCCTCAGTGAGCGA
+GCGAGCGCGCAGA--GAG---------------------------GTCTTCTACCGTCTG
+GAGAGG
+>31 CluSeq:0.00132_sd:0.00228
+CGGCGGCATGGACGAG-CTGTACAAG-----CGTTCGGAGCCGCAGCACCGACGACCAGA
+TGGAGCTGGACCATATGACCA------------------------GTCTTCTACCGTCTG
+GAGAGG
+>32 CluSeq:0.00126_sd:0.00218
 CGGCGGCATGGACGAG-CTGTACAAGCCGAACACCTGCGCGGGGGAGCCGCAGCACCGAC
-GACCAGATGGAGCTGG--------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->33 CluSeq:0.00111_sd:0.0
+GACCAGATGGAGCTGG-----------------------------GTCTTCTACCGTCTG
+GAGAGG
+>33 CluSeq:0.00123_sd:0.0
 CGGCGGCATGGACGAG-CTGTACAAGCCGAACCTTTGGTCGCCCG-GCCTCAGTGAGCGA
-GCGAGCGCGCAGA--GAG------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
->34 CluSeq:0.001_sd:0.00173
+GCGAGCGCGCAGA--GAG---------------------------GTCTTCTACCGTCTG
+GAGAGG
+>34 CluSeq:0.00103_sd:0.00178
 CGGCGGCATGGACGAG-CTGTACAAG------GTTCGGAGCCGCAGCACCGACGACCAGA
-TGGAGCTGGACCATATGACCAC--------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------------
-------------------------------------------------------GTCTTC
-TACCGTCTGGAGAGG
+TGGAGCTGGACCATATGACCAC-----------------------GTCTTCTACCGTCTG
+GAGAGG
