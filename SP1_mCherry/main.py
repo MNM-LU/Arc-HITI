@@ -13,13 +13,6 @@ os.chdir("/media/data/AtteR/projects/hiti/pipeline_output_reorg/hiti-arc-analysi
 
 ####################
 #SP1 3' 
-'''
-SP1
-3p
-ctgtacaagccgaacgttcggagccgcagcaccgacgaccagATGGAGCTGGACCATATGACCACCGGCGGCCTCCACGCCTACCCTGCCCCGCGGGGTGGGCCGGCCGCCAAACCCAATGTGATCCTGCAGATTGGTAAGTGCCGAGCTGAGATGCTGGAACACGTACGGAGGACCCACCGGCATCTGTTGACCGAAGTGTCCAAGCAGGTGGAGCGAGAGCTGAAAGGGTTGCACAGGTCGGTGGGCAAGCTGGAGAACAACTTGGACGGCTACGTGCCCACCGGCGACTCACAGCGCTGGAAGAAGTCCATCAAGGCCTGTCTTTGCCGCTGCCAGGAGACCATCGCCAACCTGGAGCGCTGGGTCAAGCGTGAGATGCACGTGTGGAGGGAG
-lliteral cggcggcatggacgag rliteral GTCTTCTACCGTCTGGAGAGG
-
-'''
 trimmed_df="/media/data/AtteR/projects/hiti/dfs/full_df_trim_mcherry_p3_HITI_SP1.csv"
 transgene = 'mCherry'
 assay_end = '3p'
@@ -28,16 +21,10 @@ lliteral=" literal=CGGCGGCATGGACGAG"
 rliteral=" literal=GTCTTCTACCGTCTGGAGAGG"
 direc="3p"
 base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-only/SP1_3p"
-#filterlitteral = 'CTCCCTCCACACGTGCATCTCACGCTTGACCCAGCGCTCCAGGTTGGCGATGGT' #region prior to r2 primer
-#filterlitteral = 'CGGCGGCATGGACGAGCTGTACAAGCCGAACGTTCGGAGCCGCAGCAC'
 filterlitteral="CGGCGGCATGGACGAGCTGTACAAGCCGAACGTTCGGAGCCGCAGCACCGACGACCAG"
-#filterlitteral='AACCTGGAGCGCTGGGTCAAGCGTGAGATGCACGTGTGGAGGGAGGTCTTCTACCGTCTGGAGAGG'
-#target_sequence="ctgtacaagccgaacgttcggagccgcagcaccgacgaccagATGGAGCTGGACCATATGACCACCGGCGGCCTCCACGCCTACCCTGCCCCGCGGGGTGGGCCGGCCGCCAAACCCAATGTGATCCTGCAGATTGGTAAGTGCCGAGCTGAGATGCTGGAACACGTACGGAGGACCCACCGGCATCTGTTGACCGAAGTGTCCAAGCAGGTGGAGCGAGAGCTGAAAGGGTTGCACAGGTCGGTGGGCAAGCTGGAGAACAACTTGGACGGCTACGTGCCCACCGGCGACTCACAGCGCTGGAAGAAGTCCATCAAGGCCTGTCTTTGCCGCTGCCAGGAGACCATCGCCAACCTGGAGCGCTGGGTCAAGCGTGAGATGCACGTGTGGAGGGAG"
 target_sequence="ctgtacaagccgaacGTTCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCATATGACCACCGGCGGCCTCCACGCCTACCCT"
 target_sequence=target_sequence.upper()
 
-#B=kept the new, correct filterliteral but also kept the whole ref seq that i used originally. the old
-#filterliteral was taken from the other end which may have caused it to account many non-amplicons as amplicons
 #########
 df_full_3p=import_reads_process_mini(base_path, target_sequence, filterlitteral, lliteral,rliteral,read_fwd, direc)
 
@@ -51,8 +38,6 @@ df_trim_full2.to_csv(csv_file)
 
 #NT
 output_path="aligned/NT/"
-#result="aligned/Exp2_3p_mcherry_SP1_local3.fasta"
-#test_res=aligner(df_trim_full2, target_sequence, "align_local3", result, output_path, -3,-1)
 result=output_path + "Exp2_3p_mcherry_SP1_local2_prim.fasta"
 test_res=aligner(df_trim_full2, target_sequence, "align_local2", result, output_path, lliteral, rliteral, 3,1)
 ####################
@@ -69,18 +54,8 @@ translate_NT(result, corr_frame,direc, out_csv)
 
 ####################
 #SP1 5' 
-'''
-5p
-gcagagctcaagcgagttctcccgcagccgcagtctctgggcctctctagcttcagcggcgacgagcctgccacactcgctaagctcctccggcaccgcacacctgccactgccgctgcagccgccggctctgctcccttccggcttctgcctcagaggagttcttagcctaggctaagaactcctccgcgccaccatggtgagcaa
-rliteral gggcgaggaggataacatgg
-'''
 assay_end = '5p'
 filterlitteral = 'GCCTAGGCTAAGAACTCCTCCGCGCCACCATGGTGAGCAAGGGCGAGGAGGATAACATGG'
-
-#filterlitteral='CCATGTTATCCTCCTCGCCCTTGCTCACCATGGTGGCGCGGAGGAGTTCTTAGCCTAGGC'
-# rliteral = ' literal=GGGCGAGGAGGATAACATGG'
-# lliteral = ' literal=GTGTCTCCGGTCCCCAAAAT'
-
 #rev compl of prev rliteral
 lliteral=' literal=CCATGTTATCCTCCTCGCCC'
 rliteral = ' literal=GTGTCTCCGGTCCCCAAAAT'
@@ -98,7 +73,6 @@ target_sequence=target_sequence.upper()
 
 base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-only/SP1_5p"
 #########
-#gives an error: no columns to parse from file when trying to import starcode file as a df and then calculate count and perc
 df_full=import_reads_process_mini(base_path, target_sequence, filterlitteral, lliteral, rliteral, read_fwd, direc)
 
 
@@ -112,13 +86,10 @@ df_trim_full2.to_csv(csv_file)
 #NT
 ####################
 output_path="aligned/NT/"
-# result=output_path + "Exp2_5p_mcherry_mcherry_SP1_local3.fasta"
-# test_res=aligner(df_trim_full2, target_sequence, "align_local3", result, output_path, -3,-1)
 result=output_path+"Exp2_5p_mcherry_SP1_local2_prim.fasta"
 test_res=aligner(df_trim_full2, target_sequence, "align_local2", result, output_path,lliteral, rliteral, 4,2)
 ####################
 
-#atm if theres a mismatch with NTs in rows colours the first NT mismatch is coloured correctly as red but the next one is not!
 
 
 #AA

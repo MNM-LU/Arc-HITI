@@ -21,7 +21,6 @@ read_fwd = True
 # filterlitteral = 'GGACGACGGCAACTACAAGACCCGCGCCGAGGTGAAGTTCGAGGGCGACACCCTGGTGAACCGCATCGAGCTGAAGG'
 # lliteral = ' literal=GGACGACGGCAACTACAAGA' 
 # rliteral = ' literal=GGAGCTGGACCATATGACCAC'
-animal_list = [20, 21, 22, 23, 24] 
 filterlitteral = 'GGACGACGGCAACTACAAGACCCGCGCCGAGGTGAAGTTCGAGGGCGACACCCTGGTGAACCGCATCGAGCTGAAGG'
 lliteral = ' literal=GTGGTCATATGGTCCAGCTCC'
 rliteral = ' literal=TCGTCCATGCCGAG'
@@ -29,14 +28,10 @@ target_sequence = "TTAGCTTCTGCCTCAGAGGAGTTCTTAGCCTGTTAACAGGCGCGCCACCATGGTGAGCAAG
 
 base_path = '/media/data/AtteR/projects/hiti/FASTQ_Generation_2020-03-09_08_30_27Z-13364364/'
 export_path = '/media/data/AtteR/projects/hiti/pipeline_output_reorg/'
-# target_sequence = "CCCGCGCCGAGGTGAAGTTCGAGGGCGACACCCTGGTGAACCGCATCGAGCTGAAGGGCATCGACTTCAAGGAGGACGGCAACATCCTGGGGCACAAGCTGGAGTACAACTACAACAGCCACAACGTCTATATCATGGCCGACAAGCAGAAGAACGGCATCAAGGTGAACTTCAAGATCCGCCACAACATCGAGGACGGCAGCGTGCAGCTCGCCGACCACTACCAGCAGAACACCCCCATCGGCGACGGCCCCGTGCTGCTGCCCGACAACCACTACCTGAGCACCCAGTCCGCCCTGAGCAAAGACCCCAACGAGAAGCGCGATCACATGGTCCTGCTGGAGTTCGTGACCGCCGCCGGGATCACTCTCGGCATGGACGAGCTGTACAAGGtcggtgctgcggctccgcggagccgcagcaccgacgaccagAT"
 target_sequence=target_sequence.upper()
-#full_df=analyze_all()
 direc="3p"
 full_df=analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd, animal_list, target_sequence, direc)
 
-# data_dict=create_datadict(base_path,transgene, animal_list)
-# full_df=import_reads_process(data_dict, transgene,assay_end,filterlitteral,lliteral,rliteral,export_path,read_fwd)
 full_df_trim=calculate_perc_sd2(full_df)
 result="unaligned/Exp1_3p_GFP_LP1.fasta"
 csv_file="/".join(result.split("/")[:-1]) +"/"+ result.split("/")[-1].split(".")[0] + ".csv"
@@ -47,8 +42,6 @@ full_df_trim=pd.read_csv(csv_file,  index_col=[0])
 #NT
 ####################
 output_path="aligned/NT/"
-#result="aligned/Exp1_3p_GFP_LP1_local3.fasta"
-#test_res=aligner(full_df_trim, target_sequence, "align_local3", result, output_path, -3,-1)
 result=output_path + "Exp1_3p_GFP_LP1_local2.fasta"
 aligner(full_df_trim, target_sequence, "align_local2", result, output_path, lliteral, rliteral, 3,1)
 ####################
@@ -59,13 +52,9 @@ aligner(full_df_trim, target_sequence, "align_local2", result, output_path, llit
 corr_frame=2
 result="unaligned/Exp1_3p_GFP_LP1.fasta"
 out_csv="aligned/AA/Exp1_3p_GFP_LP1_AA.csv"
-#df_aa=translate_nt_aa(result, 1)
 output_html="aligned/AA/Exp1_3p_GFP_LP1_AA.html"
 translate_NT(result, corr_frame,direc, out_csv)
 
-# visualise_aa_hybrid_alignments(df_aa, output_html)
-
-# df_full=import_reads_process_mini(base_path, target_sequence, filterlitteral,read_fwd)
 ####################
 
 
@@ -81,12 +70,8 @@ animal_list = [13, 14, 15, 16, 17, 18]
 filterlitteral = 'ctccgCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCATATGACCAC'
 lliteral = ' literal=GTGGTCATATGGTCCAGCTCC'
 rliteral = ' literal=GGACGACGGCAACTACAAGA'
-#primer further down so that more mcherry shown
 base_path = '/media/data/AtteR/projects/hiti/FASTQ_Generation_2020-03-09_08_30_27Z-13364364/'
 export_path = '/media/data/AtteR/projects/hiti/pipeline_output_reorg/'
-#the one for rliteral v2
-#target_sequence="CCCTCCCGGTGGGAGGCGCGCAGCAGAGCACATTAGTCACTCGGGGCTGTGAAGGGGCGGGTCCTTGAGGGCACCCACGGGAGGGGAGCGAGTAGGCGCGGAAGGCGGGGCCTGCGGCAGGAGAGGGCGCGGGCGGGCTCTGGCGCGGAGCCTGGGCGCCGCCAATGGGAGCCAGGGCTCCACGAGCTGCCGCCCACGGGCCCCGCGCAGCATAAATAGCCGCTGGTGGCGGTTTCGGTGCAGAGCTCAAGCGAGTTCTCCCGCAGCCGCAGTCTCTGGGCCTCTCTAGCTTCAGCGGCGACGAGCCTGCCACACTCGCTAAGCTCCTCCGGCACCGCACACCTGCCACTGCCGCTGCAGCCGCCGGCTCTGCTCCCTTCCGGCTTCTGCCTCAGAGGAGTTCTTAGCCTGTTCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCATATGACGTCATATGGTCCAGCTCGGgtgagcaagggcgaggaggataacatggccatcatcaaggagttcatgcgcttcaaggtgcacatggagggctccgt"
-#target_sequence = "tagcctgttaacaggCGCGCCACCATGGTGAGCAAGGGCGAGGAGCTGTTCACCGGGGTGGTGCCCATCCTGGTCGAGCTGGACGGCGACGTAAACGGCCACAAGTTCAGCGTGTCCGGCGAGGGCGAGGGCGATGCCACCTACGGCAAGCTGACCCTGAAGTTCATCTGCACCACCGGCAAGCTGCCCGTGCCCTGGCCCACCCTCGTGACCACCCTGACCTACGGCGTGCAGTGCTTCAGCCGCTACCCCGACCACATGAAGCAGCACGACTTCTTCAAGTCCGCCATGCCCGAAGGCTACGTCCAGGAGCGCACCATCTTCTTCAAGGACGACGGCAACTACAAGACCCGCGC"
 target_sequence = "GTGGTCATATGGTCCAGCTCCATCTGGTCGTCGGTGCTGCGGCTCCGcggagccgcagcaccgaCCTTGTACAGCTCGTCCATGCCGAGAGTGATCCCGGCGGCGGTCACGAACTCCAGCAGGACCATGTGATCGCGCT"
 
 target_sequence=target_sequence.upper()
@@ -96,8 +81,6 @@ target_sequence=target_sequence.upper()
 direc="5p"
 full_df=analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd, animal_list, target_sequence, direc)
 
-# data_dict=create_datadict(base_path,transgene, animal_list)
-# full_df=import_reads_process(data_dict, transgene,assay_end,filterlitteral,lliteral,rliteral,export_path,read_fwd)
 full_df_trim=calculate_perc_sd2(full_df)
 result="unaligned/Exp1_5p_GFP_LP1.fasta"
 csv_file="/".join(result.split("/")[:-1]) +"/"+ result.split("/")[-1].split(".")[0] + ".csv"
@@ -109,8 +92,6 @@ full_df_trim=pd.read_csv(csv_file,  index_col=[0])
 #NT
 ####################
 output_path="aligned/NT/"
-#result="aligned/Exp1_5p_GFP_LP1_local3.fasta"
-#test_res=aligner(full_df_trim, target_sequence, "align_local3", result, output_path, -3,-1)
 result=output_path+"Exp1_5p_GFP_LP1_local2.fasta"
 test_res=aligner(full_df_trim, target_sequence, "align_local2", result, output_path, lliteral, rliteral,3,1)
 ####################
@@ -123,9 +104,5 @@ out_csv="aligned/AA/Exp1_5p_GFP_LP1_AA.csv"
 output_html="aligned/AA/Exp1_5p_GFP_LP1_AA.html"
 
 translate_NT(result, corr_frame,direc, out_csv)
-
-#df_aa=translate_nt_aa(result, 1)
-# visualise_aa_hybrid_alignments(df_aa, output_html)
-# df_full=import_reads_process_mini(base_path, target_sequence, filterlitteral,read_fwd)
 #############
 
