@@ -1,0 +1,5 @@
+#File	/tmp/tmp61qkivny.fastq.gz	/tmp/tmpolvukzet.fastq.gz
+#Total	2301098
+#Matched	1120271	48.68419%
+#Name	Reads	ReadsPct
+1	1120271	48.68419%

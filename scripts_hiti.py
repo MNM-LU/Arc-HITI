@@ -37,6 +37,30 @@ from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 import statistics as st
 
+
+#calculates the mean across the seq percentages. the alignment function is currently adapted 
+#to run with using data processed with this function. if using the second version, comment out the 
+#line header="CluSeq:" + str((round(full_df.iloc[seq_i,-4],5))) + "_var:"+str((round(full_df.iloc[seq_i,-2],5))) +"_sd:" + str((round(full_df.iloc[seq_i,-1],5)))
+#which is inside the aligner function
+def calculate_perc_sd(full_df):
+    full_df = full_df.fillna(value=0)
+    perc_cols = [col for col in full_df.columns if 'percent' in col]
+    count_cols = [col for col in full_df.columns if 'count' in col]
+
+    perc_cols
+    full_df['total_reads_seq'] = full_df[count_cols].sum(axis=1)  
+    #sum the percentages of each seq cluster of each animal together to see how much the certain seq is found 
+    #full_df["variance"]=full_df[perc_cols].var(axis=1)
+    full_df["percent_mean"]=full_df[perc_cols].mean(axis=1)
+    full_df['sd']=full_df[perc_cols].std(axis=1)
+
+    #discard seqs that contribute less than 0.0001% percentage
+    full_df[count_cols]
+    full_df_trim = full_df.drop(full_df[full_df["total_reads_seq"] <= 10].index)
+    return(full_df_trim)
+
+
+#uses perc sum and then division approach for the seqs
 def calculate_perc_sd2(full_df):
     full_df = full_df.fillna(value=0)
     perc_cols = [col for col in full_df.columns if 'percent' in col]
@@ -204,7 +228,7 @@ def save_fasta(filename, full_df, target_sequence):
         count = SeqIO.write(seq_obj, handle, "fasta")
         for seq_i in range(len(full_df.index)):
             print("seq_i:" + str(seq_i))
-            descr="CluSeq:" + str(round(full_df.iloc[seq_i,-4],5)) + "_sd:" + str(round(full_df.iloc[seq_i,-1],5))
+            descr="CluSeq:" + str(round(full_df.iloc[seq_i,-2],5)) + "_sd:" + str(round(full_df.iloc[seq_i,-1],5))
             print(descr)
             seq_obj = SeqRecord(Seq(full_df.iloc[seq_i,0]), id=str(id_f), description=descr)
             print(seq_obj)
@@ -216,38 +240,6 @@ def import_fasta(result):
     for record in SeqIO.parse(result, "fasta"):
         NT_and_perc[str(record.description)]=str(Seq(record.seq))
     return(NT_and_perc)
-
-def calculate_perc_sd(full_df):
-    full_df = full_df.fillna(value=0)
-    perc_cols = [col for col in full_df.columns if 'percent' in col]
-    count_cols = [col for col in full_df.columns if 'count' in col]
-
-    perc_cols
-    #sum the percentages of each seq cluster of each animal together to see how much the certain seq is found 
-    full_df['percent_sum_unit'] = full_df[perc_cols].sum(axis=1)  
-
-    total_perc_unit=full_df.iloc[:,-1].sum()
-    full_df['percent_sum'] = (full_df['percent_sum_unit'] / total_perc_unit)
-    full_df.head()
-    count_cols
-    #full_df['sd']=full_df[count_cols].std()
-    full_df['total_reads_seq'] = full_df[count_cols].sum(axis=1)  
-
-    full_df['sd']=full_df[perc_cols].std(axis=1)
-
-    #remove sequences that have 0-3 reads in total across groups
-
-    #get the total number of percentages from the percent_sum column and then divide all the perc units with this
-    #to get the percs
-    #calculate the SD for each seq
-    full_df.sort_values(by=['percent_sum_unit'], ascending=False, inplace=True)
-    full_df.head()
-    full_df.columns
-    #discard seqs that contribute less than 0.0001% percentage
-    rows_drop=[]
-    full_df[count_cols]
-    full_df_trim = full_df.drop(full_df[full_df["total_reads_seq"] <= 3].index)
-    return(full_df_trim)
 
 
 def import_reads_process(data_dict, transgene,assay_end,filterlitteral,lliteral,rliteral,export_path,read_fwd):
@@ -339,7 +331,7 @@ from functools import reduce
 #save into df
 
 def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,read_fwd, direc):
-    complete_df = pd.DataFrame({'sequence': [ref]})
+    complete_df = pd.DataFrame(columns=['sequence'])
     df_animal=[]
     seq_animal=[]
     for read in os.listdir(base_path):
@@ -409,11 +401,13 @@ def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,re
             total_counts = int(df[['count']].sum())
             df['percent'] = (df['count'] / total_counts)
             df = df.rename(columns={'percent':animal_group_name+'_percent','count':animal_group_name+'_count',})
-            df_animal.append(df)
+            complete_df=pd.merge(complete_df, df, on=['sequence'], how='outer')
+
+            #df_animal.append(df)
     #we iterate over all the individual dfs and merge them by taking the seq column of all dfs and placing them under the new dfs seq and do the same with counts
-    df_all_lanes=reduce(lambda  left,right: pd.merge(left,right,on=['sequence'], how='outer'), df_animal)
+    #df_all_lanes=reduce(lambda  left,right: pd.merge(left,right,on=['sequence'], how='outer'), df_animal)
     #reduce is useful when you need to apply a function to an iterable and reduce it to a single cumulative value.
-    return(df_all_lanes)
+    return(complete_df)
 
 def create_datadict(base_path, transgene):
     #hip_folders = [folder for folder in os.listdir(base_path) if "mCherry" in folder and "h_" in folder or "s_" in folder]
@@ -582,9 +576,8 @@ def find_remove_duplicates(aligned_data_trim):
             perc_sum_all+=float(id_keys_dict[i].split("_")[0].split(":")[1])
             var_sum_all+=float(id_keys_dict[i].split("_")[1].split(":")[1])
             sd_sum_all+=float(id_keys_dict[i].split("_")[2].split(":")[1])
-        #fix the sd summing!
-#        merged_id=">"+str(i) + "CluSeq:"+str(round(perc_sum_all,5))+ "_var:"+str(round(var_sum_all,5)) +"_sd:"+str(round(math.sqrt(var_sum_all),5))
-        merged_id="CluSeq:"+str(round(perc_sum_all,5))+ "_var:"+str(round(var_sum_all,5)) +"_sd:"+str(round(math.sqrt(var_sum_all),5))
+        #merged_id="CluSeq:"+str(round(perc_sum_all,5))+ "_var:"+str(round(var_sum_all,5)) +"_sd:"+str(round(math.sqrt(var_sum_all),5))
+        merged_id="CluSeq:"+str(round(perc_sum_all,5))+ "_sd:"+str(round(math.sqrt(var_sum_all),5))
 
         return(merged_id)
 
@@ -631,16 +624,17 @@ def find_remove_duplicates(aligned_data_trim):
 #once you get the indices of the duplicates, get the keys based on these indices, merge the key values
 #Now we have a script for detecting duplicates from the data dict, removing them via merging the values
 #need to remove the seqs from the original dict using the index_pos approach
-def add_primers_save(aligned_data_trim,filename, target_sequence,lliteral, rliteral):
+def add_primers_save(aligned_data_trim,filename, target_sequence,lliteral):
     id_f = 1
     ref="Ref"
     with open(filename, "w") as handle:
-        whole_ref=lliteral.split("=")[1] + "-" + target_sequence + "-" + rliteral.split("=")[1]
+        whole_ref=lliteral.split("=")[1] + "-" + target_sequence
         seq_obj = SeqRecord(Seq(whole_ref), id=str(0), description=ref)
         count = SeqIO.write(seq_obj, handle, "fasta")
         for id, seq_prims in aligned_data_trim.items():
-            descr=id.split("_")[0] + "_" + id.split("_")[2]
-            whole_seq=lliteral.split("=")[1] + "-" +seq_prims + "-" + rliteral.split("=")[1]
+            #descr=id.split("_")[0] + "_" + id.split("_")[1]
+            descr=id
+            whole_seq=lliteral.split("=")[1] + "-" +seq_prims
             seq_obj = SeqRecord(Seq(whole_seq), id=str(id_f), description=descr)
             print(seq_obj)
             count = SeqIO.write(seq_obj, handle, "fasta")
@@ -691,7 +685,6 @@ def reorganise_perc(aligned_data_trim):
     return(reorg_data_dict)
 
 
-
 #takes in the df and the choice of the alignment method. methods are found in class
 #the class must be instantiated inside the function and the appropriate method is called
 #by index passed by the user into function
@@ -709,7 +702,7 @@ def aligner(full_df, target_sequence, align_method, filename, output_path, llite
     for seq_i in range(len(full_df.iloc[:,-1])):
         #yield iteratively the header of the certain seq and the corresponding seq
         #header=">"+ str(id_f)+"_CluSeq:" + str((round(full_df.iloc[seq_i,-4],5))) + "_var:"+str((round(full_df.iloc[seq_i,-2],5))) +"_sd:" + str((round(full_df.iloc[seq_i,-1],5)))
-        header="CluSeq:" + str((round(full_df.iloc[seq_i,-4],5))) + "_var:"+str((round(full_df.iloc[seq_i,-2],5))) +"_sd:" + str((round(full_df.iloc[seq_i,-1],5)))
+        header="CluSeq:" + str((round(full_df.iloc[seq_i,-2],5))) + "_sd:" + str((round(full_df.iloc[seq_i,-1],5)))
 
         #seq_obj_align = aligner_init(full_df.iloc[seq_i,0], target_sequence, gop, gep).align()
 
@@ -719,16 +712,17 @@ def aligner(full_df, target_sequence, align_method, filename, output_path, llite
         id_f+=1
 
     aligned_data_trim=align_trimmer(aligned_data, target_sequence)
-    data_trim_nodupl=find_remove_duplicates(aligned_data_trim)
-    data_trim_nodupl=reorganise_perc(data_trim_nodupl)
+    #data_trim_nodupl=find_remove_duplicates(aligned_data_trim)
+    aligned_data_trim=reorganise_perc(aligned_data_trim)
     #Add primers to both ends of the seq and save
     #write_align(data_trim_nodupl, filename, target_sequence)
-    add_primers_save(data_trim_nodupl, filename, target_sequence, lliteral,rliteral)
+    add_primers_save(aligned_data_trim, filename, target_sequence, lliteral)
     #Generate a visual alignment file using mview
     mview_file=output_path +filename.split("/")[-1].split(".")[-2] + ".html"
     mview_command='/media/data/AtteR/Attes_bin/mview -in fasta -html head -css on -reference 1 -coloring identity ' + filename + '>' + mview_file
     call([mview_command], shell=True)
     print("html file created as "+ mview_file)
+    return(aligned_data_trim)
     #os.system('/media/data/AtteR/Attes_bin/mview -in fasta -html head -css on -coloring any {} > {}'.format(str(filename), str(mview_file))) 
     #subprocess.run(['/media/data/AtteR/Attes_bin/mview', '-in fasta', '-html head', '-css on', '-coloring any', filename, '>', mview_file])
 
@@ -777,7 +771,6 @@ def translate_nt_aa(result, corr_frame):
         #print("".join(list((keys))[:]))
         #ref_x_alig_list.append([("".join(list((keys))))]+list(values))
         ref_x_alig_list.append([keys]+list(values))
-
     df = pd.DataFrame(data= {seq_info[0]: seq_info[1:], ref_x_alig_list[0][0]:ref_x_alig_list[0][1:], ref_x_alig_list[1][0]:ref_x_alig_list[1][1:], ref_x_alig_list[2][0]:ref_x_alig_list[2][1:]})
     return(df)
 
@@ -811,8 +804,15 @@ class translate_3p:
                 else:
                     aa_ampls.append(str(Seq(record.seq[alt_frame:]).translate()))
             ref_aa[ref_key]=aa_ampls
+        seq_info_dic = {'Seq_stats': seq_info}
         ref_aa_cor.update(ref_aa)
-        return([ref_aa_cor, seq_info])
+        ref_aa_cor.update(seq_info_dic)
+        aa_df=pd.DataFrame(ref_aa_cor)
+        first_column = aa_df.pop('Seq_stats')
+        # insert column using insert(position,column_name,
+        # first_column) function
+        aa_df.insert(0, 'Seq_stats', first_column)
+        return(aa_df)
 
 class translate_5p:
     def __init__(self, result, corr_frame):
@@ -824,22 +824,22 @@ class translate_5p:
         aa_ampls=[]
         seq_info=[] #this will be merged later with the final dict that has the aligned AAs against the ref at certain frame
         alt_frames=[0,1,2]
-        alt_frames.remove(corr_frame)    
-        for record in SeqIO.parse(result, "fasta"):
+        alt_frames.remove(self.corr_frame)    
+        for record in SeqIO.parse(self.result, "fasta"):
             if "Ref" in record.description:
                 #refs_aa_frames["Frame:" + str(alt_frame)]=str(Seq(record.seq[alt_frame:]).translate())
                 rev_compl_seq=Seq(record.seq).reverse_complement()
-                ref_key="Frame_corr:" + str(corr_frame) +"|" +str(rev_compl_seq[corr_frame:].translate())
+                ref_key="Frame_corr:" + str(self.corr_frame) +"|" +str(rev_compl_seq[self.corr_frame:].translate())
             else:
                 seq_info.append(record.description)
                 rev_compl_seq=Seq(record.seq).reverse_complement()
-                print(str(rev_compl_seq[corr_frame:].translate()))
-                aa_ampls.append(str(rev_compl_seq[corr_frame:].translate()))
+                print(str(rev_compl_seq[self.corr_frame:].translate()))
+                aa_ampls.append(str(rev_compl_seq[self.corr_frame:].translate()))
         ref_aa_cor[ref_key]=aa_ampls
         ref_aa=dict()
         for alt_frame in alt_frames:
             aa_ampls=[]
-            for record in SeqIO.parse(result, "fasta"):
+            for record in SeqIO.parse(self.result, "fasta"):
                 if "Ref" in record.description:
                     rev_compl_seq=Seq(record.seq).reverse_complement()
                     #refs_aa_frames["Frame:" + str(alt_frame)]=str(Seq(record.seq[alt_frame:]).translate())
@@ -848,9 +848,79 @@ class translate_5p:
                     rev_compl_seq=Seq(record.seq).reverse_complement()
                     aa_ampls.append(str(rev_compl_seq[alt_frame:].translate()))
             ref_aa[ref_key]=aa_ampls
+        seq_info_dic = {'Seq_stats': seq_info}
+        ref_aa_cor.update(ref_aa)
+        ref_aa_cor.update(seq_info_dic)
+        aa_df=pd.DataFrame(ref_aa_cor)
+        first_column = aa_df.pop('Seq_stats')
+        # insert column using insert(position,column_name,
+        # first_column) function
+        aa_df.insert(0, 'Seq_info', first_column)
+        return(aa_df)
 
-        return([ref_aa_cor, seq_info])
+def translate_NT(result, corr_frame, direc, out_csv):
+    gop, gep=-3,-1
+    strand_dir= {"3p": translate_3p,
+            "5p": translate_5p}  
 
+    trans_init = strand_dir.get(str(direc), None)  # Get the chosen class, or None if input is bad
+    df_aa = trans_init(result, corr_frame).translate_nt()
+    align_method="align_local3"
+    align_class = {"align_local": align_local,
+            "align_local2": align_local2,
+            "align_local3":align_local3,
+            "align_global":align_global,
+            "align_global2":align_global2}  
+    id_f=1
+    aligner_init = align_class.get(str(align_method), None)  # Get the chosen class, or None if input is bad
+    aa_data_align=pd.DataFrame(columns = list(df_aa.columns))
+    aa_data_align=aa_data_align.append(df_aa.iloc[:,0])
+    seq_info_dic=df_aa.iloc[:,0]
+    seq_info_dic={df_aa.columns[0]: df_aa.iloc[:,0]}
+    dic_aa_align=dict()
+    for ref_fr in df_aa.columns[1:]:
+        #print(ref_fr)
+        seqs_in_frame=[]
+        for i, aa_seq in enumerate(df_aa[ref_fr]):
+            #yield iteratively the header of the certain seq and the corresponding seq
+            #header=">"+ str(id_f)+"_CluSeq:" + str((round(full_df.iloc[seq_i,-4],5))) + "_var:"+str((round(full_df.iloc[seq_i,-2],5))) +"_sd:" + str((round(full_df.iloc[seq_i,-1],5)))
+            #seq_obj_align = aligner_init(full_df.iloc[seq_i,0], target_sequence, gop, gep).align()
+            seq_obj_align = aligner_init(aa_seq, ref_fr.split("|")[1], gop, gep).align()
+            seq_obj_align = re.sub(r'[(\d|\s]', '', seq_obj_align) #remove digits from the string caused by the alignment and empty spaces from the start
+            matches=SequenceMatcher(None,ref_fr.split("|")[1],seq_obj_align)
+            matches.get_matching_blocks()
+            range_line=0
+            seqs=[]
+            alignments_per_ref=[]
+            for i in range(len(matches.get_matching_blocks())):
+                match=matches.get_matching_blocks()[i]
+                seqs.append(len(ref_fr.split("|")[1][range_line:match.a])*"-"+seq_obj_align[match.b:match.b+match.size])
+                range_line=match.a+match.size
+            alignments_per_ref.append(''.join(seqs))
+            alignments_per_ref= str(alignments_per_ref).replace("['", "").replace("']", "")
+            seqs_in_frame.append(str(alignments_per_ref))
+        dic_aa_align[ref_fr] = seqs_in_frame
+    dic_aa_align.update(seq_info_dic)
+    dic_aa_align.keys()
+    df_aa_align=pd.DataFrame(dic_aa_align)
+    first_column = df_aa_align.pop('Seq_stats')
+    # insert column using insert(position,column_name,
+    # first_column) function
+    df_aa_align.insert(0, 'Seq_stats', first_column)
+    df_aa_align.to_csv(out_csv)
+
+    for i, ref_fr in enumerate(df_aa_align.columns[1:], start=1):
+        aa_file="unaligned/Exp2_3p_mcherry_SP4_AA_" + ref_fr.split("|")[0] + ".fasta"
+        with open(aa_file, "w") as f:
+            f.write(">0_Ref_" + ref_fr.split("|")[0] + "\n")
+            f.write(ref_fr.split("|")[1] + "\n")
+            for a, aa_seq in enumerate(list(df_aa_align.iloc[:,i])):
+                f.write(">"+ df_aa_align.iloc[a,0] + "\n")
+                f.write(aa_seq + "\n")
+        mview_file= "aligned/AA/" +aa_file.split("/")[-1].split(".")[-2] + ".html"
+        mview_command='/media/data/AtteR/Attes_bin/mview -in fasta -html head -css on -reference 1 -coloring identity ' + aa_file + '>' + mview_file
+        call([mview_command], shell=True)
+        print("Alignments created in html format! Files found inside aligned/AA directory")
 
 def translate_nt_aa_csv(result,corr_frame, out_csv, direc):
     #first create a dict which has keys containing the translated ref and frame info and value containing a list of amplicons translated in
@@ -908,6 +978,7 @@ def translation_new(df, output_html):
     for i, ref_fr in enumerate(df.columns[1:], start=1):
         out_html_ed="/".join(output_html.split("/")[:-1]) + "/" + output_html.split("/")[-1].split(".")[0] + str(ref_fr.split("|")[0]) + ".html"
         f = open(out_html_ed,"w")
+        print(out_html_ed)
         for info, a1,a2 in zip(df["Seq_info"], list(df.iloc[:,i]), [ref_fr.split("|")[1]]*len(list(df.iloc[:,1]))):
             aa1_list=[]
             aa2_list=[]

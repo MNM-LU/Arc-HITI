@@ -1,4 +1,4 @@
-#File	/tmp/tmpnryn4bot.fastq.gz
+#File	/tmp/tmpn4z09g3l.fastq.gz
 #Total	145288
 #Matched	144771	99.64416%
 #Name	Reads	ReadsPct

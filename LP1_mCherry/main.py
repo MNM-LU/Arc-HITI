@@ -16,21 +16,25 @@ os.chdir("/media/data/AtteR/projects/hiti/pipeline_output_reorg/hiti-arc-analysi
 #############
 transgene = 'mCherry'
 assay_end = '3p'
-animal_list = [7, 8, 9, 10, 11, 12]
 
 read_fwd = True
-filterlitteral='CTCCCTCCACACGTGCATCTCACGCTTGACCCAGCGCTCCAGGTTGGCGATGGT' 
+filterlitteral='CTGTACAAGGtcggtgctgcggctccgCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCATATGACCAC' 
 direc="3p"
-#ver 2 from upstream
-filterlitteral='CGGCGGCATGGACGAGCTGTACAAGGTCGGTGCTGCGGCTCCGCGGAGCCGCAGCACCGACGAC'
-lliteral=' literal=CGGCGGCATGGACGAG' #added C at the end as its part of tje primer #to check that its on target with mcherry - the primer
-rliteral=' literal=GTCTTCTACCGTCTGGAGAGG'
+animal_list = [7, 8, 9, 10, 11, 12]
+filterlitteral = 'CTCCCTCCACACGTGCATCTCACGCTTGACCCAGCGCTCCAGGTTGGCGATGGT'
+lliteral = ' literal=GGACGACGGCAACTACAAGA'
+rliteral = ' literal=GGAGCTGGACCATATGACCAC' 
+#filterlitteral = 'GGACGACGGCAACTACAAGACCCGCGCCGAGGTGAAGTTCGAGGGCGACACCCTGGTGAACCGCATCGAGCTGAAGG'
+#lliteral = ' literal=GTGGTCATATGGTCCAGCTCC'
+#rliteral = ' literal=TCGTCCATGCCGAG'
+
 #base_path = '/home/lcadmin/mnm-lts/SequencingFiles/arc_hiti_asyn/HITI1-8977973/FASTQ_Generation_2020-03-09_08_30_27Z-13364364/'
 #export_path = '/home/lcadmin/mnm-lts/HITI-analysis/'
 base_path='/media/data/AtteR/projects/hiti/FASTQ_Generation_2020-03-09_08_30_27Z-13364364/'
 export_path='/media/data/AtteR/projects/hiti/pipeline_output_reorg/'
 #original, full length
-target_sequence="CTGTACAAGGtcggtgctgcggctccgcggagccgcagcaccgacgaccagATGGAGCTGGACCATATGACCACCGGCGGCCTCCACGCCTACCCTGCCCCGCGGGGTGGGCCGGCCGCCAAACCCAATGTGATCCTGCAGATTGGTAAGTGCCGAGCTGAGATGCTGGAACACGTACGGAGGACCCACCGGCATCTGTTGACCGAAGTGTCCAAGCAGGTGGAGCGAGAGCTGAAAGGGTTGCACAGGTCGGTGGGCAAGCTGGAGAACAACTTGGACGGCTACGTGCCCACCGGCGACTCACAGCGCTGGAAGAAGTCCATCAAGGCCTGTCTTTGCCGCTGCCAGGAGACCATCGCCAACCTGGAGCGCTGGGTCAAGCGTGAGATGCACGTGTGGAGGGAG"
+#target_sequence="CTGTACAAGGtcggtgctgcggctccgcggagccgcagcaccgacgaccagATGGAGCTGGACCATATGACCACCGGCGGCCTCCACGCCTACCCTGCCCCGCGGGGTGGGCCGGCCGCCAAACCCAATGTGATCCTGCAGATTGGTAAGTGCCGAGCTGAGATGCTGGAACACGTACGGAGGACCCACCGGCATCTGTTGACCGAAGTGTCCAAGCAGGTGGAGCGAGAGCTGAAAGGGTTGCACAGGTCGGTGGGCAAGCTGGAGAACAACTTGGACGGCTACGTGCCCACCGGCGACTCACAGCGCTGGAAGAAGTCCATCAAGGCCTGTCTTTGCCGCTGCCAGGAGACCATCGCCAACCTGGAGCGCTGGGTCAAGCGTGAGATGCACGTGTGGAGGGAG"
+target_sequence = "CGGCGGCATGGACGAGCTGTACAAGGTCGGTGCTGCGGCTCCGCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCATATGACCACCGGCGGCCTCCACGCCTACCCTGCCCCGCGGGGTGGGCCGGCCGCCAAACCCAATGTGATCCTGCAGATTGGTAAGTGCCGAGCTGAGATGCTGGAACACGTACGGAGGACCCACCGGCATCTGTTGACCGAAGTGTCCAAGCAGGTGGAGCGAGAGCTGAAAGGGTTGCACAGGTCGGTGGGCAAGCTGGAGAACAACTTGGACGGCTACGTGCCCACCGGCGACTCACAGCGCTGGAAGAAGTCCATCAAGGCCTGTCTTTGCCGCTGCCAGGAGACCATCGCCAACCTGGAGCGCTGGGTCAAGCGTGAGATGCACGTGTGGAGGGAGGTCTTCTACCGTCTGGAGAGG"
 
 #target_sequence="CTGTACAAGGTCGGTGCTGCGGCTCCGCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCATATGACCACCGG"
 target_sequence=target_sequence.upper()
@@ -38,8 +42,8 @@ full_df=analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,expor
 
 # data_dict=create_datadict(base_path, transgene, animal_list)
 # full_df=import_reads_process(data_dict, transgene,assay_end,filterlitteral,lliteral,rliteral,export_path,read_fwd)
-full_df_trim=calculate_perc_sd2(full_df)
-result="unaligned/Exp1_3p_mcherry_LP1_v2.fasta"
+full_df_trim=calculate_perc_sd(full_df)
+result="unaligned/Exp1_3p_mcherry_LP1.fasta"
 save_fasta(result, full_df_trim, target_sequence)
 csv_file="/".join(result.split("/")[:-1]) +"/"+ result.split("/")[-1].split(".")[0] + ".csv"
 full_df_trim.to_csv(csv_file)
@@ -51,7 +55,7 @@ full_df_trim.to_csv(csv_file)
 output_path="aligned/NT/"
 #result="aligned/Exp1_3p_mcherry_LP1_local3.fasta"
 #test_res=aligner(full_df_trim_orig, target_sequence, "align_local3", result, output_path, -3,-1)
-result=output_path + "Exp1_3p_mcherry_LP1_local2_prim_v2.fasta"
+result=output_path + "Exp1_3p_mcherry_LP1_local2_prim.fasta"
 test_res=aligner(full_df_trim, target_sequence, "align_local2", result, output_path, lliteral, rliteral, 3,1)
 ####################
 
@@ -63,7 +67,7 @@ result="unaligned/Exp1_3p_mcherry_LP1.fasta"
 out_csv="aligned/AA/Exp2_3p_mcherry_LP1_AA.csv"
 output_html="aligned/AA/Exp1_5p_GFP_LP1_AA.html"
 
-df_aa=translate_nt_aa_csv(result,corr_frame, out_csv)
+translate_NT(result, corr_frame,direc, out_csv)
 
 #df_aa=translate_nt_aa(result, 1)
 #visualise_aa_hybrid_alignments(df_aa, output_html)
@@ -76,25 +80,27 @@ df_aa=translate_nt_aa_csv(result,corr_frame, out_csv)
 transgene='mCherry'
 assay_end='5p'
 read_fwd=True
+direc='5p'
 #filterlitteral='CTCCCTCCACACGTGCATCTCACGCTTGACCCAGCGCTCCAGGTTGGCGATGGT' #region prior to r2 primer
 # lliteral = ' literal=GTGTCTCCGGTCCCCAAAAT' 
 # rliteral = ' literal=GGGCGAGGAGGATAACATGG'
+filterlitteral = 'CCCTCCCGGTGGGAGGCGCGCAGCAGAGCACATTAGTCACTCGGGGCTGTGAAG'
+lliteral = ' literal=TTATCCTCCTCGCCC'
+rliteral = ' literal=CCTCTGAGGCAGAA'
 
-filterlitteral = "GTTCTTAGCCTGTTAACAGGCGCGCCACCATGGTGAGCAAGGGCGAGGAGGATAACATGG"
-lliteral = ' literal=CCATGTTATCCTCCTCGCCC'
-rliteral = ' literal='
 #base_path = '/home/lcadmin/mnm-lts/SequencingFiles/arc_hiti_asyn/HITI1-8977973/FASTQ_Generation_2020-03-09_08_30_27Z-13364364/'
 #export_path = '/home/lcadmin/mnm-lts/HITI-analysis/'
 base_path = '/media/data/AtteR/projects/hiti/FASTQ_Generation_2020-03-09_08_30_27Z-13364364/'
 export_path = '/media/data/AtteR/projects/hiti/pipeline_output_reorg/'
-animal_list = [1, 2, 3, 4, 5, 6] 
+animal_list = [1, 2, 3, 4, 5, 6]
 #target_sequence = "CCCTCCCGGTGGGAGGCGCGCAGCAGAGCACATTAGTCACTCGGGGCTGTGAAGGGGCGGGTCCTTGAGGGCACCCACGGGAGGGGAGCGAGTAGGCGCGGAAGGCGGGGCCTGCGGCAGGAGAGGGCGCGGGCGGGCTCTGGCGCGGAGCCTGGGCGCCGCCAATGGGAGCCAGGGCTCCACGAGCTGCCGCCCACGGGCCCCGCGCAGCATAAATAGCCGCTGGTGGCGGTTTCGGTGCAGAGCTCAAGCGAGTTCTCCCGCAGCCGCAGTCTCTGGGCCTCTCTAGCTTCAGCGGCGACGAGCCTGCCACACTCGCTAAGCTCCTCCGGCACCGCACACCTGCCACTGCCGCTGCAGCCGCCGGCTCTGCTCCCTTCCGGCTTCTGCCTCAGAGGAGTTCTTAGCCTGTTaacaggCGCGCCACCATGGTGAGCAAGGGCGAGGAGGATAACATGG"
 # target_sequence = "CCCTCCCGGTGGGAGGCGCGCAGCAGAGCACATTAGTCACTCGGGGCTGTGAAGGGGCGGGTCCTTGAGGGCACCCACGGGAGGGGAGCGAGTAGGCGCGGAAGGCGGGGCCTGCGGCAGGAGAGGGCGCGGGCGGGCTCTGGCGCGGAGCCTGGGCGCCGCCAATGGGAGCCAGGGCTCCACGAGCTGCCGCCCACGGGCCCCGCGCAGCATAAATAGCCGCTGGTGGCGGTTTCGGTGCAGAGCTCAAGCGAGTTCTCCCGCAGCCGCAGTCTCTGGGCCTCTCTAGCTTCAGCGGCGACGAGCCTGCCACACTCGCTAAGCTCCTCCGGCACCGCACACCTGCCACTGCCGCTGCAGCCGCCGGCTCTGCTCCCTTCCGGCTTCTGCCTCAGAGGAGTTCTTAGCCTGTTaacaggCGCGCCACCATGGTGAGCAA"
 # target_sequence = "CCCTCCCGGTGGGAGGCGCGCAGCAGAGCACATTAGTCACTCGGGGCTGTGAAGGGGCGGGTCCTTGAGGGCACCCACGGGAGGGGAGCGAGTAGGCGCGGAAGGCGGGGCCTGCGGCAGGAGAGGGCGCGGGCGGGCTCTGGCGCGGAGCCTGGGCGCCGCCAATGGGAGCCAGGGCTCCACGAGCTGCCGCCCACGGGCCCCGCGCAGCATAAATAGCCGCTGGTGGCGGTTTCGGTGCAGAGCTCAAGCGAGTTCTCCCGCAGCCGCAGTCTCTGGGCCTCTCTAGCTTCAGCGGCGACGAGCCTGCCACACTCGCTAAGCTCCTCCGGCACCGCACACCTGCCACTGCCGCTGCAGCCGCCGGCTCTGCTCCCTTCCGGCTTCTGCCTCAGAGGAGTTCTTAGCCTGTTaacaggCGCGCCACCATGGTGAGCAA"
-target_sequence = "CCCTTCCGGCTTCTGCCTCAGAGGAGTTCTTAGCCTGTTaacaggCGCGCCACCATGGTGAGCAAGGGCGAGGAGGATAACATGG"
+target_sequence = "CCATGTTATCCTCCTCGCCCTTGCTCACCATGGTGGCGCGCCTGTTAACAGGCTAAGAACTCCTCTGAGGCAGAAGCCGGAAGGGAGCAGAGCCGGCGGCTGCAGCGGCAGTGGCAGGTGTGCGGTGCCGGAGGAGCTTAGCGAGTGTGGCAGGCTCGTCGCCGCTGAAGCTAGAGAGGCCCAGAGACTGCGGCTGCGGGAGAACTCGCTTGAGCTCTGCACCGAAACCGCCACCAGCGGCTATTTATGCTGCGCGGGGCCCGTGGGCGGCAGCTCGTGGAGCCCTGGCTCCCATTGGCGGCGCCCAGGCTCCGCGCCAGAGCCCGCCCGCGCCCTCTCCTGCCGCAGGCCCCGCCTTCCGCGCCTACTCGCTCCCCTCCCGTGGGTGCCCTCAAGGACCCGCCCCTTCACAGCCCCGAGTGACTAATGTGCTCTGCTGCGCGCCTCCCACCGGGAGGGATTTTGGGGACCGGAGACAC"
 target_sequence = target_sequence.upper()
-full_df=analyze_all(base_path,transgene,assay_end,filterlitteral,lliteral,rliteral,export_path,read_fwd, animal_list, target_sequence)
-full_df_trim_orig=calculate_perc_sd2(full_df)
+full_df=analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd, animal_list, target_sequence, direc)
+
+full_df_trim_orig=calculate_perc_sd(full_df)
 result="unaligned/Exp1_5p_mcherry_LP1.fasta"
 save_fasta(result, full_df_trim_orig, target_sequence)
 #########
@@ -120,8 +126,7 @@ result="unaligned/Exp1_5p_mcherry_LP1.fasta"
 out_csv="aligned/AA/Exp1_5p_mcherry_LP1_AA.csv"
 output_html="aligned/AA/Exp1_5p_mcherry_LP1_AA.html"
 
-df_aa=translate_nt_aa_csv(result,corr_frame, out_csv)
-translation_new(df_aa, output_html)
+translate_NT(result, corr_frame,direc, out_csv)
 
 # df_aa=translate_nt_aa(result, 1)
 # visualise_aa_hybrid_alignments(df_aa, output_html)
