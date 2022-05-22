@@ -24,6 +24,9 @@ animal_list = [7, 8, 9, 10, 11, 12]
 filterlitteral = 'CTCCCTCCACACGTGCATCTCACGCTTGACCCAGCGCTCCAGGTTGGCGATGGT'
 lliteral = ' literal=GGCGGCATGGACGAG'
 rliteral = ' literal=CATATGACCACCGG' 
+#filterlitteral = 'GGACGACGGCAACTACAAGACCCGCGCCGAGGTGAAGTTCGAGGGCGACACCCTGGTGAACCGCATCGAGCTGAAGG'
+#lliteral = ' literal=GTGGTCATATGGTCCAGCTCC'
+#rliteral = ' literal=TCGTCCATGCCGAG'
 
 base_path='/media/data/AtteR/projects/hiti/FASTQ_Generation_2020-03-09_08_30_27Z-13364364/'
 export_path='/media/data/AtteR/projects/hiti/pipeline_output_reorg/'
@@ -54,8 +57,9 @@ test_res=aligner(full_df_trim, target_sequence, "align_local2", result, output_p
 corr_frame=0
 result="unaligned/Exp1_3p_mcherry_LP1.fasta"
 out_csv="aligned/AA/Exp2_3p_mcherry_LP1_AA.csv"
-output_html="aligned/AA/Exp1_5p_GFP_LP1_AA.html"
+output_html="aligned/AA/Exp2_3p_mcherry_LP1_AA.html"
 
+############
 translate_NT(result, corr_frame,direc, out_csv)
 
 
@@ -66,8 +70,10 @@ assay_end='5p'
 read_fwd=True
 direc='5p'
 filterlitteral = 'CCCTCCCGGTGGGAGGCGCGCAGCAGAGCACATTAGTCACTCGGGGCTGTGAAG'
-lliteral = ' literal=TTATCCTCCTCGCCC'
-rliteral = ' literal=CCTCTGAGGCAGAA'
+filterlitteral='CCATGTTATCCTCCTCGCCCTTGCTCACCATGGTGGCGCGcctgttAACAGGCTAAGAAC'
+lliteral = ' literal=CCATGTTATCCTCCTCGCCC'
+#rliteral = ' literal=CCTCTGAGGCAGAA' old from the original script
+rliteral = ' literal=GTGTCTCCGGTCCCCAAAAT'
 
 base_path = '/media/data/AtteR/projects/hiti/FASTQ_Generation_2020-03-09_08_30_27Z-13364364/'
 export_path = '/media/data/AtteR/projects/hiti/pipeline_output_reorg/'
@@ -95,7 +101,6 @@ aligner(full_df_trim_orig, target_sequence, "align_local2", result, output_path,
 #AA
 #439%3
 corr_frame=1
-result="/media/data/AtteR/projects/hiti/pipeline_output_reorg/fastas/Exp1_5p_mcherry_LP1.fasta"
 result="unaligned/Exp1_5p_mcherry_LP1.fasta"
 out_csv="aligned/AA/Exp1_5p_mcherry_LP1_AA.csv"
 output_html="aligned/AA/Exp1_5p_mcherry_LP1_AA.html"

@@ -1,5 +1,5 @@
-#File	/tmp/tmp61qkivny.fastq.gz	/tmp/tmpolvukzet.fastq.gz
+#File	/tmp/tmpvr7pjh5e.fastq.gz	/tmp/tmpl37js8rj.fastq.gz
 #Total	2301098
-#Matched	1120271	48.68419%
+#Matched	103	0.00448%
 #Name	Reads	ReadsPct
-1	1120271	48.68419%
+1	103	0.00448%

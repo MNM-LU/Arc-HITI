@@ -855,7 +855,7 @@ class translate_5p:
         first_column = aa_df.pop('Seq_stats')
         # insert column using insert(position,column_name,
         # first_column) function
-        aa_df.insert(0, 'Seq_info', first_column)
+        aa_df.insert(0, 'Seq_stats', first_column)
         return(aa_df)
 
 def translate_NT(result, corr_frame, direc, out_csv):
@@ -874,7 +874,8 @@ def translate_NT(result, corr_frame, direc, out_csv):
     id_f=1
     aligner_init = align_class.get(str(align_method), None)  # Get the chosen class, or None if input is bad
     aa_data_align=pd.DataFrame(columns = list(df_aa.columns))
-    aa_data_align=aa_data_align.append(df_aa.iloc[:,0])
+    #aa_data_align=aa_data_align.append(df_aa.iloc[:,0])
+    aa_data_align['Seq_stats']=df_aa.iloc[:,0]
     seq_info_dic=df_aa.iloc[:,0]
     seq_info_dic={df_aa.columns[0]: df_aa.iloc[:,0]}
     dic_aa_align=dict()
@@ -910,7 +911,7 @@ def translate_NT(result, corr_frame, direc, out_csv):
     df_aa_align.to_csv(out_csv)
 
     for i, ref_fr in enumerate(df_aa_align.columns[1:], start=1):
-        aa_file="unaligned/Exp2_3p_mcherry_SP4_AA_" + ref_fr.split("|")[0] + ".fasta"
+        aa_file="aligned/AA/" +result.split("/")[-1].split(".")[-2] + '_' +ref_fr.split("|")[0] + ".fasta"
         with open(aa_file, "w") as f:
             f.write(">0_Ref_" + ref_fr.split("|")[0] + "\n")
             f.write(ref_fr.split("|")[1] + "\n")
