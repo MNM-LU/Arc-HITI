@@ -1,0 +1,5 @@
+#File	/tmp/tmpwg1ac_z3.fastq.gz
+#Total	162099
+#Matched	52033	32.09952%
+#Name	Reads	ReadsPct
+1	52033	32.09952%

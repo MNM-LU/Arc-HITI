@@ -1,0 +1,5 @@
+#File	/tmp/tmp711ofrgi.fastq.gz	/tmp/tmpujkb3f02.fastq.gz
+#Total	2432260
+#Matched	58	0.00238%
+#Name	Reads	ReadsPct
+1	58	0.00238%
