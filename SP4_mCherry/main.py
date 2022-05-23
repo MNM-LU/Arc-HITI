@@ -14,7 +14,6 @@ os.chdir("/media/data/AtteR/projects/hiti/pipeline_output_reorg/hiti-arc-analysi
 
 #############
 #SP4 3' 
-trimmed_df="/media/data/AtteR/projects/hiti/dfs/full_df_trim_mcherry_p3_HITI_SP4.csv"
 transgene = 'mCherry'
 read_fwd = True
 direc = "3p"
@@ -30,9 +29,9 @@ rliteral = ' literal=GGCGAGGAGCTGTT'
 target_sequence="ctgtacaagATGGAGCTGGACCATATGACCCGGTGCACCGGCGGCCTCCACGCCTACCCTGCCCCGCGGGGTGGGCCGGCCGCCAAAC"
 target_sequence=target_sequence.upper()
 
+
+############
 df_full=import_reads_process_mini(base_path, target_sequence,filterlitteral,lliteral,rliteral,read_fwd, direc)
-
-
 df_trim_full=calculate_perc_sd(df_full)
 result="unaligned/Exp2_3p_mcherry_SP4.fasta"
 save_fasta(result, df_trim_full, target_sequence)
