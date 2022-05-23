@@ -1,5 +1,5 @@
-#File	/tmp/tmp450anycs.fastq.gz
+#File	/tmp/tmpv_f4s7zu.fastq.gz
 #Total	1271948
-#Matched	831034	65.33553%
+#Matched	831032	65.33538%
 #Name	Reads	ReadsPct
-1	831034	65.33553%
+1	831032	65.33538%

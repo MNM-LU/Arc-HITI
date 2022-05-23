@@ -23,9 +23,9 @@ os.chdir("/media/data/AtteR/projects/hiti/pipeline_output_reorg/hiti-arc-analysi
 read_fwd = True
 direc = "3p"
 base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-only/SP4_3p"
-filterlitteral = 'GCGCGGGTCTTGTAGTTGCCGTCGTCCTTGAAGAAGATGGTGCGCTCCTGGACG'
-lliteral = ' literal=CCTCAGAGGAGTTCT'
-rliteral = ' literal=GGCGAGGAGCTGTT'
+filterlitteral = 'CGGCGGCATGGACGAGCTGTACAAGATGGAGCTGGACCATATGACCCGGTGCACCGGCG'
+lliteral = ' literal=CGGCGGCATGGACGAG'
+rliteral = ' literal=CTGGGTCAAGCGTGAGATG'
 target_sequence="ctgtacaagATGGAGCTGGACCATATGACCCGGTGCACCGGCGGCCTCCACGCCTACCCTGCCCCGCGGGGTGGGCCGGCCGCCAAAC"
 target_sequence=target_sequence.upper()
 
@@ -93,7 +93,7 @@ df_trim_full.to_csv(csv_file)
 #NT
 ####################
 output_path="aligned/NT/"
-result=output_path + "Exp2_5p_mcherry_SP4_local2.fasta"
+result=output_path + "Exp2_5p_mcherry_SP4_local2_prim.fasta"
 aligner(df_trim_full, target_sequence, "align_local2", result, output_path, lliteral, rliteral,4,2)
 ####################
 
