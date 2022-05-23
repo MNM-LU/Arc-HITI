@@ -14,9 +14,6 @@ os.chdir("/media/data/AtteR/projects/hiti/pipeline_output_reorg/hiti-arc-analysi
 
 #mCherry 3p
 #############
-transgene = 'mCherry'
-assay_end = '3p'
-
 read_fwd = True
 filterlitteral='CTCCCTCCACACGTGCATCTCACGCTTGACCCAGCGCTCCAGGTTGGCGATGGT' 
 direc="3p"
@@ -24,16 +21,17 @@ animal_list = [7, 8, 9, 10, 11, 12]
 filterlitteral = 'CTCCCTCCACACGTGCATCTCACGCTTGACCCAGCGCTCCAGGTTGGCGATGGT'
 lliteral = ' literal=CGGCGGCATGGACGAG'
 rliteral = ' literal=CATATGACCACCGG' 
-#filterlitteral = 'GGACGACGGCAACTACAAGACCCGCGCCGAGGTGAAGTTCGAGGGCGACACCCTGGTGAACCGCATCGAGCTGAAGG'
-#lliteral = ' literal=GTGGTCATATGGTCCAGCTCC'
-#rliteral = ' literal=TCGTCCATGCCGAG'
 
 base_path='/media/data/AtteR/projects/hiti/FASTQ_Generation_2020-03-09_08_30_27Z-13364364/'
 export_path='/media/data/AtteR/projects/hiti/pipeline_output_reorg/'
 #original, full length
-target_sequence = "CGGCGGCATGGACGAGCTGTACAAGGTCGGTGCTGCGGCTCCGCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCATATGACCACCGGCGGCCTCCACGCCTACCCTGCCCCGCGGGGTGGGCCGGCCGCCAAACCCAATGTGATCCTGCAGATTGGTAAGTGCCGAGCTGAGATGCTGGAACACGTACGGAGGACCCACCGGCATCTGTTGACCGAAGTGTCCAAGCAGGTGGAGCGAGAGCTGAAAGGGTTGCACAGGTCGGTGGGCAAGCTGGAGAACAACTTGGACGGCTACGTGCCCACCGGCGACTCACAGCGCTGGAAGAAGTCCATCAAGGCCTGTCTTTGCCGCTG"
-
+target_sequence = "CGGCGGCATGGACGAGCTGTACAAGGTCGGTGCTGCGGCTCCGCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCATATGACCACCGGCGGCCTCCACGCCTACCCTGCCCCGCGGGGTGGGCCGGCCGCCAAACCCAATGTGATCCTGCAGATTGGTAAGTGCCGAGCTGAGATGCTGGAACACGTACGGAGGACCCACCGGCATCTGTTGACCGAAGTGTCCAAGCAGGTGGAGCGA"
 target_sequence=target_sequence.upper()
+
+
+#read preprocessing for each sample: trim, record read counts before and after trimming, cluster the reads 
+#using starcode, calculate percentage, merge into the full dataframe containing read count-and percentage for
+#each sample.
 full_df=analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd, animal_list, target_sequence, direc)
 
 full_df_trim=calculate_perc_sd(full_df)

@@ -13,9 +13,6 @@ os.chdir("/media/data/AtteR/projects/hiti/pipeline_output_reorg/hiti-arc-analysi
 
 ####################
 #SP1 3' 
-trimmed_df="/media/data/AtteR/projects/hiti/dfs/full_df_trim_mcherry_p3_HITI_SP1.csv"
-transgene = 'mCherry'
-assay_end = '3p'
 read_fwd = True
 lliteral=" literal=CGGCGGCATGGACGAG"
 rliteral=" literal=GTCTTCTACCGTCTGGAGAGG"
@@ -26,8 +23,10 @@ target_sequence="ctgtacaagccgaacGTTCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCATATGACC
 target_sequence=target_sequence.upper()
 
 #########
-df_full_3p=import_reads_process_mini(base_path, target_sequence, filterlitteral, lliteral,rliteral,read_fwd, direc)
-
+#read preprocessing for each sample: trim, record read counts before and after trimming, cluster the reads 
+#using starcode, calculate percentage, merge into the full dataframe containing read count-and percentage for
+#each sample.
+df_full=import_reads_process_mini(base_path, target_sequence, filterlitteral, lliteral,rliteral,read_fwd, direc)
 df_full=import_reads_process_mini(base_path, target_sequence, filterlitteral, lliteral,rliteral,read_fwd, direc)
 df_trim_full2=calculate_perc_sd(df_full)
 result="unaligned/Exp2_3p_mcherry_SP1.fasta"

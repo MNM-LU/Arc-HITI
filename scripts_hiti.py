@@ -327,9 +327,7 @@ def import_reads_process(data_dict, transgene,assay_end,filterlitteral,lliteral,
 from functools import reduce
 
 
-#make a function that counts the number of reads in the fasta file before and after trimming for each sub_sample
-#save into df
-
+#reads in the read files
 def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,read_fwd, direc):
     complete_df = pd.DataFrame(columns=['sequence'])
     df_animal=[]
@@ -350,19 +348,15 @@ def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,re
                 animal_p7 = glob.glob(base_path+'/' + read.replace("R1","R2"))
                 #display('Forward run Animal: '+animal_nr)
             else:
-                print("===")
-                break
-                # animal_p5 = glob.glob(search_path+'/*R2*')
-                # animal_p7 = glob.glob(search_path+'/*R1*')
+                animal_p5 = glob.glob(base_path+'/' + read.replace("R1","R2"))
+                animal_p7 = glob.glob(base_path+'/' + read)
                 #display('Reverse run Animal: '+animal_nr)
 
             cat_p5= "cat "+" ".join(animal_p5)+" > "+animal_p5_cat
             print(cat_p5)
-            #os.system(cat_p5)
-            call([cat_p5], shell=True) #call caused the terminal to freeze so switched to os
+            call([cat_p5], shell=True) 
             cat_p7= "cat "+" ".join(animal_p7)+" > "+animal_p7_cat
             call([cat_p7], shell=True)
-            #os.system(cat_p7)
 
             kmer = '20'
             hdist = '3'
@@ -402,11 +396,6 @@ def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,re
             df['percent'] = (df['count'] / total_counts)
             df = df.rename(columns={'percent':animal_group_name+'_percent','count':animal_group_name+'_count',})
             complete_df=pd.merge(complete_df, df, on=['sequence'], how='outer')
-
-            #df_animal.append(df)
-    #we iterate over all the individual dfs and merge them by taking the seq column of all dfs and placing them under the new dfs seq and do the same with counts
-    #df_all_lanes=reduce(lambda  left,right: pd.merge(left,right,on=['sequence'], how='outer'), df_animal)
-    #reduce is useful when you need to apply a function to an iterable and reduce it to a single cumulative value.
     return(complete_df)
 
 def create_datadict(base_path, transgene):
@@ -431,11 +420,6 @@ def create_datadict(base_path, transgene):
         return(sorted(list(((set(animals))))))
 
     animals = animal_names(group_folders)
-    animals
-
-#add daa file containing how many reads before and after filtering
-    #key: animal number and whether it comes from striatum or hippocampus, value: the paths to all lane subdirs
-
     data_dict = dict()
     for animal_group in animals:
         lanes=[]
@@ -446,7 +430,6 @@ def create_datadict(base_path, transgene):
                 data_dict[animal_group]=lanes
 
     return(data_dict)
-
 
 
 import re
@@ -497,8 +480,6 @@ class align_local3():
         self.gep=gep
     def align(self):
         alignments = pairwise2.align.localms(str(self.ref), str(self.amplicon), 2, -1, self.gop, self.gep)
-        #alignments = pairwise2.align.localms(self.target_sequence, self.amplicon, 2, -1, -.5, -.1)
-        #alignments= pairwise2.align.localds(self.target_sequence, self.amplicon, 2, -1, -.5, -.1)
         try:
             alignm=format_alignment(*alignments[0])
             seq_align = alignm.split("\n")[2]
@@ -520,8 +501,7 @@ class align_global():
         alignm=format_alignment(*alignments[0])
         seq_align = alignm.split("\n")[2]
         return(seq_align)
-    #nt_count=count_nts(seq_align)
-    #seq_and_perc[group]["match"]
+
 class align_global2():
     aligned_data=dict()
 
@@ -533,7 +513,6 @@ class align_global2():
     def align(self):
         alignments = pairwise2.align.globalxx(self.ref, self.amplicon)
         alignm=format_alignment(*alignments[0])
-        #make string objects, save into a list. then count which one has least ----, cut off the rest of the reference based on this?
         seq_align = alignm.split("\n")[2]
         return(seq_align)
 

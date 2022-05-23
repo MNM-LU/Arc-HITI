@@ -1,5 +1,4 @@
-#File	/tmp/tmpy743ilp5.fastq.gz
+#File	/tmp/tmppjujxes4.fastq.gz
 #Total	251485
-#Matched	250936	99.78170%
+#Matched	0	0.00000%
 #Name	Reads	ReadsPct
-1	250936	99.78170%

@@ -29,6 +29,9 @@ export_path = '/media/data/AtteR/projects/hiti/pipeline_output_reorg/'
 target_sequence=target_sequence.upper()
 direc="3p"
 ####################
+#read preprocessing for each sample: trim, record read counts before and after trimming, cluster the reads 
+#using starcode, calculate percentage, merge into the full dataframe containing read count-and percentage for
+#each sample.
 full_df=analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd, animal_list, target_sequence, direc)
 full_df_trim=calculate_perc_sd(full_df)
 result="unaligned/Exp1_3p_GFP_LP1.fasta"
@@ -62,7 +65,7 @@ translate_NT(result, corr_frame,direc, out_csv)
 #############
 transgene = 'GFP'
 read_fwd = True
-
+direc="5p"
 #(2561-2210)%3
 animal_list = [13, 14, 15, 16, 17, 18] 
 filterlitteral = 'GCGCGGGTCTTGTAGTTGCCGTCGTCCTTGAAGAAGATGGTGCGCTCCTGGACG'
@@ -74,10 +77,10 @@ export_path = '/media/data/AtteR/projects/hiti/pipeline_output_reorg/'
 #target_sequence = "GTGGTCATATGGTCCAGCTCCATCTGGTCGTCGGTGCTGCGGCTCCGcggagccgcagcaccgaCCTTGTACAGCTCGTCCATGCCGAGAGTGATCCCGGCGGCGGTCACGAACTCCAGCAGGACCATGTGATCGCGCT"
 
 target_sequence=target_sequence.upper()
-#########
-#full_df=analyze_all()
 
-direc="5p"
+#read preprocessing for each sample: trim, record read counts before and after trimming, cluster the reads 
+#using starcode, calculate percentage, merge into the full dataframe containing read count-and percentage for
+#each sample.
 full_df=analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd, animal_list, target_sequence, direc)
 
 full_df_trim=calculate_perc_sd(full_df)
