@@ -13,6 +13,12 @@ from scripts_hiti import calculate_perc_sd2
 os.chdir("/media/data/AtteR/projects/hiti/pipeline_output_reorg/hiti-arc-analysis/SP4_mCherry")
 
 #############
+#User configurable variables
+
+
+#############
+
+#############
 #SP4 3' 
 read_fwd = True
 direc = "3p"

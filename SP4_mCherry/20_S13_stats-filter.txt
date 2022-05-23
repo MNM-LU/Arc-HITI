@@ -1,5 +1,0 @@
-#File	/tmp/tmpjygazvek.fastq.gz	/tmp/tmp5i54cjr6.fastq.gz
-#Total	302558
-#Matched	44	0.01454%
-#Name	Reads	ReadsPct
-1	44	0.01454%
