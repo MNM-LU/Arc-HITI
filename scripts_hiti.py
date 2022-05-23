@@ -348,9 +348,8 @@ def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,re
                 animal_p7 = glob.glob(base_path+'/' + read.replace("R1","R2"))
                 #display('Forward run Animal: '+animal_nr)
             else:
-                continue
-                # animal_p5 = glob.glob(base_path+'/' + read.replace("R1","R2"))
-                # animal_p7 = glob.glob(base_path+'/' + read)
+                animal_p5 = glob.glob(base_path+'/' + read.replace("R1","R2"))
+                animal_p7 = glob.glob(base_path+'/' + read)
                 #display('Reverse run Animal: '+animal_nr)
 
             cat_p5= "cat "+" ".join(animal_p5)+" > "+animal_p5_cat
