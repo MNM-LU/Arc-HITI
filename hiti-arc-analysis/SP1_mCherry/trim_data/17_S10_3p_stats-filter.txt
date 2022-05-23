@@ -1,5 +1,0 @@
-#File	/tmp/tmp18m61agm.fastq.gz
-#Total	532208
-#Matched	517647	97.26404%
-#Name	Reads	ReadsPct
-1	517647	97.26404%

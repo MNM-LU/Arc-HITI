@@ -1,5 +1,0 @@
-#File	/tmp/tmp3gadez2c.fastq.gz
-#Total	485629
-#Matched	483727	99.60834%
-#Name	Reads	ReadsPct
-1	483727	99.60834%

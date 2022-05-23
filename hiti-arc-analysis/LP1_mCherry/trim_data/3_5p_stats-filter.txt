@@ -1,5 +1,0 @@
-#File	/tmp/tmpm908srmg.fastq.gz	/tmp/tmprfgpzi_g.fastq.gz
-#Total	1866126
-#Matched	19	0.00102%
-#Name	Reads	ReadsPct
-1	19	0.00102%
