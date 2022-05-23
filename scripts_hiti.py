@@ -857,6 +857,7 @@ class translate_5p:
         # first_column) function
         aa_df.insert(0, 'Seq_stats', first_column)
         return(aa_df)
+from Bio.Align.Applications import ClustalwCommandline
 
 def translate_NT(result, corr_frame, direc, out_csv):
     gop, gep=-3,-1
@@ -865,6 +866,10 @@ def translate_NT(result, corr_frame, direc, out_csv):
 
     trans_init = strand_dir.get(str(direc), None)  # Get the chosen class, or None if input is bad
     df_aa = trans_init(result, corr_frame).translate_nt()
+    for i, seq in enumerate(df_aa.iloc[:,1]):
+        if seq=='':
+            df_aa=df_aa.drop(df_aa.index[i]) 
+
     align_method="align_local3"
     align_class = {"align_local": align_local,
             "align_local2": align_local2,
@@ -911,14 +916,14 @@ def translate_NT(result, corr_frame, direc, out_csv):
     df_aa_align.to_csv(out_csv)
 
     for i, ref_fr in enumerate(df_aa_align.columns[1:], start=1):
-        aa_file="aligned/AA/" +result.split("/")[-1].split(".")[-2] + '_' +ref_fr.split("|")[0] + ".fasta"
+        aa_file="aligned/AA/fasta/" +result.split("/")[-1].split(".")[-2] + '_' +ref_fr.split("|")[0] + ".fasta"
         with open(aa_file, "w") as f:
             f.write(">0_Ref_" + ref_fr.split("|")[0] + "\n")
             f.write(ref_fr.split("|")[1] + "\n")
             for a, aa_seq in enumerate(list(df_aa_align.iloc[:,i])):
                 f.write(">"+ df_aa_align.iloc[a,0] + "\n")
                 f.write(aa_seq + "\n")
-        mview_file= "aligned/AA/" +aa_file.split("/")[-1].split(".")[-2] + ".html"
+        mview_file= "aligned/AA/html/" +aa_file.split("/")[-1].split(".")[-2] + ".html"
         mview_command='/media/data/AtteR/Attes_bin/mview -in fasta -html head -css on -reference 1 -coloring identity ' + aa_file + '>' + mview_file
         call([mview_command], shell=True)
         print("Alignments created in html format! Files found inside aligned/AA directory")

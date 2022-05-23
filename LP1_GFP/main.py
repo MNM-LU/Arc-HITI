@@ -16,29 +16,27 @@ os.chdir("/media/data/AtteR/projects/hiti/pipeline_output_reorg/hiti-arc-analysi
 transgene = 'GFP'
 assay_end = '3p'
 animal_list = [20, 21, 22, 23, 24] 
-
 read_fwd = True
-# filterlitteral = 'GGACGACGGCAACTACAAGACCCGCGCCGAGGTGAAGTTCGAGGGCGACACCCTGGTGAACCGCATCGAGCTGAAGG'
-# lliteral = ' literal=GGACGACGGCAACTACAAGA' 
-# rliteral = ' literal=GGAGCTGGACCATATGACCAC'
+
+#orig
 filterlitteral = 'GGACGACGGCAACTACAAGACCCGCGCCGAGGTGAAGTTCGAGGGCGACACCCTGGTGAACCGCATCGAGCTGAAGG'
 lliteral = ' literal=GTGGTCATATGGTCCAGCTCC'
 rliteral = ' literal=TCGTCCATGCCGAG'
-target_sequence = "TTAGCTTCTGCCTCAGAGGAGTTCTTAGCCTGTTAACAGGCGCGCCACCATGGTGAGCAAGGGCGAGGAGCTGTTCACCGGGGTGGTGCCCATCCTGGTCGAGCTGGACGGCGACGTAAACGGCCACAAGTTCAGCGTGTCCGGCGAGGGCGAGGGCGATGCCACCTACGGCAAGCTGACCCTGAAGTTCATCTGCACCACCGGCAAGCTGCCCGTGCCCTGGCCCACCCTCGTGACCACCCTGACCTACGGCGTGCAGTGCTTCAGCCGCTACCCCGACCACATGAAGCAGCACGACTTCTTCAAGTCCGCCATGCCCGAAGGCTACGTCCAGGAGCGCACCATCTTCTTCAAGGACGACGGCAACTACAAGACCCGCGCCGAGGTGAAGTTCGAGGGC"
+target_sequence = "GTGGTCATATGGTCCAGCTCCATCTGGTCGTCGGTGCTGCGGCTCCGCGGAGCCGCAGCACCGACCTTGTACAGCTCGTCCATGCCGAGAGTGATCCCGGCGGCGGTCACGAACTCCAGCAGGACCATGTGATCGCGCTTCTCGTTGGGGTCTTTGCTCAGGGCGGACTGGGTGCTCAGGTAGTGGTTGTCGGGCAGCAGCACGGGGCCGTCGCCGATGGGGGTGTTCTGCTGGTAGTGGTCGGCGAGCTGCACGCTGCCGTCCTCGATGTTGTGGCGGATCTTGAAGTTCACCTTGATGCCGTTCTTCTGCTTGTCGGCCATGATATAGACGTTGTGGCTGTTGTAGTTGTACTCCAGCTTGTGCCCCAGGATGTTGCCGTCCTCCTTGAAGTCGA"
 
 base_path = '/media/data/AtteR/projects/hiti/FASTQ_Generation_2020-03-09_08_30_27Z-13364364/'
 export_path = '/media/data/AtteR/projects/hiti/pipeline_output_reorg/'
 target_sequence=target_sequence.upper()
 direc="3p"
+####################
 full_df=analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd, animal_list, target_sequence, direc)
-
-full_df_trim=calculate_perc_sd2(full_df)
+full_df_trim=calculate_perc_sd(full_df)
 result="unaligned/Exp1_3p_GFP_LP1.fasta"
 csv_file="/".join(result.split("/")[:-1]) +"/"+ result.split("/")[-1].split(".")[0] + ".csv"
 full_df_trim.to_csv(csv_file)
 save_fasta(result, full_df_trim, target_sequence)
 full_df_trim=pd.read_csv(csv_file,  index_col=[0])
-#########
+####################
 #NT
 ####################
 output_path="aligned/NT/"
@@ -67,12 +65,13 @@ read_fwd = True
 
 #(2561-2210)%3
 animal_list = [13, 14, 15, 16, 17, 18] 
-filterlitteral = 'ctccgCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCATATGACCAC'
-lliteral = ' literal=GTGGTCATATGGTCCAGCTCC'
-rliteral = ' literal=GGACGACGGCAACTACAAGA'
+filterlitteral = 'GCGCGGGTCTTGTAGTTGCCGTCGTCCTTGAAGAAGATGGTGCGCTCCTGGACG'
+lliteral = ' literal=CCTCAGAGGAGTTCT'
+rliteral = ' literal=GGCGAGGAGCTGTT'
 base_path = '/media/data/AtteR/projects/hiti/FASTQ_Generation_2020-03-09_08_30_27Z-13364364/'
+target_sequence = "TTAGCTTCTGCCTCAGAGGAGTTCTTAGCCTGTTAACAGGCGCGCCACCATGGTGAGCAAGGGCGAGGAGCTGTTCACCGGGGTGGTGCCCATCCTGGTCGAGCTGGACGGCGACGTAAACGGCCACAAGTTCAGCGTGTCCGGCGAGGGCGAGGGCGATGCCACCTACGGCAAGCTGACCCTGAAGTTCATCTGCACCACCGGCAAGCTGCCCGTGCCCTGGCCCACCCTCGTGACCACCCTGACCTACGGCGTGCAGTGCTTCAGCCGCTACCCCGACCACATGAAGCAGCACGACTTCTTCAAGTCCGCCATGCCCGAAGGCTACGTCCAGGAGCGCACCATCTTCTTCAAGGACGACGGCAACTACAAGACCCGCGCCGAGGTGAAGTTCGAGGGC"
 export_path = '/media/data/AtteR/projects/hiti/pipeline_output_reorg/'
-target_sequence = "GTGGTCATATGGTCCAGCTCCATCTGGTCGTCGGTGCTGCGGCTCCGcggagccgcagcaccgaCCTTGTACAGCTCGTCCATGCCGAGAGTGATCCCGGCGGCGGTCACGAACTCCAGCAGGACCATGTGATCGCGCT"
+#target_sequence = "GTGGTCATATGGTCCAGCTCCATCTGGTCGTCGGTGCTGCGGCTCCGcggagccgcagcaccgaCCTTGTACAGCTCGTCCATGCCGAGAGTGATCCCGGCGGCGGTCACGAACTCCAGCAGGACCATGTGATCGCGCT"
 
 target_sequence=target_sequence.upper()
 #########
@@ -81,7 +80,7 @@ target_sequence=target_sequence.upper()
 direc="5p"
 full_df=analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd, animal_list, target_sequence, direc)
 
-full_df_trim=calculate_perc_sd2(full_df)
+full_df_trim=calculate_perc_sd(full_df)
 result="unaligned/Exp1_5p_GFP_LP1.fasta"
 csv_file="/".join(result.split("/")[:-1]) +"/"+ result.split("/")[-1].split(".")[0] + ".csv"
 full_df_trim.to_csv(csv_file)

@@ -75,6 +75,9 @@ lliteral = ' literal=CCATGTTATCCTCCTCGCCC'
 #rliteral = ' literal=CCTCTGAGGCAGAA' old from the original script
 rliteral = ' literal=GTGTCTCCGGTCCCCAAAAT'
 
+#lliteral = ' literal=TTATCCTCCTCGCCC'
+#rliteral = ' literal=CCTCTGAGGCAGAA'
+
 base_path = '/media/data/AtteR/projects/hiti/FASTQ_Generation_2020-03-09_08_30_27Z-13364364/'
 export_path = '/media/data/AtteR/projects/hiti/pipeline_output_reorg/'
 animal_list = [1, 2, 3, 4, 5, 6]
@@ -95,7 +98,6 @@ output_path="aligned/NT/"
 result=output_path+"Exp1_5p_mcherry_LP1_local2_prim.fasta"
 aligner(full_df_trim_orig, target_sequence, "align_local2", result, output_path, lliteral, rliteral,3,1)
 ####################
-
 
 
 #AA
