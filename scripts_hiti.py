@@ -53,7 +53,7 @@ def calculate_perc_sd(full_df):
     full_df['sd']=full_df[perc_cols].std(axis=1)
 
     full_df[count_cols]
-    full_df_trim = full_df.drop(full_df[full_df["total_reads_seq"] <= 3].index)
+    full_df_trim = full_df.drop(full_df[full_df["total_reads_seq"] <= 1].index)
     return(full_df_trim)
 
 

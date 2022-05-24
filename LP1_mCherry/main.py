@@ -2,14 +2,22 @@ from cmath import nan
 from heapq import merge
 import pandas as pd
 import os 
-os.getcwd()
-os.chdir("/media/data/AtteR/projects/hiti/pipeline_output_reorg/hiti-arc-analysis")
-from scripts_hiti import *
-from scripts_hiti import analyze_all
-from scripts_hiti import calculate_perc_sd2
-from scripts_hiti import translate_nt_aa_csv
 
-os.chdir("/media/data/AtteR/projects/hiti/pipeline_output_reorg/hiti-arc-analysis/LP1_mCherry")
+#############
+#User configurable variables
+#############
+#scripts_dir is the root directory of the analysis folder which contains the scripts_hiti.py script. All functions and classes
+#used in the analysis have been stored in this file.
+scripts_dir="/media/data/AtteR/projects/hiti/pipeline_output_reorg/hiti-arc-analysis"
+os.chdir(scripts_dir)
+from scripts_hiti import *
+#sample directory (inside which all the subdirectories exist)
+sample_dir=scripts_dir + "/LP1_mCherry/"
+os.chdir(sample_dir)
+#path to the analysis folder
+base_path = '/media/data/AtteR/projects/hiti/FASTQ_Generation_2020-03-09_08_30_27Z-13364364/'
+export_path=sample_dir = "trimmed_data/"
+#############
 
 
 #mCherry 3p
@@ -19,11 +27,8 @@ read_fwd = True
 direc="3p"
 animal_list = [7, 8, 9, 10, 11, 12]
 filterlitteral = 'CTCCCTCCACACGTGCATCTCACGCTTGACCCAGCGCTCCAGGTTGGCGATGGT'
-#filterlitteral = 'CGGCGGCATGGACGAGCTGTACAAGGtcggtgctgcggctccgCGGAGCCGCAGCAC'
 lliteral = ' literal=CGGCGGCATGGACGAG'
 rliteral = ' literal=CATATGACCACCGG' 
-base_path='/media/data/AtteR/projects/hiti/FASTQ_Generation_2020-03-09_08_30_27Z-13364364/'
-export_path='/media/data/AtteR/projects/hiti/pipeline_output_reorg/'
 #original, full length
 target_sequence = "CTGTACAAGGtcggtgctgcggctccgCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCATATGACCACCGGCGGCCTCCACGCCTACCCTGCCCCGCGGGGTGGGCCGGCCGCCAAACCCAATGTGATCCTGCAGATTGGTAAGTGCCGAGCTGAGATGCTGGAACACGTACGGAGGACCCACCGGCATCTGTTGACCGAAGTGTCCAAGCAGGTGGAGCGAGAGCTGAAAGGGTTGCACAGGTCGGTGGGCAAGCTGGAGAACAACTTGGACGGCTACGTGCCCACCGGCGACTCACAGCGCTGGAAGAAGTCCATCAAGGCCTGTCTTTGCCGCTGCCAGGAGACCATCGCCAACCTGGAGCGC"
 target_sequence=target_sequence.upper()
@@ -80,14 +85,15 @@ rliteral = ' literal=CCTCTGAGGCAGAA'
 base_path = '/media/data/AtteR/projects/hiti/FASTQ_Generation_2020-03-09_08_30_27Z-13364364/'
 export_path = '/media/data/AtteR/projects/hiti/output/'
 target_sequence = "TTGCTCACCATGGTGGCGCGCCTGTTAACAGGCTAAGAACTCCTCTGAGGCAGAAGCCGGAAGGGAGCAGAGCCGGCGGCTGCAGCGGCAGTGGCAGGTGTGCGGTGCCGGAGGAGCTTAGCGAGTGTGGCAGGCTCGTCGCCGCTGAAGCTAGAGAGGCCCAGAGACTGCGGCTGCGGGAGAACTCGCTTGAGCTCTGCACCGAAACCGCCACCAGCGGCTATTTATGCTGCGCGGGGCCCGTGGGCGGCAGCTCGTGGAGCCCTGGCTCCCATTGGCGGCGCCCAGGCTCCGCGCCAGAGCCCGCCCGCGCCCTCTCCTGCCGCAGGCCCCGCCTTCCGCGCCTACTCGCTCCCCTCCCGTGGGTGCCCTCAAGGACCCGCCCCTTCACAGCCCCGAGTGACTAATGTGCTCTGCTGCGCGCCTCCCACCGGGAGGGATTTTGGGGACCGGAGACAC"
-
-base_path = '/media/data/AtteR/projects/hiti/FASTQ_Generation_2020-03-09_08_30_27Z-13364364/'
-export_path = '/media/data/AtteR/projects/hiti/pipeline_output_reorg/'
 animal_list = [1, 2, 3, 4, 5, 6]
-#target_sequence = "CCATGTTATCCTCCTCGCCCTTGCTCACCATGGTGGCGCGCCTGTTAACAGGCTAAGAACTCCTCTGAGGCAGAAGCCGGAAGGGAGCAGAGCCGGCGGCTGCAGCGGCAGTGGCAGGTGTGCGGTGCCGGAGGAGCTTAGCGAGTGTGGCAGGCTCGTCGCCGCTGAAGCTAGAGAGGCCCAGAGACTGCGGCTGCGGGAGAACTCGCTTGAGCTCTGCACCGAAACCGCCACCAGCGGCTATTTATGCTGCGCGGGGCCCGTGGGCGGCAGCTCGTGGAGCCCTGGCTCCCATTGGCGGCGCCCAGGCTCCGCGCCAGAGCCCGCCCGCGCCCTCTCCTGCCGCAGGCCCCGCCTTCCGCGCCTACTCGCTCCCCTCCCGTGGGTGCCCTCAAGGACCCGCCCCTTCACAGCCCCGAGTGACTAATGTGCTCTGCTGCGCGCCTCCCACCGGGAGGGATTTTGGGGACCGGAGACAC"
 target_sequence = target_sequence.upper()
-full_df=analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd, animal_list, target_sequence, direc)
 
+############
+#read preprocessing for each sample: trim, record read counts before and after trimming, cluster the reads 
+#using starcode, calculate percentage, merge into the full dataframe containing read count-and percentage for
+#each sample.
+
+full_df=analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd, animal_list, target_sequence, direc)
 full_df_trim=calculate_perc_sd(full_df)
 result="unaligned/Exp1_5p_mcherry_LP1.fasta"
 save_fasta(result, full_df_trim, target_sequence)

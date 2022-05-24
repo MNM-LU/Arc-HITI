@@ -2,16 +2,23 @@ from cmath import nan
 from heapq import merge
 import pandas as pd
 import os 
-os.getcwd()
-os.chdir("/media/data/AtteR/projects/hiti/pipeline_output_reorg/hiti-arc-analysis")
+
+#############
+#User configurable variables
+#############
+#scripts_dir is the root directory of the analysis folder which contains the scripts_hiti.py script. All functions and classes
+#used in the analysis have been stored in this file.
+scripts_dir="/media/data/AtteR/projects/hiti/pipeline_output_reorg/hiti-arc-analysis"
+os.chdir(scripts_dir)
 from scripts_hiti import *
-from scripts_hiti import import_reads_process_mini
-from scripts_hiti import calculate_perc_sd2
+from scripts_hiti import analyze_all
+#sample directory (inside which all the subdirectories exist)
+sample_dir=scripts_dir + "/SP1_mCherry"
+os.chdir(sample_dir)
+#path to the analysis folder
+base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-only/SP1_3p"
+#############
 
-os.chdir("/media/data/AtteR/projects/hiti/pipeline_output_reorg/hiti-arc-analysis/SP1_mCherry")
-
-
-####################
 #SP1 3' 
 read_fwd = True
 lliteral=" literal=CGGCGGCATGGACGAG"
@@ -26,7 +33,6 @@ target_sequence=target_sequence.upper()
 #read preprocessing for each sample: trim, record read counts before and after trimming, cluster the reads 
 #using starcode, calculate percentage, merge into the full dataframe containing read count-and percentage for
 #each sample.
-df_full=import_reads_process_mini(base_path, target_sequence, filterlitteral, lliteral,rliteral,read_fwd, direc)
 df_full=import_reads_process_mini(base_path, target_sequence, filterlitteral, lliteral,rliteral,read_fwd, direc)
 df_trim_full2=calculate_perc_sd(df_full)
 result="unaligned/Exp2_3p_mcherry_SP1.fasta"
@@ -47,8 +53,8 @@ result="unaligned/Exp2_3p_mcherry_SP1.fasta"
 output_html="aligned/AA/Exp2_3p_mcherry_mcherry_SP1_AA.html"
 out_csv="aligned/AA/Exp2_3p_mcherry_SP1_AA.csv"
 translate_NT(result, corr_frame,direc, out_csv)
-
 ####################
+
 
 
 ####################
@@ -58,23 +64,18 @@ filterlitteral = 'GCCTAGGCTAAGAACTCCTCCGCGCCACCATGGTGAGCAAGGGCGAGGAGGATAACATGG'
 #rev compl of prev rliteral
 lliteral=' literal=CCATGTTATCCTCCTCGCCC'
 rliteral = ' literal=GTGTCTCCGGTCCCCAAAAT'
-export_path="aligned/trim_data/"
-target_sequence= "CCCTCCCGGTGGGAGGCGCGCAGCAGAGCACATTAGTCACTCGGGGCTGTGAAGGGGCGGGTCCTTGAGGGCACCCACGGGAGGGGAGCGAGTAGGCGCGGAAGGCGGGGCCTGCGGCAGGAGAGGGCGCGGGCGGGCTCTGGCGCGGAGCCTGGGCGCCGCCAATGGGAGCCAGGGCTCCACGAGCTGCCGCCCACGGGCCCCGCGCAGCATAAATAGCCGCTGGTGGCGGTTTCGGTGCAGAGCTCAAGCGAGTTCTCCCGCAGCCGCAGTCTCTGGGCCTCTCTAGCTTCAGCGGCGACGAGCCTGCCACACTCGCTAAGCTCCTCCGGCACCGCACACCTGCCACTGCCGCTGCAGCCGCCGGCTCTGCTCCCTTCCGGCTTCTGCCTCAGAGGAGTTCTTAGCCTaggctaagaactcctccgcgccaccatggtgagcaa"
-target_sequence="CTTCCGGCTTCTGCCTCAGAGGAGTTCTTAGCCTaggctaagaactcctccgcgccaccatggtgagcaagggcgaggaggataacatgg"
-target_sequence="ttgctcaccatggtggcgcggaggagttcttagcctAGGCTAAGAACTCCTCTGAGGCAGAAGCCGGAAGGGAGCAGAGCCGGCGGCTGCAGCGGCAGTGGCAGGTGTGCGGTGCCGGAGGA"
-
-target_sequence=target_sequence.upper()
 read_fwd = True
 direc="5p"
 #rev compl
 target_sequence="tgctcaccatggtggcgcggaggagttcttagcctAGGCTAAGAACTCCTCTGAGGCAGAAGCCGGAAGGGAGCAGAGCCGGCGGCTGCAGCG"
 target_sequence=target_sequence.upper()
-
 base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-only/SP1_5p"
-#########
+
+############
+#read preprocessing for each sample: trim, record read counts before and after trimming, cluster the reads 
+#using starcode, calculate percentage, merge into the full dataframe containing read count-and percentage for
+#each sample.
 df_full=import_reads_process_mini(base_path, target_sequence, filterlitteral, lliteral, rliteral, read_fwd, direc)
-
-
 df_trim_full2=calculate_perc_sd(df_full)
 result="unaligned/Exp2_5p_mcherry_SP1.fasta"
 save_fasta(result, df_trim_full2, target_sequence)
@@ -100,8 +101,6 @@ result="unaligned/Exp2_5p_mcherry_SP1.fasta"
 output_html="aligned/AA/Exp2_5p_mcherry_SP1_AA.html"
 out_csv="aligned/AA/Exp2_5p_mcherry_SP1_AA.csv"
 translate_NT(result, corr_frame,direc, out_csv)
-
-#translate_nt_aa_hiti2(result, corr_frame, output_html)
 ####################
 
 

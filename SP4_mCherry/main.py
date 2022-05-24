@@ -4,23 +4,18 @@ from locale import ABDAY_2
 from xml.dom.expatbuilder import theDOMImplementation
 import pandas as pd
 import os 
-os.getcwd()
-os.chdir("/media/data/AtteR/projects/hiti/pipeline_output_reorg/hiti-arc-analysis")
-from scripts_hiti import *
-from scripts_hiti import import_reads_process_mini
-from scripts_hiti import calculate_perc_sd2
-
 
 #############
 #User configurable variables
+#############
 #scripts_dir is the root directory of the analysis folder which contains the scripts_hiti.py script. All functions and classes
 #used in the analysis have been stored in this file.
 scripts_dir="/media/data/AtteR/projects/hiti/pipeline_output_reorg/hiti-arc-analysis"
-os.chdir("/media/data/AtteR/projects/hiti/pipeline_output_reorg/hiti-arc-analysis")
+os.chdir(scripts_dir)
+from scripts_hiti import *
 #sample directory (inside which all the subdirectories exist)
 sample_dir=scripts_dir + "/SP4_mCherry"
 os.chdir(sample_dir)
-
 #path to the analysis folder
 base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-only/SP4_3p"
 #############
@@ -34,7 +29,6 @@ lliteral = ' literal=CGGCGGCATGGACGAG'
 rliteral = ' literal=CTGGGTCAAGCGTGAGATG'
 target_sequence="ctgtacaagATGGAGCTGGACCATATGACCCGGTGCACCGGCGGCCTCCACGCCTACCCTGCCCCGCGGGGTGGGCCGGCCGCCAAACCCAATGTGATCCTGCAGATTGGTAAGTGCCGAGCTGAGATGCTGGAACACGTACGGAGGACCCACCGGCATCTGTTGACCGAAGTGTCCAAGC"
 target_sequence=target_sequence.upper()
-
 
 ############
 #read preprocessing for each sample: trim, record read counts before and after trimming, cluster the reads 
@@ -52,7 +46,6 @@ df_trim_full.to_csv(csv_file)
 ####################
 output_path="aligned/NT/"
 result=output_path + "Exp2_3p_mcherry_SP4_local2_prim.fasta"
-
 aligner(df_trim_full, target_sequence, "align_local2", result, output_path,lliteral, rliteral, 3,1)
 
 
@@ -89,6 +82,7 @@ filterlitteral="CCATGTTATCCTCCTCGCCCTTGCTCACCCGAGCTGGACCATATGACGTCATATGGT"
 target_sequence="tgctcacCCGAGCTGGACCATATGACGTCATATGGTCCAGCTCCATCTGGTCGTCGGTGCTGCGGCTCCGAACAGGCTAAGAACTCCTCTGAGGCAGAAGCCGGAAGGGAGCAGAGCCGGCGGCTGCAGCGGCAGTGGCAGGTGT"
 target_sequence=target_sequence.upper()
 read_fwd = True
+base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-only/SP4_5p"
 
 ############
 #read preprocessing for each sample: trim, record read counts before and after trimming, cluster the reads 
