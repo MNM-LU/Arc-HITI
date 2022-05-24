@@ -49,14 +49,11 @@ def calculate_perc_sd(full_df):
 
     perc_cols
     full_df['total_reads_seq'] = full_df[count_cols].sum(axis=1)  
-    #sum the percentages of each seq cluster of each animal together to see how much the certain seq is found 
-    #full_df["variance"]=full_df[perc_cols].var(axis=1)
     full_df["percent_mean"]=full_df[perc_cols].mean(axis=1)
     full_df['sd']=full_df[perc_cols].std(axis=1)
 
-    #discard seqs that contribute less than 0.0001% percentage
     full_df[count_cols]
-    full_df_trim = full_df.drop(full_df[full_df["total_reads_seq"] <= 10].index)
+    full_df_trim = full_df.drop(full_df[full_df["total_reads_seq"] <= 3].index)
     return(full_df_trim)
 
 
@@ -184,20 +181,20 @@ def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral
     call([call_sequence], shell=True)
     test_file_p5_filter2 = tempfile.NamedTemporaryFile(suffix = '.fastq').name #when cutadapt applied
 
-    cutadapt_call="cutadapt -g "+lliteral+" -o " + test_file_p5_filter2 + " " + test_file_p5_filter
+    cutadapt_call="cutadapt -g "+lliteral+ " --discard-untrimmed -o " + test_file_p5_filter2 + " " + test_file_p5_filter
     call([cutadapt_call], shell=True)
-    cutadapt_call="cutadapt -a "+rliteral+" -o " + test_file_p5_filter2 + " " + test_file_p5_filter2
-    call([cutadapt_call], shell=True)
+    # cutadapt_call="cutadapt -a "+rliteral+" -o " + test_file_p5_filter2 + " " + test_file_p5_filter2
+    # call([cutadapt_call], shell=True)
 
 
     test_file_p5_out_starcode = tempfile.NamedTemporaryFile(suffix = '.tsv').name
-    starcode_call= "/media/data/AtteR/Attes_bin/starcode/starcode -i "+test_file_p5_filter+" -t 32 -o "+test_file_p5_out_starcode
+    starcode_call= "/media/data/AtteR/Attes_bin/starcode/starcode -i "+test_file_p5_filter2+" -t 32 -o "+test_file_p5_out_starcode
     call([starcode_call], shell=True)
     
     df=pd.read_csv(test_file_p5_out_starcode, sep='\t', header=None)
     df = df.rename(columns={0: 'sequence', 1:'count'})
     total_counts = int(df[['count']].sum())
-    df = df[df['count'].astype(int)>total_counts/10000]
+    #df = df[df['count'].astype(int)>total_counts/10000]
     total_counts = int(df[['count']].sum())
     df['percent'] = (df['count'] / total_counts)
     df = df.rename(columns={'percent':animal_nr+'_percent','count':animal_nr+'_count',})
@@ -227,14 +224,12 @@ def save_fasta(filename, full_df, target_sequence):
         seq_obj = SeqRecord(Seq(target_sequence), id=str(0), description=ref)
         count = SeqIO.write(seq_obj, handle, "fasta")
         for seq_i in range(len(full_df.index)):
-            print("seq_i:" + str(seq_i))
-            descr="CluSeq:" + str(round(full_df.iloc[seq_i,-2],5)) + "_sd:" + str(round(full_df.iloc[seq_i,-1],5))
-            print(descr)
+            descr="CluSeq:" + str(round(full_df.iloc[seq_i,-2],8)) + "_sd:" + str(round(full_df.iloc[seq_i,-1],8))
             seq_obj = SeqRecord(Seq(full_df.iloc[seq_i,0]), id=str(id_f), description=descr)
-            print(seq_obj)
             count = SeqIO.write(seq_obj, handle, "fasta")
             id_f+=1
     print("Saved!")
+
 def import_fasta(result):
     NT_and_perc={}
     for record in SeqIO.parse(result, "fasta"):
@@ -242,88 +237,6 @@ def import_fasta(result):
     return(NT_and_perc)
 
 
-def import_reads_process(data_dict, transgene,assay_end,filterlitteral,lliteral,rliteral,export_path,read_fwd):
-    complete_df = pd.DataFrame({'sequence': ['CTGTACAAGGTCGGTGCTGCGGCTCCGCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGAC']})
-    complete_df
-    for animal in data_dict.keys():
-        animal_group_name=animal.split("_")[0] + "_" + animal.split("_")[2]
-        dfs_lane=[]
-        for search_path in data_dict[animal]:
-            animal_p5_cat = tempfile.NamedTemporaryFile(suffix = '.fastq.gz').name
-            animal_p7_cat = tempfile.NamedTemporaryFile(suffix = '.fastq.gz').name
-            test_file_p5_out = tempfile.NamedTemporaryFile(suffix = '.fastq').name
-            test_file_p7_out = tempfile.NamedTemporaryFile(suffix = '.fastq').name
-            test_file_p5_filter = tempfile.NamedTemporaryFile(suffix = '.fastq').name#when bbduk applied
-
-
-            if read_fwd:
-                animal_p5 = glob.glob(search_path+'/*R1*')
-                animal_p7 = glob.glob(search_path+'/*R2*')
-                #display('Forward run Animal: '+animal_nr)
-            else:
-                animal_p5 = glob.glob(search_path+'/*R2*')
-                animal_p7 = glob.glob(search_path+'/*R1*')
-                #display('Reverse run Animal: '+animal_nr)
-            animal_p7
-
-            cat_p5= "cat "+" ".join(animal_p5)+" > "+animal_p5_cat
-            print(cat_p5)
-            #os.system(cat_p5)
-            call([cat_p5], shell=True) #call caused the terminal to freeze so switched to os
-            cat_p7= "cat "+" ".join(animal_p7)+" > "+animal_p7_cat
-            call([cat_p7], shell=True)
-            #os.system(cat_p7)
-
-            stats_out = export_path+animal_group_name+'_'+transgene+'_'+assay_end+'_stats-filter.txt'
-
-            kmer = '20'
-            hdist = '3'
-            param=" k="+kmer+" hdist="+hdist+" rcomp=f skipr2=t threads=32 overwrite=true"
-
-            #to check if the read is an amplicon
-            call_sequence = "/media/data/AtteR/Attes_bin/bbmap/bbduk.sh in="+animal_p7_cat+" in2="+animal_p5_cat+" outm1="+test_file_p7_out+" outm2="+test_file_p5_out+" literal="+filterlitteral+" stats="+stats_out + param
-            call([call_sequence], shell=True)
-            #actual trimming
-            call_sequence = "/media/data/AtteR/Attes_bin/bbmap/bbduk.sh in="+test_file_p5_out+" out="+test_file_p5_filter+ " literal=AAAAAAAAA,CCCCCCCCC,GGGGGGGGG,TTTTTTTTT k=9 mm=f overwrite=true minlength=40"
-            call([call_sequence], shell=True)
-            test_file_p5_filter2 = tempfile.NamedTemporaryFile(suffix = '.fastq').name #when cutadapt applied
-
-            test_file_p5_filter2 = tempfile.NamedTemporaryFile(suffix = '.fastq').name #when cutadapt applied on 5'
-
-            #cutadapt_call="cutadapt -g "+lliteral+" -o " + test_file_p5_filter2 + " " + test_file_p5_filter
-            cutadapt_call="cutadapt -g "+lliteral+" " + test_file_p5_filter + " > " + test_file_p5_filter2
-
-            call([cutadapt_call], shell=True)
-            test_file_p5_filter3 = tempfile.NamedTemporaryFile(suffix = '.fastq').name #when cutadapt applied on 3'
-
-            #cutadapt_call="cutadapt -a "+rliteral+" -o " + test_file_p5_filter2 + " " + test_file_p5_filter2
-            cutadapt_call="cutadapt -a "+rliteral+" " + test_file_p5_filter2 + " > " + test_file_p5_filter3
-
-            call([cutadapt_call], shell=True)
-
-            print("Cutadapt done! Performed on test_file_p5_filter2: "+ test_file_p5_filter3)
-            test_file_p5_out_starcode = tempfile.NamedTemporaryFile(suffix = '.tsv').name
-            print("test_file_p5_out_starcode: "+ test_file_p5_out_starcode)
-            starcode_call= "/media/data/AtteR/Attes_bin/starcode/starcode -i "+test_file_p5_filter3+" -t 32 -o "+test_file_p5_out_starcode
-            call([starcode_call], shell=True)
-
-            df=pd.read_csv(test_file_p5_out_starcode, sep='\t', header=None)
-            df = df.rename(columns={0: 'sequence', 1:'count'})
-            dfs_lane.append(df)
-            print(animal_group_name + " done!")
-        #we iterate over all the individual dfs and merge them by taking the seq column of all dfs and placing them under the new dfs seq and do the same with counts
-        df_all_lanes=reduce(lambda  left,right: pd.merge(left,right,on='sequence', how='outer'), dfs_lane)
-        #reduce is useful when you need to apply a function to an iterable and reduce it to a single cumulative value.
-        df_all_lanes["count"]=df_all_lanes.sum(axis=1) #make a column with total count sum of reads and remove the rest. This gives a df that has the seqs and the total counts from all lanes
-        df_all_lanes.drop(df_all_lanes.iloc[:, 1:((len(df_all_lanes.columns)-1))], inplace = True, axis = 1)
-
-        #Once you have combined all the lane dfs, then you take the percentage
-        total_counts = int(df_all_lanes[['count']].sum())
-        df_all_lanes['percent'] = (df_all_lanes['count'] / total_counts)
-        df_all_lanes = df_all_lanes.rename(columns={'percent':animal_group_name+'_percent','count':animal_group_name+'_count',})
-        complete_df = pd.merge(complete_df, df_all_lanes, on="sequence", how='outer')
-        print("A full df containing the sum from all lanes of " + animal_group_name + " is done!")
-    return(complete_df)
 from functools import reduce
 
 
@@ -374,20 +287,14 @@ def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,re
             test_file_p5_filter2 = tempfile.NamedTemporaryFile(suffix = '.fastq').name #when cutadapt applied on 5'
 
             #cutadapt_call="cutadapt -g "+lliteral+" -o " + test_file_p5_filter2 + " " + test_file_p5_filter
-            cutadapt_call="cutadapt -g "+lliteral+" " + test_file_p5_filter + " > " + test_file_p5_filter2
-
-            call([cutadapt_call], shell=True)
-            test_file_p5_filter3 = tempfile.NamedTemporaryFile(suffix = '.fastq').name #when cutadapt applied on 3'
-
-            #cutadapt_call="cutadapt -a "+rliteral+" -o " + test_file_p5_filter2 + " " + test_file_p5_filter2
-            cutadapt_call="cutadapt -a "+rliteral+" " + test_file_p5_filter2 + " > " + test_file_p5_filter3
+            #cutadapt_call="cutadapt -g "+lliteral+" --discard-untrimmed " + test_file_p5_filter + " > " + test_file_p5_filter2
+            cutadapt_call="cutadapt -g " +lliteral+ " --discard-untrimmed" + " -o " + test_file_p5_filter2 + " " + test_file_p5_filter
 
             call([cutadapt_call], shell=True)
 
-            print("Cutadapt done! Performed on test_file_p5_filter2: "+ test_file_p5_filter3)
+            print("Cutadapt done! Performed on test_file_p5_filter2: "+ test_file_p5_filter2)
             test_file_p5_out_starcode = tempfile.NamedTemporaryFile(suffix = '.tsv').name
-            print("test_file_p5_out_starcode: "+ test_file_p5_out_starcode)
-            starcode_call= "/media/data/AtteR/Attes_bin/starcode/starcode -i "+test_file_p5_filter3+" -t 32 -r 5 -o "+test_file_p5_out_starcode
+            starcode_call= "/media/data/AtteR/Attes_bin/starcode/starcode -i "+test_file_p5_filter2+" -t 32 -r 5 -o "+test_file_p5_out_starcode
             call([starcode_call], shell=True)
 
             df=pd.read_csv(test_file_p5_out_starcode, sep='\t', header=None)
@@ -396,7 +303,14 @@ def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,re
             df['percent'] = (df['count'] / total_counts)
             df = df.rename(columns={'percent':animal_group_name+'_percent','count':animal_group_name+'_count',})
             complete_df=pd.merge(complete_df, df, on=['sequence'], how='outer')
+    
+    #double check that the primer has been removed:
+    # for i, seq in enumerate(complete_df.iloc[:,0]):
+    #     if lliteral.split("=")[1] in seq:
+    #         complete_df.iloc[i,0]=seq.replace(lliteral.split("=")[1], '')
+
     return(complete_df)
+
 
 def create_datadict(base_path, transgene):
     #hip_folders = [folder for folder in os.listdir(base_path) if "mCherry" in folder and "h_" in folder or "s_" in folder]
@@ -625,20 +539,29 @@ def add_primers_save(aligned_data_trim,filename, target_sequence,lliteral):
 def reorganise_perc(aligned_data_trim):
     perc_and_index=dict()
     for i, id in enumerate(aligned_data_trim.keys()):
-        perc_and_index[i]=id.split("_")[0].split(":")[1]
+        perc_and_index[i]=float(id.split("_")[0].split(":")[1])
 
     import operator
     perc_and_index_sorted = dict( sorted(perc_and_index.items(), key=operator.itemgetter(1),reverse=True))
     to_be_del=[]
     perc_and_index_sorted2=dict()
 
+    #first transform values with e notation into floats
+
+    # for key, perc in perc_and_index_sorted.items():
+    #     if "e" in perc:
+    #         print(perc)
+    #         perc_and_index_sorted[key]=perc
+
+    # for i, perc in perc_and_index_sorted.items():
+    #     if float(perc)<0.000000001:
+    #         to_be_del.append(i)
+    #     # if "e" in perc:
+    #     #     to_be_del.append(i)
+    #     else:
+    #         perc_and_index_sorted2[i]=perc
     for i, perc in perc_and_index_sorted.items():
-        if float(perc)<0.001:
-            to_be_del.append(i)
-        if "e" in perc:
-            to_be_del.append(i)
-        else:
-            perc_and_index_sorted2[i]=perc
+        perc_and_index_sorted2[i]=perc
 
     #from the original dict remove the ones that are too small and reorder based on the order given in perc_and_index_sorted2.
     #create new empty dict, go over the perc_and_index2, take their index, based on this take the correct key-value pair from
@@ -659,7 +582,7 @@ def reorganise_perc(aligned_data_trim):
     reorg_data_dict=dict()
     for perc in perc_and_index_sorted2.values():
         for key in aligned_data_trim.keys():
-            if perc in key:
+            if str(perc) in key:
                 reorg_data_dict[key]=aligned_data_trim[key]
     return(reorg_data_dict)
 
@@ -678,18 +601,20 @@ def aligner(full_df, target_sequence, align_method, filename, output_path, llite
     aligner_init
     aligned_data=dict()
     #align all the data, save into dict, then ensure that all the seqs are same length (take the longest seq). IF not, then add padding!
+    headers=[]
+    aligned_seqs=[]
     for seq_i in range(len(full_df.iloc[:,-1])):
         #yield iteratively the header of the certain seq and the corresponding seq
         #header=">"+ str(id_f)+"_CluSeq:" + str((round(full_df.iloc[seq_i,-4],5))) + "_var:"+str((round(full_df.iloc[seq_i,-2],5))) +"_sd:" + str((round(full_df.iloc[seq_i,-1],5)))
-        header="CluSeq:" + str((round(full_df.iloc[seq_i,-2],5))) + "_sd:" + str((round(full_df.iloc[seq_i,-1],5)))
-
+        header="CluSeq:" + str((round(full_df.iloc[seq_i,-2], 8))) + "_sd:" + str((round(full_df.iloc[seq_i,-1],8)))
         #seq_obj_align = aligner_init(full_df.iloc[seq_i,0], target_sequence, gop, gep).align()
-
         seq_obj_align = aligner_init(full_df.iloc[seq_i,0], target_sequence, gop, gep).align()
         seq_obj_align = re.sub(r'[(\d|\s]', '', seq_obj_align) #remove digits from the string caused by the alignment and empty spaces from the start
-        aligned_data[header]=seq_obj_align
-        id_f+=1
+        print(seq_obj_align)
+        headers.append(header)
+        aligned_seqs.append(seq_obj_align)
 
+    aligned_data=dict(zip(headers, aligned_seqs))
     aligned_data_trim=align_trimmer(aligned_data, target_sequence)
     #data_trim_nodupl=find_remove_duplicates(aligned_data_trim)
     aligned_data_trim=reorganise_perc(aligned_data_trim)
@@ -836,7 +761,6 @@ class translate_5p:
         # first_column) function
         aa_df.insert(0, 'Seq_stats', first_column)
         return(aa_df)
-from Bio.Align.Applications import ClustalwCommandline
 
 def translate_NT(result, corr_frame, direc, out_csv):
     gop, gep=-3,-1

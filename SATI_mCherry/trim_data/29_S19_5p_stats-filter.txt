@@ -1,0 +1,5 @@
+#File	/tmp/tmpkg2he7wf.fastq.gz
+#Total	255393
+#Matched	228143	89.33017%
+#Name	Reads	ReadsPct
+1	228143	89.33017%

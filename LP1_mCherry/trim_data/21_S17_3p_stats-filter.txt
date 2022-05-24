@@ -1,0 +1,5 @@
+#File	/tmp/tmpmig5g8_1.fastq.gz
+#Total	1271948
+#Matched	57	0.00448%
+#Name	Reads	ReadsPct
+1	57	0.00448%

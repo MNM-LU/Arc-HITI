@@ -1,0 +1,5 @@
+#File	/tmp/tmpjzl7d3ea.fastq.gz
+#Total	251485
+#Matched	4	0.00159%
+#Name	Reads	ReadsPct
+1	4	0.00159%

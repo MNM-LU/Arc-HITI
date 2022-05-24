@@ -10,23 +10,29 @@ from scripts_hiti import *
 from scripts_hiti import import_reads_process_mini
 from scripts_hiti import calculate_perc_sd2
 
-os.chdir("/media/data/AtteR/projects/hiti/pipeline_output_reorg/hiti-arc-analysis/SP4_mCherry")
 
 #############
 #User configurable variables
+#scripts_dir is the root directory of the analysis folder which contains the scripts_hiti.py script. All functions and classes
+#used in the analysis have been stored in this file.
+scripts_dir="/media/data/AtteR/projects/hiti/pipeline_output_reorg/hiti-arc-analysis"
+os.chdir("/media/data/AtteR/projects/hiti/pipeline_output_reorg/hiti-arc-analysis")
+#sample directory (inside which all the subdirectories exist)
+sample_dir=scripts_dir + "/SP4_mCherry"
+os.chdir(sample_dir)
 
-
+#path to the analysis folder
+base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-only/SP4_3p"
 #############
 
 #############
 #SP4 3' 
 read_fwd = True
 direc = "3p"
-base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-only/SP4_3p"
 filterlitteral = 'CGGCGGCATGGACGAGCTGTACAAGATGGAGCTGGACCATATGACCCGGTGCACCGGCG'
 lliteral = ' literal=CGGCGGCATGGACGAG'
 rliteral = ' literal=CTGGGTCAAGCGTGAGATG'
-target_sequence="ctgtacaagATGGAGCTGGACCATATGACCCGGTGCACCGGCGGCCTCCACGCCTACCCTGCCCCGCGGGGTGGGCCGGCCGCCAAAC"
+target_sequence="ctgtacaagATGGAGCTGGACCATATGACCCGGTGCACCGGCGGCCTCCACGCCTACCCTGCCCCGCGGGGTGGGCCGGCCGCCAAACCCAATGTGATCCTGCAGATTGGTAAGTGCCGAGCTGAGATGCTGGAACACGTACGGAGGACCCACCGGCATCTGTTGACCGAAGTGTCCAAGC"
 target_sequence=target_sequence.upper()
 
 
@@ -64,18 +70,25 @@ translate_NT(result, corr_frame,direc, out_csv)
 
 
 
+
+
 #5'
 #############
+#User configurable variables
+
+#path to the analysis folder
+base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-only/SP4_5p"
+#############
+
+
 #SP4 5'
 direc = "5p"
 lliteral = ' literal=CCATGTTATCCTCCTCGCCC'
 rliteral = ' literal=ATTTTGGGGACCGGAGACAC'
 filterlitteral="CCATGTTATCCTCCTCGCCCTTGCTCACCCGAGCTGGACCATATGACGTCATATGGT"
-target_sequence="tgctcacCCGAGCTGGACCATATGACGTCATATGGTCCAGCTCCATCTGGTCGTCGGTGCTGCGGCTCCG"
+target_sequence="tgctcacCCGAGCTGGACCATATGACGTCATATGGTCCAGCTCCATCTGGTCGTCGGTGCTGCGGCTCCGAACAGGCTAAGAACTCCTCTGAGGCAGAAGCCGGAAGGGAGCAGAGCCGGCGGCTGCAGCGGCAGTGGCAGGTGT"
 target_sequence=target_sequence.upper()
 read_fwd = True
-base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-only/SP4_5p"
-
 
 ############
 #read preprocessing for each sample: trim, record read counts before and after trimming, cluster the reads 
