@@ -1,258 +1,732 @@
-<!DOCTYPE html>
-<HTML>
-<HEAD>
-<META http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<STYLE TYPE="text/css">
-<!--
-TD {font-family:Fixed,Courier,monospace; background-color:white; color:black}
-SPAN.S0 {background-color:#000000;color:#FFFFFF} SPAN.T0 {color:#000000} /* black */
-SPAN.S1 {background-color:#ffffff;color:#000000} SPAN.T1 {color:#ffffff} /* white */
-SPAN.S2 {background-color:#ff0000;color:#FFFFFF} SPAN.T2 {color:#ff0000} /* red */
-SPAN.S3 {background-color:#00ff00;color:#000000} SPAN.T3 {color:#00ff00} /* green */
-SPAN.S4 {background-color:#0000ff;color:#FFFFFF} SPAN.T4 {color:#0000ff} /* blue */
-SPAN.S5 {background-color:#00ffff;color:#000000} SPAN.T5 {color:#00ffff} /* cyan */
-SPAN.S6 {background-color:#ff00ff;color:#FFFFFF} SPAN.T6 {color:#ff00ff} /* magenta */
-SPAN.S7 {background-color:#ffff00;color:#000000} SPAN.T7 {color:#ffff00} /* yellow */
-SPAN.S8 {background-color:#6600cc;color:#FFFFFF} SPAN.T8 {color:#6600cc} /* purple */
-SPAN.S9 {background-color:#0099ff;color:#FFFFFF} SPAN.T9 {color:#0099ff} /* dull-blue */
-SPAN.S10 {background-color:#33cccc;color:#000000} SPAN.T10 {color:#33cccc} /* dark-green-blue */
-SPAN.S11 {background-color:#00ffcc;color:#000000} SPAN.T11 {color:#00ffcc} /* medium-green-blue */
-SPAN.S12 {background-color:#0033ff;color:#FFFFFF} SPAN.T12 {color:#0033ff} /* bright-blue */
-SPAN.S13 {background-color:#009900;color:#FFFFFF} SPAN.T13 {color:#009900} /* dark-green */
-SPAN.S14 {background-color:#33cc00;color:#000000} SPAN.T14 {color:#33cc00} /* bright-green */
-SPAN.S15 {background-color:#ff3333;color:#FFFFFF} SPAN.T15 {color:#ff3333} /* orange */
-SPAN.S16 {background-color:#cc6600;color:#FFFFFF} SPAN.T16 {color:#cc6600} /* orange-brown */
-SPAN.S17 {background-color:#8b4513;color:#FFFFFF} SPAN.T17 {color:#8b4513} /* brown */
-SPAN.S18 {background-color:#cc0000;color:#FFFFFF} SPAN.T18 {color:#cc0000} /* bright-red */
-SPAN.S19 {background-color:#999999;color:#FFFFFF} SPAN.T19 {color:#999999} /* light-gray */
-SPAN.S20 {background-color:#666666;color:#FFFFFF} SPAN.T20 {color:#666666} /* dark-gray */
-SPAN.S21 {background-color:#ffffff;color:#000000} SPAN.T21 {color:#ffffff} /* gray0 */
-SPAN.S22 {background-color:#eeeeee;color:#000000} SPAN.T22 {color:#eeeeee} /* gray1 */
-SPAN.S23 {background-color:#dddddd;color:#000000} SPAN.T23 {color:#dddddd} /* gray2 */
-SPAN.S24 {background-color:#cccccc;color:#000000} SPAN.T24 {color:#cccccc} /* gray3 */
-SPAN.S25 {background-color:#bbbbbb;color:#FFFFFF} SPAN.T25 {color:#bbbbbb} /* gray4 */
-SPAN.S26 {background-color:#aaaaaa;color:#FFFFFF} SPAN.T26 {color:#aaaaaa} /* gray5 */
-SPAN.S27 {background-color:#999999;color:#FFFFFF} SPAN.T27 {color:#999999} /* gray6 */
-SPAN.S28 {background-color:#888888;color:#FFFFFF} SPAN.T28 {color:#888888} /* gray7 */
-SPAN.S29 {background-color:#777777;color:#FFFFFF} SPAN.T29 {color:#777777} /* gray8 */
-SPAN.S30 {background-color:#666666;color:#FFFFFF} SPAN.T30 {color:#666666} /* gray9 */
-SPAN.S31 {background-color:#555555;color:#FFFFFF} SPAN.T31 {color:#555555} /* gray10 */
-SPAN.S32 {background-color:#444444;color:#FFFFFF} SPAN.T32 {color:#444444} /* gray11 */
-SPAN.S33 {background-color:#333333;color:#FFFFFF} SPAN.T33 {color:#333333} /* gray12 */
-SPAN.S34 {background-color:#222222;color:#FFFFFF} SPAN.T34 {color:#222222} /* gray13 */
-SPAN.S35 {background-color:#111111;color:#FFFFFF} SPAN.T35 {color:#111111} /* gray14 */
-SPAN.S36 {background-color:#000000;color:#FFFFFF} SPAN.T36 {color:#000000} /* gray15 */
-SPAN.S37 {background-color:#e53319;color:#FFFFFF} SPAN.T37 {color:#e53319} /* clustal-red */
-SPAN.S38 {background-color:#197fe5;color:#FFFFFF} SPAN.T38 {color:#197fe5} /* clustal-blue */
-SPAN.S39 {background-color:#19cc19;color:#000000} SPAN.T39 {color:#19cc19} /* clustal-green */
-SPAN.S40 {background-color:#19b2b2;color:#FFFFFF} SPAN.T40 {color:#19b2b2} /* clustal-cyan */
-SPAN.S41 {background-color:#e57f7f;color:#FFFFFF} SPAN.T41 {color:#e57f7f} /* clustal-pink */
-SPAN.S42 {background-color:#cc4ccc;color:#FFFFFF} SPAN.T42 {color:#cc4ccc} /* clustal-magenta */
-SPAN.S43 {background-color:#cccc00;color:#000000} SPAN.T43 {color:#cccc00} /* clustal-yellow */
-SPAN.S44 {background-color:#e5994c;color:#FFFFFF} SPAN.T44 {color:#e5994c} /* clustal-orange */
-SPAN.S45 {background-color:#ffffff;color:#000000} SPAN.T45 {color:#ffffff} /* clustal-white */
-SPAN.S46 {background-color:#999999;color:#FFFFFF} SPAN.T46 {color:#999999} /* clustal-light-gray */
-SPAN.S47 {background-color:#666666;color:#FFFFFF} SPAN.T47 {color:#666666} /* clustal-dark-gray */
-SPAN.S48 {background-color:#000000;color:#FFFFFF} SPAN.T48 {color:#000000} /* clustal-black */
-SPAN.S49 {background-color:#ffffff;color:#000000} SPAN.T49 {color:#ffffff} /* clustal-white-print */
-SPAN.S50 {background-color:#ffff00;color:#000000} SPAN.T50 {color:#ffff00} /* clustal-yellow-print */
-SPAN.S51 {background-color:#6619e5;color:#FFFFFF} SPAN.T51 {color:#6619e5} /* clustal-violet-print */
-SPAN.S52 {background-color:#e57f66;color:#FFFFFF} SPAN.T52 {color:#e57f66} /* clustal-red-print */
-SPAN.S53 {background-color:#66e5e5;color:#000000} SPAN.T53 {color:#66e5e5} /* clustal-blue-print */
-SPAN.S54 {background-color:#b299e5;color:#FFFFFF} SPAN.T54 {color:#b299e5} /* clustal-purple-print */
-SPAN.S55 {background-color:#000000;color:#FFFFFF} SPAN.T55 {color:#000000} /* clustal-black-print */
-SPAN.S56 {background-color:#e57f7f;color:#FFFFFF} SPAN.T56 {color:#e57f7f} /* clustal-pink-print */
-SPAN.S57 {background-color:#19b2b2;color:#FFFFFF} SPAN.T57 {color:#19b2b2} /* clustal-cyan-print */
-SPAN.S58 {background-color:#cc4ccc;color:#FFFFFF} SPAN.T58 {color:#cc4ccc} /* clustal-magenta-print */
-SPAN.S59 {background-color:#e5994c;color:#FFFFFF} SPAN.T59 {color:#e5994c} /* clustal-orange-print */
-SPAN.S60 {background-color:#19cc19;color:#000000} SPAN.T60 {color:#19cc19} /* clustal-green-print */
-SPAN.S61 {background-color:#999999;color:#FFFFFF} SPAN.T61 {color:#999999} /* clustal-light-gray-print */
-SPAN.S62 {background-color:#99b2b2;color:#FFFFFF} SPAN.T62 {color:#99b2b2} /* clustal-dark-gray-print */
-SPAN.S63 {background-color:#ff1111;color:#FFFFFF} SPAN.T63 {color:#ff1111} /* nardi-red */
-SPAN.S64 {background-color:#1155ff;color:#FFFFFF} SPAN.T64 {color:#1155ff} /* nardi-blue */
-SPAN.S65 {background-color:#11dd11;color:#000000} SPAN.T65 {color:#11dd11} /* nardi-green */
-SPAN.S66 {background-color:#11ffff;color:#000000} SPAN.T66 {color:#11ffff} /* nardi-cyan */
-SPAN.S67 {background-color:#ffff11;color:#000000} SPAN.T67 {color:#ffff11} /* nardi-yellow */
-SPAN.S68 {background-color:#ff7f11;color:#FFFFFF} SPAN.T68 {color:#ff7f11} /* nardi-orange */
-SPAN.S69 {background-color:#ff11ff;color:#FFFFFF} SPAN.T69 {color:#ff11ff} /* nardi-pink */
-SPAN.S70 {background-color:#6611cc;color:#FFFFFF} SPAN.T70 {color:#6611cc} /* nardi-purple */
-SPAN.S71 {background-color:#197fe5;color:#FFFFFF} SPAN.T71 {color:#197fe5} /* nardi-dull-blue */
-SPAN.S72 {background-color:#999999;color:#FFFFFF} SPAN.T72 {color:#999999} /* nardi-light-gray */
-SPAN.S73 {background-color:#666666;color:#FFFFFF} SPAN.T73 {color:#666666} /* nardi-dark-gray */
-SPAN.S74 {background-color:#90fe23;color:#000000} SPAN.T74 {color:#90fe23} /* lin-a */
-SPAN.S75 {background-color:#fe5e2d;color:#FFFFFF} SPAN.T75 {color:#fe5e2d} /* lin-r */
-SPAN.S76 {background-color:#2e3d2d;color:#FFFFFF} SPAN.T76 {color:#2e3d2d} /* lin-n */
-SPAN.S77 {background-color:#00903b;color:#FFFFFF} SPAN.T77 {color:#00903b} /* lin-d */
-SPAN.S78 {background-color:#004baa;color:#FFFFFF} SPAN.T78 {color:#004baa} /* lin-c */
-SPAN.S79 {background-color:#864b00;color:#FFFFFF} SPAN.T79 {color:#864b00} /* lin-q */
-SPAN.S80 {background-color:#3fa201;color:#FFFFFF} SPAN.T80 {color:#3fa201} /* lin-e */
-SPAN.S81 {background-color:#10fe68;color:#000000} SPAN.T81 {color:#10fe68} /* lin-g */
-SPAN.S82 {background-color:#b2063b;color:#FFFFFF} SPAN.T82 {color:#b2063b} /* lin-h */
-SPAN.S83 {background-color:#04ced9;color:#000000} SPAN.T83 {color:#04ced9} /* lin-i */
-SPAN.S84 {background-color:#4972fe;color:#FFFFFF} SPAN.T84 {color:#4972fe} /* lin-l */
-SPAN.S85 {background-color:#c4a100;color:#FFFFFF} SPAN.T85 {color:#c4a100} /* lin-k */
-SPAN.S86 {background-color:#2a84dd;color:#FFFFFF} SPAN.T86 {color:#2a84dd} /* lin-m */
-SPAN.S87 {background-color:#a60ade;color:#FFFFFF} SPAN.T87 {color:#a60ade} /* lin-f */
-SPAN.S88 {background-color:#fe61fe;color:#FFFFFF} SPAN.T88 {color:#fe61fe} /* lin-p */
-SPAN.S89 {background-color:#f7e847;color:#000000} SPAN.T89 {color:#f7e847} /* lin-s */
-SPAN.S90 {background-color:#fefeb3;color:#000000} SPAN.T90 {color:#fefeb3} /* lin-t */
-SPAN.S91 {background-color:#4a007f;color:#FFFFFF} SPAN.T91 {color:#4a007f} /* lin-w */
-SPAN.S92 {background-color:#e903a8;color:#FFFFFF} SPAN.T92 {color:#e903a8} /* lin-y */
-SPAN.S93 {background-color:#5bfdfd;color:#000000} SPAN.T93 {color:#5bfdfd} /* lin-v */
-SPAN.S94 {background-color:#90fe23;color:#000000} SPAN.T94 {color:#90fe23} /* find-a */
-SPAN.S95 {background-color:#fe5e2d;color:#FFFFFF} SPAN.T95 {color:#fe5e2d} /* find-b */
-SPAN.S96 {background-color:#2e3d2d;color:#FFFFFF} SPAN.T96 {color:#2e3d2d} /* find-c */
-SPAN.S97 {background-color:#00903b;color:#FFFFFF} SPAN.T97 {color:#00903b} /* find-d */
-SPAN.S98 {background-color:#004baa;color:#FFFFFF} SPAN.T98 {color:#004baa} /* find-e */
-SPAN.S99 {background-color:#864b00;color:#FFFFFF} SPAN.T99 {color:#864b00} /* find-f */
-SPAN.S100 {background-color:#3fa201;color:#FFFFFF} SPAN.T100 {color:#3fa201} /* find-g */
-SPAN.S101 {background-color:#10fe68;color:#000000} SPAN.T101 {color:#10fe68} /* find-h */
-SPAN.S102 {background-color:#b2063b;color:#FFFFFF} SPAN.T102 {color:#b2063b} /* find-i */
-SPAN.S103 {background-color:#04ced9;color:#000000} SPAN.T103 {color:#04ced9} /* find-j */
-SPAN.S104 {background-color:#4972fe;color:#FFFFFF} SPAN.T104 {color:#4972fe} /* find-k */
-SPAN.S105 {background-color:#c4a100;color:#FFFFFF} SPAN.T105 {color:#c4a100} /* find-l */
-SPAN.S106 {background-color:#2a84dd;color:#FFFFFF} SPAN.T106 {color:#2a84dd} /* find-m */
-SPAN.S107 {background-color:#a60ade;color:#FFFFFF} SPAN.T107 {color:#a60ade} /* find-n */
-SPAN.S108 {background-color:#fe61fe;color:#FFFFFF} SPAN.T108 {color:#fe61fe} /* find-o */
-SPAN.S109 {background-color:#f7e847;color:#000000} SPAN.T109 {color:#f7e847} /* find-p */
-SPAN.S110 {background-color:#fefeb3;color:#000000} SPAN.T110 {color:#fefeb3} /* find-q */
-SPAN.S111 {background-color:#4a007f;color:#FFFFFF} SPAN.T111 {color:#4a007f} /* find-r */
-SPAN.S112 {background-color:#e903a8;color:#FFFFFF} SPAN.T112 {color:#e903a8} /* find-s */
-SPAN.S113 {background-color:#5bfdfd;color:#000000} SPAN.T113 {color:#5bfdfd} /* find-t */
-SPAN.S114 {background-color:#c0c0c0;color:#FFFFFF} SPAN.T114 {color:#c0c0c0} /* silver */
-SPAN.S115 {background-color:#808080;color:#FFFFFF} SPAN.T115 {color:#808080} /* gray */
-SPAN.S116 {background-color:#800000;color:#FFFFFF} SPAN.T116 {color:#800000} /* maroon */
-SPAN.S117 {background-color:#808000;color:#FFFFFF} SPAN.T117 {color:#808000} /* olive */
-SPAN.S118 {background-color:#00ff00;color:#000000} SPAN.T118 {color:#00ff00} /* lime */
-SPAN.S119 {background-color:#00ffff;color:#000000} SPAN.T119 {color:#00ffff} /* aqua */
-SPAN.S120 {background-color:#008080;color:#FFFFFF} SPAN.T120 {color:#008080} /* teal */
-SPAN.S121 {background-color:#000080;color:#FFFFFF} SPAN.T121 {color:#000080} /* navy */
-SPAN.S122 {background-color:#ff00ff;color:#FFFFFF} SPAN.T122 {color:#ff00ff} /* fuchsia */
-SPAN.S123 {background-color:#ffc0cb;color:#FFFFFF} SPAN.T123 {color:#ffc0cb} /* pink */
-SPAN.S124 {background-color:#ffb6c1;color:#FFFFFF} SPAN.T124 {color:#ffb6c1} /* lightpink */
-SPAN.S125 {background-color:#ff69b4;color:#FFFFFF} SPAN.T125 {color:#ff69b4} /* hotpink */
-SPAN.S126 {background-color:#ff1493;color:#FFFFFF} SPAN.T126 {color:#ff1493} /* deeppink */
-SPAN.S127 {background-color:#db7093;color:#FFFFFF} SPAN.T127 {color:#db7093} /* palevioletred */
-SPAN.S128 {background-color:#c71585;color:#FFFFFF} SPAN.T128 {color:#c71585} /* mediumvioletred */
-SPAN.S129 {background-color:#ffa07a;color:#FFFFFF} SPAN.T129 {color:#ffa07a} /* lightsalmon */
-SPAN.S130 {background-color:#fa8072;color:#FFFFFF} SPAN.T130 {color:#fa8072} /* salmon */
-SPAN.S131 {background-color:#e9967a;color:#FFFFFF} SPAN.T131 {color:#e9967a} /* darksalmon */
-SPAN.S132 {background-color:#f08080;color:#FFFFFF} SPAN.T132 {color:#f08080} /* lightcoral */
-SPAN.S133 {background-color:#cd5c5c;color:#FFFFFF} SPAN.T133 {color:#cd5c5c} /* indianred */
-SPAN.S134 {background-color:#dc143c;color:#FFFFFF} SPAN.T134 {color:#dc143c} /* crimson */
-SPAN.S135 {background-color:#b22222;color:#FFFFFF} SPAN.T135 {color:#b22222} /* firebrick */
-SPAN.S136 {background-color:#8b0000;color:#FFFFFF} SPAN.T136 {color:#8b0000} /* darkred */
-SPAN.S137 {background-color:#ff4500;color:#FFFFFF} SPAN.T137 {color:#ff4500} /* orangered */
-SPAN.S138 {background-color:#ff6347;color:#FFFFFF} SPAN.T138 {color:#ff6347} /* tomato */
-SPAN.S139 {background-color:#ff7f50;color:#FFFFFF} SPAN.T139 {color:#ff7f50} /* coral */
-SPAN.S140 {background-color:#ff8c00;color:#FFFFFF} SPAN.T140 {color:#ff8c00} /* darkorange */
-SPAN.S141 {background-color:#ffffe0;color:#000000} SPAN.T141 {color:#ffffe0} /* lightyellow */
-SPAN.S142 {background-color:#fffacd;color:#000000} SPAN.T142 {color:#fffacd} /* lemonchiffon */
-SPAN.S143 {background-color:#fafad2;color:#000000} SPAN.T143 {color:#fafad2} /* lightgoldenrodyellow */
-SPAN.S144 {background-color:#ffefd5;color:#000000} SPAN.T144 {color:#ffefd5} /* papayawhip */
-SPAN.S145 {background-color:#ffe4b5;color:#000000} SPAN.T145 {color:#ffe4b5} /* moccasin */
-SPAN.S146 {background-color:#ffdab9;color:#000000} SPAN.T146 {color:#ffdab9} /* peachpuff */
-SPAN.S147 {background-color:#eee8aa;color:#000000} SPAN.T147 {color:#eee8aa} /* palegoldenrod */
-SPAN.S148 {background-color:#f0e68c;color:#000000} SPAN.T148 {color:#f0e68c} /* khaki */
-SPAN.S149 {background-color:#bdb76b;color:#FFFFFF} SPAN.T149 {color:#bdb76b} /* darkkhaki */
-SPAN.S150 {background-color:#ffd700;color:#000000} SPAN.T150 {color:#ffd700} /* gold */
-SPAN.S151 {background-color:#fff8dc;color:#000000} SPAN.T151 {color:#fff8dc} /* cornsilk */
-SPAN.S152 {background-color:#ffebcd;color:#000000} SPAN.T152 {color:#ffebcd} /* blanchedalmond */
-SPAN.S153 {background-color:#ffe4c4;color:#000000} SPAN.T153 {color:#ffe4c4} /* bisque */
-SPAN.S154 {background-color:#ffdead;color:#000000} SPAN.T154 {color:#ffdead} /* navajowhite */
-SPAN.S155 {background-color:#f5deb3;color:#000000} SPAN.T155 {color:#f5deb3} /* wheat */
-SPAN.S156 {background-color:#deb887;color:#FFFFFF} SPAN.T156 {color:#deb887} /* burlywood */
-SPAN.S157 {background-color:#d2b48c;color:#FFFFFF} SPAN.T157 {color:#d2b48c} /* tan */
-SPAN.S158 {background-color:#bc8f8f;color:#FFFFFF} SPAN.T158 {color:#bc8f8f} /* rosybrown */
-SPAN.S159 {background-color:#f4a460;color:#FFFFFF} SPAN.T159 {color:#f4a460} /* sandybrown */
-SPAN.S160 {background-color:#daa520;color:#FFFFFF} SPAN.T160 {color:#daa520} /* goldenrod */
-SPAN.S161 {background-color:#b8860b;color:#FFFFFF} SPAN.T161 {color:#b8860b} /* darkgoldenrod */
-SPAN.S162 {background-color:#cd853f;color:#FFFFFF} SPAN.T162 {color:#cd853f} /* peru */
-SPAN.S163 {background-color:#d2691e;color:#FFFFFF} SPAN.T163 {color:#d2691e} /* chocolate */
-SPAN.S164 {background-color:#8b4513;color:#FFFFFF} SPAN.T164 {color:#8b4513} /* saddlebrown */
-SPAN.S165 {background-color:#a0522d;color:#FFFFFF} SPAN.T165 {color:#a0522d} /* sienna */
-SPAN.S166 {background-color:#556b2f;color:#FFFFFF} SPAN.T166 {color:#556b2f} /* darkolivegreen */
-SPAN.S167 {background-color:#6b8e23;color:#FFFFFF} SPAN.T167 {color:#6b8e23} /* olivedrab */
-SPAN.S168 {background-color:#9acd32;color:#000000} SPAN.T168 {color:#9acd32} /* yellowgreen */
-SPAN.S169 {background-color:#32cd32;color:#000000} SPAN.T169 {color:#32cd32} /* limegreen */
-SPAN.S170 {background-color:#7cfc00;color:#000000} SPAN.T170 {color:#7cfc00} /* lawngreen */
-SPAN.S171 {background-color:#7fff00;color:#000000} SPAN.T171 {color:#7fff00} /* chartreuse */
-SPAN.S172 {background-color:#adff2f;color:#000000} SPAN.T172 {color:#adff2f} /* greenyellow */
-SPAN.S173 {background-color:#00ff7f;color:#000000} SPAN.T173 {color:#00ff7f} /* springgreen */
-SPAN.S174 {background-color:#00fa9a;color:#000000} SPAN.T174 {color:#00fa9a} /* mediumspringgreen */
-SPAN.S175 {background-color:#90ee90;color:#000000} SPAN.T175 {color:#90ee90} /* lightgreen */
-SPAN.S176 {background-color:#98fb98;color:#000000} SPAN.T176 {color:#98fb98} /* palegreen */
-SPAN.S177 {background-color:#8fbc8f;color:#FFFFFF} SPAN.T177 {color:#8fbc8f} /* darkseagreen */
-SPAN.S178 {background-color:#66cdaa;color:#000000} SPAN.T178 {color:#66cdaa} /* mediumaquamarine */
-SPAN.S179 {background-color:#3cb371;color:#FFFFFF} SPAN.T179 {color:#3cb371} /* mediumseagreen */
-SPAN.S180 {background-color:#2e8b57;color:#FFFFFF} SPAN.T180 {color:#2e8b57} /* seagreen */
-SPAN.S181 {background-color:#228b22;color:#FFFFFF} SPAN.T181 {color:#228b22} /* forestgreen */
-SPAN.S182 {background-color:#006400;color:#FFFFFF} SPAN.T182 {color:#006400} /* darkgreen */
-SPAN.S183 {background-color:#e0ffff;color:#000000} SPAN.T183 {color:#e0ffff} /* lightcyan */
-SPAN.S184 {background-color:#afeeee;color:#000000} SPAN.T184 {color:#afeeee} /* paleturquoise */
-SPAN.S185 {background-color:#7fffd4;color:#000000} SPAN.T185 {color:#7fffd4} /* aquamarine */
-SPAN.S186 {background-color:#40e0d0;color:#000000} SPAN.T186 {color:#40e0d0} /* turquoise */
-SPAN.S187 {background-color:#48d1cc;color:#000000} SPAN.T187 {color:#48d1cc} /* mediumturquoise */
-SPAN.S188 {background-color:#00ced1;color:#000000} SPAN.T188 {color:#00ced1} /* darkturquoise */
-SPAN.S189 {background-color:#20b2aa;color:#FFFFFF} SPAN.T189 {color:#20b2aa} /* lightseagreen */
-SPAN.S190 {background-color:#5f9ea0;color:#FFFFFF} SPAN.T190 {color:#5f9ea0} /* cadetblue */
-SPAN.S191 {background-color:#008b8b;color:#FFFFFF} SPAN.T191 {color:#008b8b} /* darkcyan */
-SPAN.S192 {background-color:#b0c4de;color:#FFFFFF} SPAN.T192 {color:#b0c4de} /* lightsteelblue */
-SPAN.S193 {background-color:#b0e0e6;color:#000000} SPAN.T193 {color:#b0e0e6} /* powderblue */
-SPAN.S194 {background-color:#add8e6;color:#000000} SPAN.T194 {color:#add8e6} /* lightblue */
-SPAN.S195 {background-color:#87ceeb;color:#000000} SPAN.T195 {color:#87ceeb} /* skyblue */
-SPAN.S196 {background-color:#87cefa;color:#000000} SPAN.T196 {color:#87cefa} /* lightskyblue */
-SPAN.S197 {background-color:#00bfff;color:#FFFFFF} SPAN.T197 {color:#00bfff} /* deepskyblue */
-SPAN.S198 {background-color:#1e90ff;color:#FFFFFF} SPAN.T198 {color:#1e90ff} /* dodgerblue */
-SPAN.S199 {background-color:#6495ed;color:#FFFFFF} SPAN.T199 {color:#6495ed} /* cornflowerblue */
-SPAN.S200 {background-color:#4682b4;color:#FFFFFF} SPAN.T200 {color:#4682b4} /* steelblue */
-SPAN.S201 {background-color:#4169e1;color:#FFFFFF} SPAN.T201 {color:#4169e1} /* royalblue */
-SPAN.S202 {background-color:#0000cd;color:#FFFFFF} SPAN.T202 {color:#0000cd} /* mediumblue */
-SPAN.S203 {background-color:#00008b;color:#FFFFFF} SPAN.T203 {color:#00008b} /* darkblue */
-SPAN.S204 {background-color:#191970;color:#FFFFFF} SPAN.T204 {color:#191970} /* midnightblue */
-SPAN.S205 {background-color:#e6e6fa;color:#000000} SPAN.T205 {color:#e6e6fa} /* lavender */
-SPAN.S206 {background-color:#d8bfd8;color:#FFFFFF} SPAN.T206 {color:#d8bfd8} /* thistle */
-SPAN.S207 {background-color:#dda0dd;color:#FFFFFF} SPAN.T207 {color:#dda0dd} /* plum */
-SPAN.S208 {background-color:#ee82ee;color:#FFFFFF} SPAN.T208 {color:#ee82ee} /* violet */
-SPAN.S209 {background-color:#da70d6;color:#FFFFFF} SPAN.T209 {color:#da70d6} /* orchid */
-SPAN.S210 {background-color:#ba55d3;color:#FFFFFF} SPAN.T210 {color:#ba55d3} /* mediumorchid */
-SPAN.S211 {background-color:#9370db;color:#FFFFFF} SPAN.T211 {color:#9370db} /* mediumpurple */
-SPAN.S212 {background-color:#8a2be2;color:#FFFFFF} SPAN.T212 {color:#8a2be2} /* blueviolet */
-SPAN.S213 {background-color:#9400d3;color:#FFFFFF} SPAN.T213 {color:#9400d3} /* darkviolet */
-SPAN.S214 {background-color:#9932cc;color:#FFFFFF} SPAN.T214 {color:#9932cc} /* darkorchid */
-SPAN.S215 {background-color:#8b008b;color:#FFFFFF} SPAN.T215 {color:#8b008b} /* darkmagenta */
-SPAN.S216 {background-color:#4b0082;color:#FFFFFF} SPAN.T216 {color:#4b0082} /* indigo */
-SPAN.S217 {background-color:#483d8b;color:#FFFFFF} SPAN.T217 {color:#483d8b} /* darkslateblue */
-SPAN.S218 {background-color:#6a5acd;color:#FFFFFF} SPAN.T218 {color:#6a5acd} /* slateblue */
-SPAN.S219 {background-color:#7b68ee;color:#FFFFFF} SPAN.T219 {color:#7b68ee} /* mediumslateblue */
-SPAN.S220 {background-color:#fffafa;color:#000000} SPAN.T220 {color:#fffafa} /* snow */
-SPAN.S221 {background-color:#f0fff0;color:#000000} SPAN.T221 {color:#f0fff0} /* honeydew */
-SPAN.S222 {background-color:#f5fffa;color:#000000} SPAN.T222 {color:#f5fffa} /* mintcream */
-SPAN.S223 {background-color:#f0ffff;color:#000000} SPAN.T223 {color:#f0ffff} /* azure */
-SPAN.S224 {background-color:#f0f8ff;color:#000000} SPAN.T224 {color:#f0f8ff} /* aliceblue */
-SPAN.S225 {background-color:#f8f8ff;color:#000000} SPAN.T225 {color:#f8f8ff} /* ghostwhite */
-SPAN.S226 {background-color:#f5f5f5;color:#000000} SPAN.T226 {color:#f5f5f5} /* whitesmoke */
-SPAN.S227 {background-color:#fff5ee;color:#000000} SPAN.T227 {color:#fff5ee} /* seashell */
-SPAN.S228 {background-color:#f5f5dc;color:#000000} SPAN.T228 {color:#f5f5dc} /* beige */
-SPAN.S229 {background-color:#fdf5e6;color:#000000} SPAN.T229 {color:#fdf5e6} /* oldlace */
-SPAN.S230 {background-color:#fffaf0;color:#000000} SPAN.T230 {color:#fffaf0} /* floralwhite */
-SPAN.S231 {background-color:#fffff0;color:#000000} SPAN.T231 {color:#fffff0} /* ivory */
-SPAN.S232 {background-color:#faebd7;color:#000000} SPAN.T232 {color:#faebd7} /* antiquewhite */
-SPAN.S233 {background-color:#faf0e6;color:#000000} SPAN.T233 {color:#faf0e6} /* linen */
-SPAN.S234 {background-color:#fff0f5;color:#000000} SPAN.T234 {color:#fff0f5} /* lavenderblush */
-SPAN.S235 {background-color:#ffe4e1;color:#000000} SPAN.T235 {color:#ffe4e1} /* mistyrose */
-SPAN.S236 {background-color:#dcdcdc;color:#000000} SPAN.T236 {color:#dcdcdc} /* gainsboro */
-SPAN.S237 {background-color:#d3d3d3;color:#000000} SPAN.T237 {color:#d3d3d3} /* lightgray */
-SPAN.S238 {background-color:#a9a9a9;color:#FFFFFF} SPAN.T238 {color:#a9a9a9} /* darkgray */
-SPAN.S239 {background-color:#696969;color:#FFFFFF} SPAN.T239 {color:#696969} /* dimgray */
-SPAN.S240 {background-color:#778899;color:#FFFFFF} SPAN.T240 {color:#778899} /* lightslategray */
-SPAN.S241 {background-color:#708090;color:#FFFFFF} SPAN.T241 {color:#708090} /* slategray */
-SPAN.S242 {background-color:#2f4f4f;color:#FFFFFF} SPAN.T242 {color:#2f4f4f} /* darkslategray */
--->
-</STYLE>
-<TITLE>MView</TITLE>
-</HEAD>
-<BODY style="background-color:white;color:black">
-mview: no alignments found
-</BODY>
-</HTML>
+
+<!-- saved from url=(0028)https://alignmentviewer.org/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta name="description" content="AlignmentViewer is multiple sequence alignment viewer for protein families with flexible  visualization, analysis tools and links to protein family databases. It is directly accessible in web browsers without the need for software installation, as it is implemented in JavaScript, and does not require an internet connection to function.  It can handle protein families with tens of thousand of sequences and is particularly suitable for evolutionary coupling analysis, preparing the computation of protein 3D structures and detection of functionally constrained interactions.">
+    <meta name="keywords" content="alignment viewer, proteins, MSA, multiple sequence alignment, sanderlab, evolutionary couplings, families, analysis">
+    <title>AlignmentViewer</title>
+    <style type="text/css">
+      html {
+        font-family: sans-serif;
+        margin: 1% 1% 1% 1%;
+        background: #fff;
+        background: #fff -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #e0e0e0), color-stop(100%, #e0e0e0)) fixed;
+        background: #fff -o-linear-gradient(#fff, #e0e0e0) fixed;
+        background: #fff -ms-linear-gradient(#fff, #e0e0e0) fixed;
+        background: #fff linear-gradient(#fff, #e0e0e0) fixed;
+        background: #fff -webkit-linear-gradient(#fff, #e0e0e0) fixed;
+        background: #fff -moz-linear-gradient(#fff, #e0e0e0) fixed;
+      }
+      a {
+        color: #3e3f61;
+        cursor: pointer;
+        text-decoration: none;
+        border-bottom: 1px dotted;
+      }
+      #progress {
+        display: none;
+        position: fixed;
+        left: 44%;
+        top: 44%;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 3% 3% 3% 3%;
+        background: #a1b4cc;
+        border-style: dotted;
+        border-width: 1px;
+        border-color: #585989;
+        color: #585989;
+        font-family: Trebuchet MS, Verdana;
+        font-size: 18px;
+        box-shadow: 0 0 30px 5px #999;
+        -moz-box-shadow: 0 0 30px 5px #999;
+        -webkit-box-shadow: 0 0 30px 5px #999;
+      }
+      .dim {
+        color: #a1b4cc;
+      }
+      .filectrl {
+        background-color: #fff;
+        width: 150px;
+      }
+      .tblhead {
+        background: grey;
+      }
+      .button {
+        font-family: Trebuchet MS, Verdana;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 2px;
+        padding-left: 10px;
+        padding-right: 10px;
+        text-decoration: none;
+        border: 1px solid #a1b4cc;
+      }
+      .button2 {
+        height: 24px;
+        font-size: 10px;
+        vertical-align: text-top;
+      }
+      .btnPressed {
+        color: #3e3f61;
+        background: none;
+        border: 1px dotted #3e3f61;
+      }
+      .btnReleased {
+        color: white;
+        background: #a1b4cc;
+        border: 1px solid #a1b4cc;
+      }
+      .plot_border {
+        border: 1px dotted #7792ba;
+      }
+      .hpadding {
+        padding-left: 10px;
+      }
+      .title {
+        font-family: Trebuchet MS, Verdana;
+        letter-spacing: -0.08em;
+        font-size: 36px;
+        font-weight: bold;
+      }
+      .ctrlval {
+        color: navy;
+        font-weight: bold;
+      }
+      .dense {
+        line-height: 80%;
+      }
+      .lt {
+        color: grey;
+      }
+      .bgl {
+        background-color: #aaa;
+      }
+      .tiny {
+        font-family: Trebuchet MS, Verdana;
+        font-size: 12px;
+      }
+      .text {
+        font-family: Trebuchet MS, Verdana;
+        font-size: 14px;
+        font-weight: normal;
+      }
+      .textB {
+        font-family: Trebuchet MS, Verdana;
+        font-size: 14px;
+        font-weight: bold;
+      }
+      .title2 {
+        font-size: 14px;
+        letter-spacing: 0em;
+      }
+      .enter {
+        width: 8em;
+      }
+      li {
+        margin: 0.5em 0;
+      }
+      button {
+        color: #555;
+      }
+      ul {
+        list-style-type: none;
+        padding: 2em;
+        margin: 1em;
+      }
+      .bar {
+        fill: steelblue;
+      }
+      .c1 {
+        stroke: none;
+        fill: #33cc00;
+      }
+      .c2 {
+        stroke: none;
+        fill: #009900;
+      }
+      .c3 {
+        stroke: none;
+        fill: yellow;
+      }
+      .c4 {
+        stroke: none;
+        fill: #cc0000;
+      }
+      .c5 {
+        stroke: none;
+        fill: #0033ff;
+      }
+      .c6 {
+        stroke: none;
+        fill: #6600cc;
+      }
+      .c7 {
+        stroke: none;
+        fill: #0099ff;
+      }
+      .c8 {
+        stroke: none;
+        fill: #666666;
+      }
+      .c9 {
+        stroke: none;
+        fill: #999999;
+      }
+      body.clustal .c1{
+        color: purple;
+      }
+      body.clustal.c2{
+        color: yellow;
+      }
+      @import url('https://fonts.googleapis.com/css?family=Anton');
+      .alignmentviewer-title {
+        font-family: 'Anton', sans-serif;
+        font-size: 3em;
+      }
+    </style>
+    <link type="text/css" href="./mCherry_5p_2+_Frame_corr:2_files/jquery-ui-1.8.21.custom.css" rel="stylesheet">
+    <script async="" src="./mCherry_5p_2+_Frame_corr:2_files/analytics.js"></script><script type="text/javascript" src="./mCherry_5p_2+_Frame_corr:2_files/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="./mCherry_5p_2+_Frame_corr:2_files/jquery-ui-1.8.21.custom.min.js"></script>
+    <script type="text/javascript" src="./mCherry_5p_2+_Frame_corr:2_files/d3.v2.min.js"></script>
+    <script type="text/javascript" src="./mCherry_5p_2+_Frame_corr:2_files/speclist.2012_09.js"></script>
+    <!-- before seqlib.js -->
+    <link type="text/css" href="./mCherry_5p_2+_Frame_corr:2_files/seqlib.css" rel="stylesheet">
+    <script type="text/javascript" src="./mCherry_5p_2+_Frame_corr:2_files/seqlib.js"></script>
+    <script type="text/javascript" src="./mCherry_5p_2+_Frame_corr:2_files/SequenceLogoDiagramD3.js"></script>
+    <script type="text/javascript" src="./mCherry_5p_2+_Frame_corr:2_files/CouplingsLogoDiagramD3.js"></script>
+    <script type="text/javascript" src="./mCherry_5p_2+_Frame_corr:2_files/KMinsClustering.js"></script>
+    <script type="text/javascript" src="./mCherry_5p_2+_Frame_corr:2_files/MultipleSequenceAlignment.js"></script>
+
+    <script type="text/javascript" src="./mCherry_5p_2+_Frame_corr:2_files/index.js"></script>
+    <script>
+      (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        (i[r] =
+          i[r] ||
+          function() {
+            (i[r].q = i[r].q || []).push(arguments);
+          }),
+          (i[r].l = 1 * new Date());
+        (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+      })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+      ga('create', 'UA-57486113-7', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+  </head>
+  <body>
+    <!-- ______________________________________________________ site header table ___________________________________________________ -->
+    <table border="0">
+      <tbody><tr>
+        <td align="left" style="vertical-align:top;" nowrap="">
+          <span class="tc1 alignmentviewer-title">ALIGNMENTVIEWER</span><br>
+          <span style="line-height:96%">
+            <span class="title title2 tc1">protein multiple sequence alignment visualization &amp; analysis</span><br>
+            <span class="title title2 tc2">in-browser computationally intensive tool, Firefox or Chrome browsers prefered</span><br>
+            <span class="tiny tc3">release 1.0</span><br></span><br>
+
+          <a class="button btnReleased" id="btn1">about</a>
+          <span id="buttons" style="">
+            &nbsp;&nbsp;&nbsp;<span class="tc2">|</span>&nbsp;&nbsp;&nbsp; <a class="button btnPressed" id="btn2">msa view</a>
+            <span class="tc2"> |</span> <a class="button btnReleased" id="btn4">image view</a> <span class="tc2">|</span>
+            <a class="button btnReleased" id="btn8">sequence space</a> <span class="tc2">|</span>
+            <a class="button btnReleased" id="btn3">stats view</a> <span class="tc2">|</span>
+            <a class="button btnReleased" id="btn5">upload annotations</a> <span class="tc2">|</span>
+            <a class="button btnReleased" id="btn6">load couplings</a>
+            <span class="tc2">
+              <!--|</span>-->
+              <!--<a class='button btnReleased' id='btn7'> Load couplings </a>--> </span><br><span style="font-size:3px;"><br></span></span>
+        </td>
+        <td align="right" valign="bottom" width="99%" nowrap=""></td>
+        <td class="textB tc0 tc4bg" align="left" valign="bottom" style="padding:15px;" nowrap="">
+          <span style="line-height:98%">
+            Drag and drop to this page or load below multiple sequence<br>
+            alignment file in plain text, STOCKHOLM or FASTA format.<br>
+            Or use example alignment:
+            <a onclick="PullMsaExample()">1bkr:A</a>
+            <span style="font-size:5px;"><br></span></span>
+          <input type="file" class="filectrl" id="files" size="40"><br>
+        </td>
+      </tr>
+      <tr>
+        <td class="tc4bg" colspan="3" height="2"></td>
+      </tr>
+    </tbody></table>
+
+    <br>
+
+    <!-- ______________________________________________________ image view ___________________________________________________ -->
+    <table id="IMGview" border="0" cellpadding="1" cellspacing="1" style="display:none;">
+      <tbody><tr>
+        <td class="text">
+          <br>
+          <table class="text">
+            <tbody><tr>
+              <td nowrap="">
+                Generate msa image using
+                <select id="msaImgClrSelect">
+                  <option value="1">mview</option>
+                  <option value="2">clustal</option>
+                  <option value="3">hydrophobicity</option>
+                  <!--<option value="4">Mutations</option>-->
+                </select>
+                coloring :
+              </td>
+              <td style="padding-left:50px;" nowrap="">
+                <button id="imageApply" style="height:24px; font-size:10px; vertical-align:text-top;" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">apply</span></button>
+              </td>
+            </tr>
+          </tbody></table>
+
+          <table>
+            <tbody><tr>
+              <td class="text lt" align="right" nowrap="">residue width in pixels: <span id="imageResidW">4</span></td>
+              <td class="text" style="padding-left:15px;">
+                <div id="imageResidWSlider" style="width: 200px; height:6px;" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><a class="ui-slider-handle ui-state-default ui-corner-all" href="https://alignmentviewer.org/#" style="left: 33.3333%;"></a></div>
+              </td>
+            </tr>
+            <tr>
+              <td class="text lt" align="right" nowrap="">residue height in pixels: <span id="imageResidH">4</span></td>
+              <td class="text" style="padding-left:15px;">
+                <div id="imageResidHSlider" style="width: 200px; height:6px;" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><a class="ui-slider-handle ui-state-default ui-corner-all" href="https://alignmentviewer.org/#" style="left: 33.3333%;"></a></div>
+              </td>
+            </tr>
+          </tbody></table>
+
+          <br><br>
+          <canvas class="plot_border" id="msaImage" width="100" height="100" style="margin-top:6px;"></canvas>
+
+          <br><br><br><br><br><br><br><br>
+        </td>
+      </tr>
+    </tbody></table>
+
+    <!-- ______________________________________________________ stats view ____________________________________________________ -->
+    <table id="STAview" border="0" style="display:none;">
+      <tbody><tr>
+        <td valign="top">
+          <span class="textB">Sequence <span class="tc2">gaps</span> &amp; <span style="color:#f5a742">ref.seq identity</span></span><span class="text text2"> - amount of sequences with given fraction of gaps/identity (sorted by ranking)</span>
+          <div id="MSAstats"></div>
+        </td>
+        <td class="text" valign="top"></td>
+      </tr>
+      <tr>
+        <td class="text">
+          <span class="textB">Pairwise identity </span><span id="pairwise_status"> (takes a while for large alignments)</span>
+          <div class="plot_border tc3" id="MSApairwise" style="margin-top:6px; width:700px; height:300px;">
+            <div style="position:relative;top:40%;text-align:center;z-index:100;font-size: 40px"> 
+              <a id="pairwise_start_btn" style="color:#ff0000">calculate</a></div>
+
+          </div>
+        </td>
+        <td class="text" valign="top"></td>
+      </tr>
+      <tr>
+        <td class="text">
+          <div class="textB" style="margin-top:40px;">Pairwise identity 2D map</div>
+          <canvas class="plot_border" id="MSApairwiseMap" width="700" height="700" style="margin-top:6px;"></canvas><br>
+        </td>
+        <td class="text" valign="top">
+          <ul class="text" style="line-height:90%">
+            <li><span style="background-color:#ffffff">&nbsp;&nbsp;&nbsp;</span> 0</li>
+            <li><span style="background-color:#d8d8ff">&nbsp;&nbsp;&nbsp;</span> 0.1</li>
+            <li><span style="background-color:#ccccff">&nbsp;&nbsp;&nbsp;</span> 0.2</li>
+            <li><span style="background-color:#a8a8ff">&nbsp;&nbsp;&nbsp;</span> 0.3</li>
+            <li><span style="background-color:#9999ff">&nbsp;&nbsp;&nbsp;</span> 0.4</li>
+            <li><span style="background-color:#7878ff">&nbsp;&nbsp;&nbsp;</span> 0.5</li>
+            <li><span style="background-color:#6666ff">&nbsp;&nbsp;&nbsp;</span> 0.6</li>
+            <li><span style="background-color:#4848ff">&nbsp;&nbsp;&nbsp;</span> 0.7</li>
+            <li><span style="background-color:#3333ff">&nbsp;&nbsp;&nbsp;</span> 0.8</li>
+            <li><span style="background-color:#1919ff">&nbsp;&nbsp;&nbsp;</span> 0.9</li>
+            <li><span style="background-color:#0000ff">&nbsp;&nbsp;&nbsp;</span> 1</li>
+          </ul>
+        </td>
+      </tr>
+      <!--<tr><td class='text'>
+	<div class='textB' style='margin-top:6px;'>Pairwise identity force-directed graph</div>
+	<div class='plot_border' id='MSApairwiseGraph' style='width:700p; height:700;'></div>
+</td><td class='text' valign='top'>
+	<ul class='text'>
+		<li>lowest seq.identity to include in graph : <span id='graphSliderVal'></span></li>
+		<li><div id='graphSlider'></div></li>
+		<li><button id='graphApply'>rebuild graph</button>&nbsp;&nbsp;&nbsp;&nbsp;<button id='graphClear'>clear graph</button></li>
+	</ul>
+</td>
+</tr>-->
+      <tr>
+        <td class="text"></td>
+        <td class="text" valign="top"></td>
+      </tr>
+    </tbody></table>
+
+    <!-- ______________________________________________________ MSA species view _______________________________________________ -->
+    <table id="SPEview" border="0" cellpadding="1" cellspacing="1" style="display:none;">
+      <tbody><tr>
+        <td class="text">
+          <!-- <svg class='plot_border' id='specburst'></svg> -->
+
+          This function allows to load coupling scores sorted by importance to display contacts on the MSA.<br>
+          The 1bkr:A coupling scores can be downloaded <a href="https://alignmentviewer.org/example/1bkr_A_CouplingScores.csv" target="_blank">here</a>. <br>
+          Prerequisite: the file format is a comma-separated file (.csv), such as what gets outputted by <a href="https://alignmentviewer.org/evcouplings.org" target="_blank">evcouplings.org</a> when selecting the "Raw Evolutionary Couplings (EC) table" option. <br>
+          An example:<br>
+          <pre>i,A_i,j,A_j,fn,cn,segment_i,segment_j,probability
+49,V,69,M,0,0.050877,A,A,0.9985961719887426
+57,S,65,D,0,0.045328,A,A,0.9918500685696678
+52,R,73,V,0,0.042749,A,A,0.9835481279392891
+          </pre>
+          Once loaded, the MSA view tab will display colored ellipses.<br>
+          The same colored ellipse on two different residues represents a contact between the pair. <br>
+          A maximum of 20 ellipses will be displayed.<br>
+          <input type="file" class="filectrl" id="customdata2" size="40"><br>
+          <br>
+          <div id="cdatStatus2"></div>
+        </td>
+      </tr>
+    </tbody></table>
+
+    <!-- ______________________________________________________ MSA custom couplings view ___________________________________________ -->
+    <table id="couplings" border="0" cellpadding="1" cellspacing="1" style="display:none;">
+      <tbody><tr>
+        <td class="text">
+          Load the couplings already sorted by strength. The residues start from the position zero.<br>
+          File format is tab-separated text file with two columns: the position numbers of the coupled residues (position A
+          contacts position B)<br>
+          Not all positions have to be present and only few will be displayed.<br><br>
+          <input type="file" class="filectrl" id="customdata2" size="40"><br>
+          <br>
+          <div id="cdatStatus2"></div>
+        </td>
+      </tr>
+    </tbody></table>
+
+    <!-- ______________________________________________________ MSA custom data view ___________________________________________ -->
+    <table id="DATview" border="0" cellpadding="1" cellspacing="1" style="display:none;">
+      <tbody><tr>
+        <td class="text">
+          Load custom sequence annotation to be shown along the alignment as sortable column.<br>
+          File format is tab-separated text file with two columns: sequence name as in your multiple sequence alignment
+          (MYG_HUMAN/1-154), annotation (numerical or text).<br>
+          The example for 1bkr:A can be downloaded <a href="https://alignmentviewer.org/example/1bkr_A.1-108.msa_annotations.txt" target="_blank">here</a>. <br>
+          Not all sequence names have to be present - can provide as few as one to move it up when sorted.<br>
+          Position of reference sequence is maintained in sorted msa.<br><br>
+          <input type="file" class="filectrl" id="customdata" size="40"><br>
+          <br>
+          <div id="cdatStatus"></div>
+        </td>
+      </tr>
+    </tbody></table>
+
+    <!-- ______________________________________________________ MSA view ______________________________________________________ -->
+    <table id="MSAview" border="0" cellpadding="1" cellspacing="1" style="display: block;">
+      <tbody><tr>
+        <td></td>
+        <td class="text" colspan="11" nowrap="">
+          <table border="0" cellpadding="1" cellspacing="1">
+            <tbody><tr>
+              <td class="text" nowrap="">
+                <span class="tc2">
+                  &nbsp;ident1% = fraction of reference sequence identical to second sequence (gaps not counted)<br>
+                  &nbsp;ident2% = fraction of second sequence identical to reference sequence (gaps not counted)<br> </span><span style="font-size:5px;"><br></span>
+
+                &nbsp;Sequence order:
+                <select id="order">
+                  <option value="orderOrig">original</option>
+                  <option value="orderIdent1">identity1</option>
+                  <option value="orderIdent2">identity2</option> </select><br>
+
+                &nbsp;Coloring Scheme:
+                <select id="colorScheme">
+                  <option value="original" style="background-color: blue">mview (default)</option>
+                  <option value="clustal" style="background-color: green">clustal</option>
+                </select>
+                <br>
+
+                <span style="font-size:5px;"><br></span>
+                <input type="checkbox" id="CHKspecies" checked="checked"> show species
+                <span class="lt">(kingdom code: A-archaea B-bacteria E-eukaryota V-viruses, Uniprot IDs required)</span><br>
+                <input type="checkbox" id="CHKinfo" checked="checked"> show sequence annotation
+                <span class="lt">(any text after sequence name)</span><br>
+                <input type="checkbox" id="CHKpfam" checked="checked"> link to protein Pfam domain structure page<br>
+                <input type="checkbox" id="CHKcustom" checked="checked"> custom annotations <span class="lt">(see tab <i>custom data</i>)</span><br>
+                <input type="checkbox" id="CHKconservation" checked="checked"> gap &amp; conservation bar chart<br>
+                <input type="checkbox" id="CHKseqlogo" checked="checked"> sequence logo<br>
+                <span style="font-size:5px"><br></span>
+                &nbsp;Color columns with conservation higher than: <span id="colorSliderVal">0</span><br>
+                <table class="text">
+                  <tbody><tr>
+                    <td nowrap=""><div id="colorSlider" style="width: 300px; height:6px;" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><a class="ui-slider-handle ui-state-default ui-corner-all" href="https://alignmentviewer.org/#" style="left: 0%;"></a></div></td>
+                    <td>
+                      &nbsp;&nbsp;&nbsp;<button id="colorApply" style="height:24px; font-size:10px; vertical-align:text-top;" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">
+                        apply
+                      </span></button>
+                    </td>
+                  </tr>
+                </tbody></table>
+
+                <span style="font-size:5px"><br></span>
+                <div id="pagingCtrl" style="display: none;">
+                  <span class="ctrlval">Currently showing sequences: <span id="sliderPageVal"></span></span><br>
+                  <span style="font-size:5px"><br></span>
+                  <div style="width: 300px; height:6px;" id="sliderPage" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                    <a class="ui-slider-handle ui-state-default ui-corner-all ui-state-focus" href="https://alignmentviewer.org/#" style="left: 0%;"></a>
+                  </div>
+                </div>
+              </td>
+              <td class="text hpadding" valign="top" nowrap="">
+                <table class="text" border="0" cellspacing="1" cellpadding="10" width="340">
+                  <tbody><tr>
+                    <td class="hpadding textB" bgcolor="#d0d0e0" style="color:white">Filtering</td>
+                  </tr>
+                  <tr>
+                    <td class="hpadding" nowrap="" bgcolor="#f0f0f0">
+                      <span style="font-size:5px"><br></span>
+
+                      Hide sequences with gaps higher than <span id="sliderFilterGapsVal">100%</span><br>
+                      <span style="font-size:4px"><br></span>
+                      <div id="sliderFilterGaps" style="width: 250px; height:6px;" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><a class="ui-slider-handle ui-state-default ui-corner-all" href="https://alignmentviewer.org/#" style="left: 100%;"></a></div>
+                      <span style="font-size:10px"><br></span>
+                      Hide sequences with identity1 lower than <span id="sliderFilterIdentVal">0%</span><br>
+                      <span style="font-size:4px"><br></span>
+                      <div id="sliderFilterIdent" style="width: 250px; height:6px;" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><a class="ui-slider-handle ui-state-default ui-corner-all" href="https://alignmentviewer.org/#" style="left: 0%;"></a></div>
+                      <br>
+
+                      <!--
+                        <input type="checkbox" id="CHKrfgaps">
+                        Hide columns with gaps in reference sequence<br>
+                        -->
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="hpadding" align="middle" nowrap="" bgcolor="#f0f0f0">
+                      <span id="filterStatus"></span>
+                      <span style="font-size:4px"><br></span>
+                      <button id="filterExport" style="height:24px; font-size:10px; vertical-align:text-top;" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">
+                        &nbsp;&nbsp;&nbsp;export&nbsp;&nbsp;&nbsp;
+                      </span></button>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <button id="filterApply" style="height:24px; font-size:10px; vertical-align:text-top;" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">
+                        &nbsp;&nbsp;&nbsp;apply&nbsp;&nbsp;&nbsp;
+                      </span></button>
+                    </td>
+                  </tr>
+                </tbody></table>
+              </td>
+            </tr>
+          </tbody></table>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="12"></td>
+        <td align="left" nowrap="">
+          <div id="labeled_plot_canvas">
+            <span class="textB"><span class="tc3">gaps</span>/<span class="tc1">conservation</span></span>
+            <div id="plot_canvas" class="" style="display: block;"><svg width="289" height="160"><line x1="0" y1="0.5" x2="289" y2="0.5" stroke-width="0.5" stroke="slateblue"></line><line x1="0" y1="16.5" x2="289" y2="16.5" stroke-width="0.5" stroke="slateblue"></line><line x1="0" y1="32.5" x2="289" y2="32.5" stroke-width="0.5" stroke="slateblue"></line><line x1="0" y1="48.5" x2="289" y2="48.5" stroke-width="0.5" stroke="slateblue"></line><line x1="0" y1="64.5" x2="289" y2="64.5" stroke-width="0.5" stroke="slateblue"></line><line x1="0" y1="80.5" x2="289" y2="80.5" stroke-width="0.5" stroke="slateblue"></line><line x1="0" y1="96.5" x2="289" y2="96.5" stroke-width="0.5" stroke="slateblue"></line><line x1="0" y1="112.5" x2="289" y2="112.5" stroke-width="0.5" stroke="slateblue"></line><line x1="0" y1="128.5" x2="289" y2="128.5" stroke-width="0.5" stroke="slateblue"></line><line x1="0" y1="144.5" x2="289" y2="144.5" stroke-width="0.5" stroke="slateblue"></line><line x1="0" y1="160.5" x2="289" y2="160.5" stroke-width="0.5" stroke="slateblue"></line><rect x="0" y="28.159999999999997" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="3.211111111111111" y="141.43551519175224" width="5.422222222222222" height="160" fill="#585989"></rect><rect x="9.633333333333333" y="7.680000000000007" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="12.844444444444443" y="157.06514797206015" width="5.422222222222222" height="160" fill="#585989"></rect><rect x="19.266666666666666" y="14.079999999999984" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="22.477777777777778" y="152.7992431298914" width="5.422222222222222" height="160" fill="#585989"></rect><rect x="28.9" y="15.359999999999985" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="32.11111111111111" y="151.8595844524673" width="5.422222222222222" height="160" fill="#585989"></rect><rect x="38.53333333333333" y="32" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="41.74444444444444" y="138.03154663394682" width="5.422222222222222" height="160" fill="#585989"></rect><rect x="48.166666666666664" y="11.519999999999982" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="51.37777777777777" y="154.60151115366003" width="5.422222222222222" height="160" fill="#585989"></rect><rect x="57.8" y="12.799999999999983" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="61.011111111111106" y="153.71404975041185" width="5.422222222222222" height="160" fill="#585989"></rect><rect x="67.43333333333334" y="17.919999999999987" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="70.64444444444445" y="149.91369466329573" width="5.422222222222222" height="160" fill="#585989"></rect><rect x="77.06666666666666" y="24.319999999999993" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="80.27777777777777" y="144.72745511756472" width="5.422222222222222" height="160" fill="#585989"></rect><rect x="86.69999999999999" y="35.84" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="89.9111111111111" y="134.5290625127344" width="5.422222222222222" height="160" fill="#585989"></rect><rect x="96.33333333333333" y="33.28" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="99.54444444444444" y="136.8744246184218" width="5.422222222222222" height="160" fill="#585989"></rect><rect x="105.96666666666667" y="20.47999999999999" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="109.17777777777778" y="147.88953871118383" width="5.422222222222222" height="160" fill="#585989"></rect><rect x="115.6" y="20.47999999999999" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="118.8111111111111" y="147.88953871118383" width="5.422222222222222" height="160" fill="#585989"></rect><rect x="125.23333333333332" y="69.12" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="128.44444444444443" y="101.19539867050149" width="5.422222222222222" height="160" fill="#585989"></rect><rect x="134.86666666666667" y="83.2" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="138.07777777777778" y="85.9267594166393" width="5.422222222222222" height="160" fill="#585989"></rect><rect x="144.5" y="89.6" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="147.7111111111111" y="78.81263860400422" width="5.422222222222222" height="160" fill="#585989"></rect><rect x="154.13333333333333" y="97.28" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="157.34444444444443" y="70.14747490932047" width="5.422222222222222" height="160" fill="#585989"></rect><rect x="163.76666666666665" y="89.6" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="166.97777777777776" y="78.81263860400422" width="5.422222222222222" height="160" fill="#585989"></rect><rect x="173.39999999999998" y="108.8" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="176.6111111111111" y="56.910033289941936" width="5.422222222222222" height="160" fill="#585989"></rect><rect x="183.03333333333333" y="93.44" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="186.24444444444444" y="74.49688997724616" width="5.422222222222222" height="160" fill="#585989"></rect><rect x="192.66666666666666" y="97.28" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="195.87777777777777" y="160" width="5.422222222222222" height="160" fill="#585989"></rect><rect x="202.29999999999998" y="72.96" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="205.5111111111111" y="97.08715067261753" width="5.422222222222222" height="160" fill="#585989"></rect><rect x="211.93333333333334" y="125.44" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="215.14444444444445" y="37.33586913464012" width="5.422222222222222" height="160" fill="#585989"></rect><rect x="221.56666666666666" y="142.07999999999998" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="224.77777777777777" y="17.289536772184363" width="5.422222222222222" height="160" fill="#585989"></rect><rect x="231.2" y="152.32" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="234.4111111111111" y="4.743259214031696" width="5.422222222222222" height="160" fill="#585989"></rect><rect x="240.83333333333331" y="151.04" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="244.04444444444442" y="6.319782792870598" width="5.422222222222222" height="160" fill="#585989"></rect><rect x="250.46666666666664" y="151.04" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="253.67777777777775" y="6.319782792870598" width="5.422222222222222" height="160" fill="#585989"></rect><rect x="260.09999999999997" y="154.88" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="263.3111111111111" y="1.5833488576108152" width="5.422222222222222" height="160" fill="#585989"></rect><rect x="269.73333333333335" y="156.16" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="272.94444444444446" y="0" width="5.422222222222222" height="160" fill="#585989"></rect><rect x="279.3666666666667" y="156.16" width="3.211111111111111" height="160" fill="#a1b4cc"></rect><rect x="282.5777777777778" y="0" width="5.422222222222222" height="160" fill="#585989"></rect></svg></div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <!-- ___ MSA logo  __________ -->
+        <td colspan="12"></td>
+        <td align="left" nowrap=""><div id="seqlogo" style="display: block;"><svg width="289" height="48" style="background-color:white"><defs><path id="A" d="M 10 99 L 45 0 h 10 L 90 99 h -18 L 66 80 h -32 L 28 99 Z M 40 60 h 20 L 50 30 Z" class="aaa"></path><path id="B" d="M 10 99 v -99 h 50 A 25,25 0 0,1 75,50 A 25,25 0 0,1 60,99 Z M 25 31 v 10 h 35 A 15,11 0 0,0 60,15 h -35 Z M 25 75 v 10 h 35 A 15,11 0 0,0 60,60 h -35 Z" class="aab"></path><path id="C" d="M 10 50 v -15 A 46,46 0 0,1 85,12 L 72 25 A 31,31 0 0,0 25,40 v 25 A 31,31 0 0,0 72,75 L 85 88 A 46,46 0 0,1 10,70 Z" class="aac"></path><path id="D" d="M 10 99 v -99 h 40 A 20,25 0 0,1 50,99 Z M 25 20 v 60 h 10 A 18,17 0 0,0 35,20 Z" class="aad"></path><path id="E" d="M 10 99 v -99 h 80 v 20 h -65 v 20 h 65 v 20 h -65 v 20 h 65 v 19 Z" class="aae"></path><path id="F" d="M 10 99 v -99 h 80 v 20 h -65 v 20 h 55 v 20 h -55 v 39 Z" class="aaf"></path><path id="G" d="M 10 50 v -15 A 46,46 0 0,1 85,12 L 72 25 A 31,31 0 0,0 25,40 v 25 A 28,28 0 0,0 75,60 h -20 v -20 h 35 v 20 A 41,41 0 0,1 10,70 Z" class="aag"></path><path id="H" d="M 10 99 v -99 h 15 v 40 h 50 v -40 h 15 v 99 h -15 v -40 h -50 v 40 Z" class="aah"></path><path id="I" d="M 25 99 v -19 h 17 v -60 h -17 v -20 h 50 v 20 h -17 v 60 h 17 v 19 Z" class="aai"></path><path id="J" d="M 57 50 v -30 h -17 v -20 h 50 v 20 h -17 v 30 A 0.6,1 0 0,1 15,50 h 15 A 0.5,1 0 0,0 57,50 Z" class="aaj"></path><path id="K" d="M 10 99 v -99 h 15 v 40 L 70 0 h 20 L 35 50 L 85 99 h -20 L 25 60 v 39 Z" class="aak"></path><path id="L" d="M 10 99 v -99 h 15 v 80 h 65 v 19 Z" class="aal"></path><path id="M" d="M 10 99 L 22 0 h 17 L 50 70 L 61 0 h 17 L 90 99 h -15 L 69 30 L 60 99 h -20 L 31 30 L 25 99 Z" class="aam"></path><path id="N" d="M 10 99 v -99 h 20 L 75 70 v -70 h 15 v 99 h -20 L 25 30 v 70 Z" class="aan"></path><path id="O" d="M 10 40 A 15,15 0 0,1 90 40 v 20 A 15,15 0 0,1 10 60 Z M 25 60 A 10,10 0 0,0 75,60 v -20 A 10,10 0 0,0 25,40 Z" class="aao"></path><path id="P" d="M 10 99 v -99 h 55 A 12,15 0 0,1 65 60 h -40 v 40 Z M 25 20 v 20 h 35 A 15,11 0 0,0 60,20 h -35 Z" class="aap"></path><path id="Q" d="M 10 40 A 15,15 0 0,1 90 40 v 20 A 15,15 0 0,1 10 60 Z M 25 60 A 10,10 0 0,0 75,60 v -20 A 10,10 0 0,0 25,40 Z M 65 65 l 30 25 l -15 9 l -30 -24 Z" class="aaq"></path><path id="R" d="M 10 99 v -99 h 55 A 12,15 0 0,1 65 60 h -15 L 90 99 h -23 L 30 65 h -5 v 34 Z M 25 20 v 20 h 35 A 15,11 0 0,0 60,20 h -35 Z" class="aar"></path><path id="S" d="M 10 78 l 15 -12 A 8,5 0 0,0 65 63 l -48 -12 A 8,7 0 0,1 90 22 l -15 12 A 8,5 0 0,0 35 37 l 48 12 A 8,7 0 0,1 10 78 Z" class="aas"></path><path id="T" d="M 43 99 v -79 h -33 v -20 h 80 v 20 h -33 v 79 Z" class="aat"></path><path id="U" d="M 10 0 h 15 v 50 A 15,15 0 0,0 75 50 v -50 h 15 v 50 A 12,15 0 0,1 10 50 Z" class="aau"></path><path id="V" d="M 10 0 h 18 L 50 68 L 72 0 h 18 L 60 99 h -20 Z" class="aav"></path><path id="W" d="M 10 0 L 22 99 h 17 L 50 30 L 61 99 h 17 L 90 0 h -15 L 69 70 L 60 0 h -20 L 31 70 L 25 0 Z" class="aaw"></path><path id="X" d="M 10 0 h 18 L 50 40 L 72 0 h 18 L 59 50 L 90 99 h -18 L 50 60 L 28 99 h -18 L 41 50 Z" class="aax"></path><path id="Y" d="M 10 0 h 18 L 50 40 L 72 0 h 18 L 58 55 v 44 h -16 v -44 Z" class="aay"></path><path id="Z" d="M 10 20 v -20 h 80 v 20 L 28 80 h 62 v 19 h -80 v -19 L 72 20 Z" class="aaz"></path></defs><g transform="matrix(0.09633333333333333,0,0,0.48,0,0)"><g transform="translate(0,0)"><g transform="matrix(1,0,0,0.176,0,82.4)"><use href="#L"></use></g></g><g transform="translate(100,0)"><g transform="matrix(1,0,0,0.048,0,95.2)"><use href="#Q"></use></g></g><g transform="translate(200,0)"><g transform="matrix(1,0,0,0.088,0,91.2)"><use href="#P"></use></g></g><g transform="translate(300,0)"><g transform="matrix(1,0,0,0.096,0,90.4)"><use href="#P"></use></g></g><g transform="translate(400,0)"><g transform="matrix(1,0,0,0.2,0,80)"><use href="#A"></use></g></g><g transform="translate(500,0)"><g transform="matrix(1,0,0,0.072,0,92.8)"><use href="#L"></use></g></g><g transform="translate(600,0)"><g transform="matrix(1,0,0,0.08,0,92)"><use href="#L"></use></g></g><g transform="translate(700,0)"><g transform="matrix(1,0,0,0.112,0,88.8)"><use href="#P"></use></g></g><g transform="translate(800,0)"><g transform="matrix(1,0,0,0.152,0,84.8)"><use href="#S"></use></g></g><g transform="translate(900,0)"><g transform="matrix(1,0,0,0.224,0,77.6)"><use href="#G"></use></g></g><g transform="translate(1000,0)"><g transform="matrix(1,0,0,0.208,0,79.2)"><use href="#F"></use></g></g><g transform="translate(1100,0)"><g transform="matrix(1,0,0,0.128,0,87.2)"><use href="#C"></use></g></g><g transform="translate(1200,0)"><g transform="matrix(1,0,0,0.128,0,87.2)"><use href="#L"></use></g></g><g transform="translate(1300,0)"><g transform="matrix(1,0,0,0.432,0,56.8)"><use href="#R"></use></g></g><g transform="translate(1400,0)"><g transform="matrix(1,0,0,0.52,0,48)"><use href="#G"></use></g></g><g transform="translate(1500,0)"><g transform="matrix(1,0,0,0.56,0,43.99999999999999)"><use href="#V"></use></g></g><g transform="translate(1600,0)"><g transform="matrix(1,0,0,0.608,0,39.2)"><use href="#L"></use></g></g><g transform="translate(1700,0)"><g transform="matrix(1,0,0,0.56,0,43.99999999999999)"><use href="#S"></use></g></g><g transform="translate(1800,0)"><g transform="matrix(1,0,0,0.68,0,32)"><use href="#L"></use></g></g><g transform="translate(1900,0)"><g transform="matrix(1,0,0,0.584,0,41.6)"><use href="#G"></use></g></g><g transform="translate(2100,0)"><g transform="matrix(1,0,0,0.456,0,54.4)"><use href="#E"></use></g></g><g transform="translate(2200,0)"><g transform="matrix(1,0,0,0.784,0,21.599999999999994)"><use href="#L"></use></g></g><g transform="translate(2300,0)"><g transform="matrix(1,0,0,0.888,0,11.200000000000003)"><use href="#L"></use></g></g><g transform="translate(2400,0)"><g transform="matrix(1,0,0,0.952,0,4.800000000000011)"><use href="#R"></use></g></g><g transform="translate(2500,0)"><g transform="matrix(1,0,0,0.944,0,5.6000000000000085)"><use href="#A"></use></g></g><g transform="translate(2600,0)"><g transform="matrix(1,0,0,0.944,0,5.6000000000000085)"><use href="#T"></use></g></g><g transform="translate(2700,0)"><g transform="matrix(1,0,0,0.968,0,3.200000000000003)"><use href="#M"></use></g></g><g transform="translate(2800,0)"><g transform="matrix(1,0,0,0.976,0,2.4000000000000057)"><use href="#V"></use></g></g><g transform="translate(2900,0)"><g transform="matrix(1,0,0,0.976,0,2.4000000000000057)"><use href="#S"></use></g></g></g></svg></div></td>
+      </tr>
+      <tr>
+        <!-- ___ MSA logo  __________ -->
+        <td colspan="12"></td>
+        <td align="left" nowrap=""><div id="couplingslogo"></div></td>
+      </tr>
+      <tr>
+        <td align="right" nowrap=""><!-- ___ MSA header/plots ___ --></td>
+        <td align="right" nowrap=""></td>
+        <td></td>
+        <td></td>
+        <td align="right" style="vertical-align:bottom;" nowrap="">
+          <div class="tc2 tblheader" id="MSAcustomAH"></div>
+        </td>
+        <td align="right" style="vertical-align:bottom;" nowrap="">
+          <div class="tc2 tblheader" id="MSAcustomBH"></div>
+        </td>
+        <td class="hpadding" style="vertical-align:bottom;">
+          <div class="tc2 tblheader" id="MSAspeciesH">species</div>
+        </td>
+        <td align="center" style="vertical-align:bottom;">
+          <div class="tc2 tblheader" id="MSApfamH">pfam</div>
+        </td>
+        <td align="right" style="vertical-align:bottom;" nowrap="">
+          <div class="tc2 tblheader">gaps%</div>
+        </td>
+        <td align="right" style="vertical-align:bottom;" nowrap="">
+          <div class="tc2 tblheader">ident1%</div>
+        </td>
+        <td align="right" style="vertical-align:bottom;" nowrap="">
+          <div class="tc2 tblheader">ident2%</div>
+        </td>
+        <td width="20px"></td>
+        <td align="left" nowrap=""><div id="MSAruler" class="ali tc2" style="display: block;">.....:..10|....:..20|....:..30</div></td>
+      </tr>
+      <tr>
+        <!-- ___ MSA body ___________ -->
+        <td align="right" nowrap="">
+          <div class="ali dim" id="MSArows">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>39<br>40<br>41<br>42<br>43<br>44<br>45<br>46<br>47<br>48<br>49<br>50<br>51<br>52<br>53<br>54<br>55<br>56<br>57<br>58<br>59<br>60<br>61<br>62<br>63<br>64<br>65<br>66<br>67<br>68<br>69<br>70<br>71<br>72<br>73<br>74<br>75<br>76<br>77<br>78<br>79<br>80<br>81<br>82<br>83<br>84<br>85<br>86<br>87<br>88<br>89<br>90<br>91<br>92<br>93<br>94<br>95<br>96<br>97<br>98<br>99<br>100<br>101<br>102<br>103<br>104<br>105<br>106<br>107<br>108<br>109<br>110<br>111<br>112<br>113<br>114<br>115<br>116<br>117<br>118<br>119<br>120<br>121<br>122<br>123<br>124<br>125<br></div>
+        </td>
+
+        <td align="right" nowrap="">
+          <div class="ali dim" id="MSArows2">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>39<br>40<br>41<br>42<br>43<br>44<br>45<br>46<br>47<br>48<br>49<br>50<br>51<br>52<br>53<br>54<br>55<br>56<br>57<br>58<br>59<br>60<br>61<br>62<br>63<br>64<br>65<br>66<br>67<br>68<br>69<br>70<br>71<br>72<br>73<br>74<br>75<br>76<br>77<br>78<br>79<br>80<br>81<br>82<br>83<br>84<br>85<br>86<br>87<br>88<br>89<br>90<br>91<br>92<br>93<br>94<br>95<br>96<br>97<br>98<br>99<br>100<br>101<br>102<br>103<br>104<br>105<br>106<br>107<br>108<br>109<br>110<br>111<br>112<br>113<br>114<br>115<br>116<br>117<br>118<br>119<br>120<br>121<br>122<br>123<br>124<br>125<br></div>
+        </td>
+        <td class="hpadding" align="left" nowrap="">
+          <div class="ali" id="MSAnames">0_Ref_Frame_corr:2<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>39<br>40<br>41<br>42<br>43<br>44<br>45<br>46<br>47<br>48<br>49<br>50<br>51<br>52<br>53<br>54<br>55<br>56<br>57<br>58<br>59<br>60<br>61<br>62<br>63<br>64<br>65<br>66<br>67<br>68<br>69<br>70<br>71<br>72<br>73<br>74<br>75<br>76<br>77<br>78<br>79<br>80<br>81<br>82<br>83<br>84<br>85<br>86<br>87<br>88<br>89<br>90<br>91<br>92<br>93<br>94<br>95<br>96<br>97<br>98<br>99<br>100<br>101<br>102<br>103<br>104<br>105<br>106<br>107<br>108<br>109<br>110<br>111<br>112<br>113<br>114<br>115<br>116<br>117<br>118<br>119<br>120<br>121<br>122<br>123<br>124<br></div>
+        </td>
+        <td align="left" nowrap="">
+          <div class="ali" id="MSAinfo"><br>CluSeq:0.05748311_sd:0.06213371<br>CluSeq:0.05729872_sd:0.04974706<br>CluSeq:0.05127806_sd:0.02707942<br>CluSeq:0.01810513_sd:0.03135901<br>CluSeq:0.03167575_sd:0.01776006<br>CluSeq:0.06042516_sd:0.01940787<br>CluSeq:0.03044619_sd:0.0275325<br>CluSeq:0.0552584_sd:0.06581269<br>CluSeq:0.01591915_sd:0.01567855<br>CluSeq:0.0230861_sd:0.00746363<br>CluSeq:0.02014744_sd:0.00819669<br>CluSeq:0.01738092_sd:0.00901243<br>CluSeq:0.02619623_sd:0.00695865<br>CluSeq:0.02673544_sd:0.00549299<br>CluSeq:0.02433697_sd:0.01303796<br>CluSeq:0.01914689_sd:0.000723<br>CluSeq:0.00624274_sd:0.01081274<br>CluSeq:0.01332958_sd:0.01214763<br>CluSeq:0.01626368_sd:0.00056021<br>CluSeq:0.03007131_sd:0.02688523<br>CluSeq:0.0076065_sd:0.00661378<br>CluSeq:0.00348683_sd:0.00603936<br>CluSeq:0.00333106_sd:0.00576956<br>CluSeq:0.01250443_sd:0.00450388<br>CluSeq:0.00263609_sd:0.00456584<br>CluSeq:0.00719486_sd:0.00058252<br>CluSeq:0.0079006_sd:0.00136074<br>CluSeq:0.00858944_sd:0.00170216<br>CluSeq:0.0021568_sd:0.00373569<br>CluSeq:0.00575443_sd:0.00103923<br>CluSeq:0.00589525_sd:0.000316<br>CluSeq:0.0038449_sd:0.00339513<br>CluSeq:0.00798786_sd:0.00352991<br>CluSeq:0.00696516_sd:0.00196344<br>CluSeq:0.00590596_sd:0.00112846<br>CluSeq:0.00380571_sd:0.00346563<br>CluSeq:0.00456324_sd:0.00033936<br>CluSeq:0.00134201_sd:0.00232443<br>CluSeq:0.00125813_sd:0.00217915<br>CluSeq:0.00168552_sd:0.00182917<br>CluSeq:0.00118624_sd:0.00205463<br>CluSeq:0.00151799_sd:0.00176245<br>CluSeq:0.00374946_sd:0.00401007<br>CluSeq:0.00116603_sd:0.00148641<br>CluSeq:0.00092263_sd:0.00159804<br>CluSeq:0.000671_sd:0.00116221<br>CluSeq:0.00056316_sd:0.00097543<br>CluSeq:0.00011982_sd:0.00020754<br>CluSeq:7.483e-05_sd:7.207e-05<br>CluSeq:3.595e-05_sd:6.226e-05<br>CluSeq:3.595e-05_sd:6.226e-05<br>CluSeq:2.396e-05_sd:4.151e-05<br>CluSeq:2.396e-05_sd:4.151e-05<br>CluSeq:2.396e-05_sd:4.151e-05<br>CluSeq:2.396e-05_sd:4.151e-05<br>CluSeq:2.396e-05_sd:4.151e-05<br>CluSeq:2.396e-05_sd:4.151e-05<br>CluSeq:3.293e-05_sd:3.632e-05<br>CluSeq:2.396e-05_sd:4.151e-05<br>CluSeq:2.396e-05_sd:4.151e-05<br>CluSeq:2.396e-05_sd:4.151e-05<br>CluSeq:2.396e-05_sd:4.151e-05<br>CluSeq:2.095e-05_sd:1.87e-05<br>CluSeq:2.095e-05_sd:1.87e-05<br>CluSeq:1.844e-05_sd:1.799e-05<br>CluSeq:2.095e-05_sd:1.87e-05<br>CluSeq:2.095e-05_sd:1.87e-05<br>CluSeq:1.844e-05_sd:1.799e-05<br>CluSeq:2.095e-05_sd:1.87e-05<br>CluSeq:2.095e-05_sd:1.87e-05<br>CluSeq:1.844e-05_sd:1.799e-05<br>CluSeq:1.844e-05_sd:1.799e-05<br>CluSeq:1.844e-05_sd:1.799e-05<br>CluSeq:2.095e-05_sd:1.87e-05<br>CluSeq:0.046246_sd:0.06580524<br>CluSeq:0.03142488_sd:0.05442949<br>CluSeq:0.01323719_sd:0.02292749<br>CluSeq:0.01225068_sd:0.0212188<br>CluSeq:0.00375243_sd:0.00328641<br>CluSeq:0.00156945_sd:0.00271837<br>CluSeq:0.00012556_sd:0.00021747<br>CluSeq:3.587e-05_sd:6.213e-05<br>CluSeq:2.439e-05_sd:2.726e-05<br>CluSeq:1.794e-05_sd:3.107e-05<br>CluSeq:1.794e-05_sd:3.107e-05<br>CluSeq:1.794e-05_sd:3.107e-05<br>CluSeq:1.794e-05_sd:3.107e-05<br>CluSeq:1.794e-05_sd:3.107e-05<br>CluSeq:1.794e-05_sd:3.107e-05<br>CluSeq:1.794e-05_sd:3.107e-05<br>CluSeq:1.794e-05_sd:3.107e-05<br>CluSeq:1.542e-05_sd:1.388e-05<br>CluSeq:1.542e-05_sd:1.388e-05<br>CluSeq:1.542e-05_sd:1.388e-05<br>CluSeq:0.02211164_sd:0.03829849<br>CluSeq:0.02009152_sd:0.03479953<br>CluSeq:0.01441194_sd:0.02496221<br>CluSeq:0.01275324_sd:0.02208926<br>CluSeq:0.01041687_sd:0.01804255<br>CluSeq:0.00946167_sd:0.01638809<br>CluSeq:0.00879044_sd:0.01522549<br>CluSeq:0.0087259_sd:0.01511371<br>CluSeq:0.00814504_sd:0.01410762<br>CluSeq:0.00340129_sd:0.00589122<br>CluSeq:0.00329158_sd:0.00570118<br>CluSeq:0.00147153_sd:0.00254876<br>CluSeq:0.001194_sd:0.00206807<br>CluSeq:0.00116819_sd:0.00202336<br>CluSeq:2.582e-05_sd:4.472e-05<br>CluSeq:2.582e-05_sd:4.472e-05<br>CluSeq:1.936e-05_sd:3.354e-05<br>CluSeq:1.936e-05_sd:3.354e-05<br>CluSeq:1.936e-05_sd:3.354e-05<br>CluSeq:1.291e-05_sd:2.236e-05<br>CluSeq:1.291e-05_sd:2.236e-05<br>CluSeq:1.291e-05_sd:2.236e-05<br>CluSeq:1.291e-05_sd:2.236e-05<br>CluSeq:1.291e-05_sd:2.236e-05<br>CluSeq:1.291e-05_sd:2.236e-05<br>CluSeq:1.291e-05_sd:2.236e-05<br>CluSeq:1.291e-05_sd:2.236e-05<br>CluSeq:1.291e-05_sd:2.236e-05<br>CluSeq:1.291e-05_sd:2.236e-05<br>CluSeq:1.291e-05_sd:2.236e-05<br></div>
+        </td>
+        <td align="right" nowrap="">
+          <div class="ali tc1" id="MSAcustomA"></div>
+        </td>
+        <td align="right" nowrap="">
+          <div class="ali tc1" id="MSAcustomB"></div>
+        </td>
+        <td class="hpadding" align="left" nowrap="">
+          <div class="ali" id="MSAspecies"><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></div>
+        </td>
+        <td class="hpadding" align="left" nowrap="">
+          <div class="ali" id="MSApfam"><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></div>
+        </td>
+        <td class="hpadding" align="left" nowrap="">
+          <div class="ali tc1" id="MSAgaps" align="right">0.0<br>50.0<br>60.0<br>43.3<br>60.0<br>43.3<br>43.3<br>43.3<br>53.3<br>43.3<br>43.3<br>50.0<br>46.7<br>43.3<br>43.3<br>46.7<br>43.3<br>53.3<br>56.7<br>46.7<br>43.3<br>46.7<br>53.3<br>46.7<br>50.0<br>56.7<br>50.0<br>46.7<br>46.7<br>46.7<br>46.7<br>46.7<br>46.7<br>46.7<br>46.7<br>50.0<br>50.0<br>50.0<br>46.7<br>46.7<br>56.7<br>56.7<br>60.0<br>56.7<br>60.0<br>50.0<br>60.0<br>50.0<br>50.0<br>50.0<br>63.3<br>50.0<br>60.0<br>56.7<br>50.0<br>53.3<br>50.0<br>46.7<br>50.0<br>50.0<br>53.3<br>50.0<br>50.0<br>63.3<br>53.3<br>53.3<br>46.7<br>83.3<br>53.3<br>50.0<br>63.3<br>63.3<br>63.3<br>63.3<br>56.7<br>60.0<br>46.7<br>46.7<br>60.0<br>46.7<br>46.7<br>83.3<br>53.3<br>63.3<br>53.3<br>53.3<br>53.3<br>53.3<br>50.0<br>86.7<br>46.7<br>53.3<br>56.7<br>56.7<br>60.0<br>43.3<br>63.3<br>43.3<br>60.0<br>43.3<br>43.3<br>66.7<br>66.7<br>70.0<br>70.0<br>46.7<br>60.0<br>50.0<br>76.7<br>53.3<br>53.3<br>46.7<br>53.3<br>53.3<br>53.3<br>50.0<br>50.0<br>53.3<br>53.3<br>53.3<br>56.7<br>50.0<br>50.0<br>63.3<br>53.3<br></div>
+        </td>
+        <td class="hpadding" align="left" nowrap="">
+          <div class="ali tc1" id="MSAident1" align="right"><span class="tc1 tblheader" style="text-align:middle">ref.seq</span><br>50.0<br>40.0<br>56.7<br>40.0<br>56.7<br>56.7<br>56.7<br>46.7<br>56.7<br>56.7<br>50.0<br>53.3<br>56.7<br>56.7<br>53.3<br>56.7<br>46.7<br>43.3<br>53.3<br>56.7<br>53.3<br>46.7<br>53.3<br>50.0<br>43.3<br>50.0<br>53.3<br>53.3<br>53.3<br>53.3<br>53.3<br>53.3<br>53.3<br>53.3<br>50.0<br>50.0<br>50.0<br>53.3<br>53.3<br>43.3<br>43.3<br>40.0<br>43.3<br>40.0<br>50.0<br>40.0<br>50.0<br>50.0<br>50.0<br>36.7<br>50.0<br>40.0<br>43.3<br>50.0<br>46.7<br>50.0<br>53.3<br>50.0<br>50.0<br>46.7<br>50.0<br>50.0<br>36.7<br>46.7<br>46.7<br>53.3<br>16.7<br>46.7<br>50.0<br>36.7<br>36.7<br>36.7<br>36.7<br>43.3<br>40.0<br>53.3<br>53.3<br>40.0<br>53.3<br>53.3<br>16.7<br>46.7<br>36.7<br>46.7<br>46.7<br>46.7<br>46.7<br>50.0<br>13.3<br>53.3<br>46.7<br>43.3<br>43.3<br>40.0<br>56.7<br>36.7<br>56.7<br>40.0<br>56.7<br>56.7<br>33.3<br>33.3<br>30.0<br>30.0<br>53.3<br>40.0<br>50.0<br>23.3<br>46.7<br>46.7<br>53.3<br>46.7<br>46.7<br>46.7<br>50.0<br>50.0<br>46.7<br>46.7<br>46.7<br>43.3<br>50.0<br>50.0<br>36.7<br>46.7<br></div>
+        </td>
+        <td class="hpadding" align="left" nowrap="">
+          <div class="ali tc1" id="MSAident2" align="right"><span class="tc1 tblheader" style="text-align:middle">ref.seq</span><br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br>100.0<br></div>
+        </td>
+        <td width="20px">
+          &nbsp;
+        </td>
+        <td align="left" nowrap="">
+          <div class="ali" id="MSAseqs" style="color: grey; display: block;"><span class="aal">L</span><span class="aaq">Q</span><span class="aap">PP</span><span class="aaa">A</span><span class="aal">LL</span><span class="aap">P</span><span class="aas">S</span><span class="aag">G</span><span class="aaf">F</span><span class="aac">C</span><span class="aal">L</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">----</span><span class="aaa">A</span><span class="gr">---</span><span class="aas">S</span><span class="gr">-</span><span class="aaf">F</span><span class="gr">-------</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="aal">L</span><span class="gr">---</span><span class="aaa">A</span><span class="gr">---------------</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="aal">L</span><span class="gr">---</span><span class="aaa">A</span><span class="gr">---------------</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">---------</span><span class="aag">G</span><span class="aaf">F</span><span class="aac">C</span><span class="aal">L</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="gr">----</span><span class="aal">L</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">------</span><span class="aal">L</span><span class="aap">P</span><span class="aas">S</span><span class="gr">--------</span><span class="aas">S</span><span class="gr">--</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="gr">-</span><span class="aal">L</span><span class="aag">G</span><span class="gr">-</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="gr">-</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="gr">-</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">--</span><span class="aap">P</span><span class="gr">-------</span><span class="aaf">F</span><span class="gr">-------</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-</span><span class="aaq">Q</span><span class="aap">P</span><span class="gr">----------------</span><span class="aag">G</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="gr">-</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="gr">-</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">------</span><span class="aal">L</span><span class="aap">P</span><span class="aas">S</span><span class="gr">--------</span><span class="aas">S</span><span class="gr">--</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">---------</span><span class="aag">G</span><span class="aaf">F</span><span class="gr">------</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="aal">L</span><span class="gr">---</span><span class="aaa">A</span><span class="gr">------</span><span class="aac">C</span><span class="gr">--------</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="gr">-</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="gr">-</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="gr">-</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="gr">-</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="gr">-</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="gr">-</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="gr">-</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="gr">-</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">---------</span><span class="aag">G</span><span class="aaf">F</span><span class="gr">------</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="gr">-</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="gr">-</span><span class="aal">L</span><span class="aag">G</span><span class="gr">-</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="gr">-</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="gr">-</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="aal">L</span><span class="gr">---</span><span class="aaa">A</span><span class="gr">--------------</span><span class="aag">G</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="aal">L</span><span class="gr">---</span><span class="aaa">A</span><span class="gr">------</span><span class="aac">C</span><span class="gr">--------</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="aal">L</span><span class="gr">---</span><span class="aaa">A</span><span class="gr">----</span><span class="aag">G</span><span class="gr">-----------</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-</span><span class="aaq">Q</span><span class="aap">P</span><span class="gr">----------------</span><span class="aag">G</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="aal">L</span><span class="gr">---</span><span class="aaa">A</span><span class="gr">------</span><span class="aac">C</span><span class="gr">---------</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------</span><span class="aap">P</span><span class="aas">S</span><span class="aag">G</span><span class="aaf">F</span><span class="aac">C</span><span class="gr">-</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="gr">-------</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="aal">L</span><span class="gr">---</span><span class="aaa">A</span><span class="gr">------</span><span class="aac">C</span><span class="gr">---------</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------</span><span class="aap">P</span><span class="aas">S</span><span class="aag">G</span><span class="aaf">F</span><span class="aac">C</span><span class="gr">-</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="gr">-------</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------</span><span class="aap">P</span><span class="aas">S</span><span class="aag">G</span><span class="aaf">F</span><span class="aac">C</span><span class="gr">-</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="gr">-------</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">--------------</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">------</span><span class="aal">L</span><span class="aap">P</span><span class="gr">----</span><span class="aal">L</span><span class="gr">---------</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">--------------</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="aal">L</span><span class="gr">---</span><span class="aaa">A</span><span class="aal">L</span><span class="gr">-</span><span class="aap">P</span><span class="aas">S</span><span class="gr">--------------</span><span class="aal">L</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-----------</span><span class="aac">C</span><span class="gr">--</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="gr">-</span><span class="aal">L</span><span class="gr">---</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">---------</span><span class="aag">G</span><span class="aaf">F</span><span class="gr">-----</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">--------------</span><span class="aag">G</span><span class="aav">V</span><span class="gr">-</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">----</span><span class="aaa">A</span><span class="gr">----------</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="gr">-</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">--------</span><span class="aas">S</span><span class="aag">G</span><span class="gr">-----</span><span class="aav">V</span><span class="gr">-</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">---------</span><span class="aag">G</span><span class="aaf">F</span><span class="gr">-</span><span class="aal">L</span><span class="aar">R</span><span class="gr">----</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">---------</span><span class="aag">G</span><span class="aaf">F</span><span class="gr">-----</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">---------</span><span class="aag">G</span><span class="aaf">F</span><span class="gr">------</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">----</span><span class="aaa">A</span><span class="gr">----------</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">--------</span><span class="aas">S</span><span class="aag">G</span><span class="aaf">F</span><span class="gr">-----</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">--</span><span class="aal">L</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">----</span><span class="aaa">A</span><span class="gr">-</span><span class="aal">L</span><span class="aap">P</span><span class="gr">----</span><span class="aal">L</span><span class="gr">---------</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="gr">-</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="gr">--</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="gr">-</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="aal">L</span><span class="gr">---------------</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="aae">E</span><span class="aal">L</span><span class="gr">-</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">--------</span><span class="aas">S</span><span class="aag">G</span><span class="aaf">F</span><span class="gr">-----</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="aal">L</span><span class="gr">-</span><span class="aap">PP</span><span class="gr">-----</span><span class="aag">G</span><span class="gr">-----------</span><span class="aae">E</span><span class="gr">--------</span><br><span class="gr">--------------</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="gr">-</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-----------</span><span class="aac">C</span><span class="gr">--</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="gr">-</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">------</span><span class="aal">L</span><span class="aap">P</span><span class="gr">----</span><span class="aal">L</span><span class="aar">R</span><span class="gr">---------</span><span class="aal">L</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="aal">L</span><span class="gr">--</span><span class="aap">P</span><span class="aaa">A</span><span class="gr">--------</span><span class="aar">R</span><span class="gr">---------</span><span class="aal">L</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="aal">L</span><span class="gr">--</span><span class="aap">P</span><span class="aaa">A</span><span class="gr">--------</span><span class="aar">R</span><span class="gr">---------</span><span class="aal">L</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="aal">L</span><span class="gr">--</span><span class="aap">P</span><span class="aaa">A</span><span class="gr">--------</span><span class="aar">R</span><span class="gr">---------</span><span class="aal">L</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">--------</span><span class="aas">S</span><span class="aag">G</span><span class="gr">-----</span><span class="aav">V</span><span class="gr">-</span><span class="aas">S</span><span class="aal">L</span><span class="gr">-</span><span class="c8">*</span><span class="gr">--</span><span class="aal">L</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-</span><span class="aaq">Q</span><span class="aap">P</span><span class="gr">-----------------</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-----------</span><span class="aac">C</span><span class="aal">L</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="gr">---</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-----------</span><span class="aac">C</span><span class="aal">L</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="gr">---</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-</span><span class="aaq">Q</span><span class="aap">P</span><span class="gr">-----------------</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="gr">-</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="aal">L</span><span class="gr">-</span><span class="aap">PP</span><span class="gr">-----</span><span class="aag">G</span><span class="gr">-----------</span><span class="aae">E</span><span class="gr">--------</span><br><span class="aal">L</span><span class="gr">---------------</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">------</span><span class="aal">L</span><span class="aap">P</span><span class="gr">----</span><span class="aal">L</span><span class="gr">---------</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">----------</span><span class="aaf">F</span><span class="gr">-----</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-----------</span><span class="aac">C</span><span class="gr">--</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="gr">-</span><span class="aal">L</span><span class="gr">-</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">--------------</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="gr">--</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">--------------</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="gr">--</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">---------</span><span class="aag">G</span><span class="aaf">F</span><span class="gr">-</span><span class="aal">L</span><span class="aar">R</span><span class="gr">----</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="aal">L</span><span class="gr">-</span><span class="aap">PP</span><span class="aaa">A</span><span class="gr">-------------------------</span><br><span class="gr">--------</span><span class="aas">S</span><span class="aag">G</span><span class="gr">--</span><span class="aal">L</span><span class="gr">---</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">--------------</span><span class="aag">G</span><span class="aav">V</span><span class="gr">-</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">--------------</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="gr">-</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="gr">-</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">----------</span><span class="aaf">F</span><span class="gr">---</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="gr">-</span><span class="aal">L</span><span class="gr">---</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="gr">-</span><span class="aal">L</span><span class="gr">----</span><span class="aal">L</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">--------</span><span class="aas">S</span><span class="aag">G</span><span class="aaf">F</span><span class="aac">C</span><span class="aal">L</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="gr">-----</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="aal">L</span><span class="gr">---</span><span class="aaa">A</span><span class="gr">---------------</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">------------</span><span class="aal">L</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="gr">-</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-----</span><span class="aal">LL</span><span class="aap">P</span><span class="aas">S</span><span class="gr">--------</span><span class="aas">S</span><span class="gr">--</span><span class="c8">*</span><span class="gr">---</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">------------</span><span class="aal">L</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="gr">-</span><span class="c8">*</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-----</span><span class="aal">LL</span><span class="aap">P</span><span class="aas">S</span><span class="aag">G</span><span class="aaf">F</span><span class="aac">C</span><span class="aal">L</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="gr">--------</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="aal">L</span><span class="gr">---</span><span class="aaa">A</span><span class="gr">-----</span><span class="aaf">F</span><span class="gr">------------</span><span class="aal">L</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">---</span><span class="aap">P</span><span class="aaa">A</span><span class="aal">L</span><span class="gr">----</span><span class="aaf">F</span><span class="gr">-------------</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">---</span><span class="aap">P</span><span class="aaa">A</span><span class="aal">L</span><span class="gr">------------------</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="aal">L</span><span class="gr">--</span><span class="aap">P</span><span class="aaa">A</span><span class="aal">L</span><span class="gr">--</span><span class="aas">S</span><span class="gr">-----------------</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">------------</span><span class="aal">L</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="gr">--</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-</span><span class="aaq">Q</span><span class="aap">P</span><span class="gr">------</span><span class="aag">G</span><span class="gr">-----------</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="gr">-</span><span class="aal">L</span><span class="aag">G</span><span class="gr">-</span><span class="aae">E</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="aal">L</span><span class="gr">--</span><span class="aap">P</span><span class="aaa">A</span><span class="aal">L</span><span class="gr">---------</span><span class="aav">V</span><span class="gr">------------</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-----</span><span class="aal">LL</span><span class="aap">P</span><span class="aas">S</span><span class="gr">--------</span><span class="aas">S</span><span class="gr">--</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="gr">-</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">--</span><span class="aal">L</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">--------</span><span class="aas">S</span><span class="aag">G</span><span class="aaf">F</span><span class="gr">-----</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">--------------</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="gr">--</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">-------------</span><span class="aar">R</span><span class="aag">G</span><span class="gr">-</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">--</span><span class="aal">L</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">--------------</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="gr">-</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">--------------</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">--------------</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">--------------</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="gr">-</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">---------</span><span class="aag">G</span><span class="aaf">F</span><span class="gr">------</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">----</span><span class="aaa">A</span><span class="gr">----------</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="gr">--</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">--------------</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="gr">---</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">---------</span><span class="aag">G</span><span class="aaf">F</span><span class="gr">-----</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">--------------</span><span class="aag">G</span><span class="aav">V</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">-</span><span class="aal">LL</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">--</span><span class="aap">PP</span><span class="gr">-----</span><span class="aag">G</span><span class="gr">---</span><span class="aar">R</span><span class="gr">---------</span><span class="aal">L</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br><span class="gr">---------</span><span class="aag">G</span><span class="aaf">F</span><span class="gr">-----</span><span class="aal">L</span><span class="aas">S</span><span class="aal">L</span><span class="aag">G</span><span class="c8">*</span><span class="gr">--</span><span class="aal">L</span><span class="aar">R</span><span class="aaa">A</span><span class="aat">T</span><span class="aam">M</span><span class="aav">V</span><span class="aas">S</span><br></div>
+        </td>
+      </tr>
+    </tbody></table>
+
+    <!-- ______________________________________________________ UMAP view ______________________________________________________ -->
+    <table border="0" cellpadding="1" cellspacing="1" style="display:none;" id="UMAPview">
+      <tbody><tr>
+        <td class="text">
+          Sequence space view of <span id="num-umap-seqs"></span> sequences from the multiple sequence alignment.<br>
+          Dimensionality reduction is carried out using the UMAP algorithm (<a href="https://arxiv.org/abs/1802.03426">arXiv e-print</a>) as implemented using umap-js (<a href="https://github.com/PAIR-code/umap-js">github</a>).
+          <br>
+          To visualize sequence classes, please <a id="link1">upload an annotation.</a>
+          <br>
+          <br>
+        </td>
+      </tr>
+      <tr>
+        <td class="text">
+          <iframe id="bb-viz-iframe" src="./mCherry_5p_2+_Frame_corr:2_files/saved_resource.html"></iframe>
+        </td>
+      </tr>
+    </tbody></table>
+
+    <!-- ______________________________________________________ about view ____________________________________________ -->
+    <table border="0" cellpadding="1" cellspacing="1" style="display: none;" id="ABTview">
+      <tbody><tr>
+        <td class="text">
+          <br>Protein multiple sequence alignment viewer provides simple analysis plots and pairwise identity visualization.
+          <br>
+          This tool is entirely client based (runs inside your browser, Firefox or Chrome browsers prefered), there is no
+          communication<br>
+          with the server (except when pulling example alignments), so you can save local copy of this page and use it while
+          offline.<br><br>
+
+          If you have any questions or requests please don't hesitate to contact us at alignmentviewer@gmail.com<br>
+          The source code for this tool is at:
+          <a href="https://github.com/sanderlab/alignmentviewer">https://github.com/sanderlab/alignmentviewer</a>.
+
+          <!--
+        <img style='vertical-align:text-bottom;' src='yamail.png'>
+        -->
+
+          <br><br>
+          <hr height="2" width="300" color="#d0d0d0" align="left">
+          <br><br>
+
+          <b>Oct. 2nd 2020</b> /// Added clustal coloring on msa view and image view <br>
+          <b>Sept. 20th 2020</b> /// Fixed safari loading bug, allowed reloading of sequences<br>
+          <b>Aug. 15th 2019</b> /// Fixed bugs, removed comments, and improved modularity<br>
+          <b>Jul. 18th 2019</b> /// Implemented UMAP<br>
+	  <b>Aug. 1st 2018</b> /// <a href="http://evcouplings.org/" target="_blank">evcouplings.org</a> uses AlignmentViewer to view alignments<br>
+	  <b>Jul. 1st 2018</b> /// Load external alignments via URL queries (e.g.: alignmentviewer.com/?url=https%3A%2F%2Fmyserver.org%2Falignments%2Fmy_alignment)<br>
+          <b>Jan. 7th 2018</b> /// Preloaded example<br>
+          <b>Nov. 29th 2017</b> /// Released version 1.0<br>
+          <b>Jul. 5th 2017</b> /// Mutation comparison added.<br>
+          <b>May. 20th 2017</b> /// Weight comparison functions added.<br>
+          <b>Mar. 17th 2014</b> /// Sequence logo display added.<br>
+          <b>Jan. 2nd 2013</b> /// Filtering and export supported.<br>
+          <b>Dec. 24th 2012</b> /// Custom sequence annotation as sortable msa column supported now, see "Custom Data" tab.<br>
+          <b>Dec. 13th 2012</b> /// Added MSA image rendering with mview or hydrophobicity coloring.<br>
+          <b>Nov. 11th 2012</b> /// Release 0.5 is out, changes: sorting by identity, conservation coloring control, Pfam links,
+          drag and drop your alignment file anywhere on the page to load!
+
+          <br><br>
+          <hr height="2" width="300" color="#d0d0d0" align="left">
+          <br>
+
+          <h4><b>Privacy Policy</b></h4>
+          This website makes use of google analytics to measure website visits and traffic patterns through the use of browser
+          cookies. There is no advertising on this site. For a full description, see
+          <a href="http://www.google.com/policies/privacy/partners/">www.google.com/policies/privacy/partners/</a>. &nbsp;<br>
+          Visitors who disable cookies on their browser or use private/incognito browsing should still be able to access the full
+          functionality of this website.<br><br>
+        </td>
+      </tr>
+    </tbody></table>
+
+    <div id="progress" style="display: none;">computing conservation, column 30 / 30</div>
+        <script>
+
+		$(document).ready(function () {   
+		    $('body').on('change','#colorScheme', function() {
+		    	document.getElementById("seqlogo").className = this.value;
+		    	document.getElementById("MSAseqs").className = 'ali ' + this.value;
+
+		    		//##ROC# > This code it is because for safari and Firefox the logo did not change colors uless the tab was manually changed
+		    		  	//btn2: '#MSAview',
+  						//btn3: '#STAview',
+				    var view = '#STAview'; // button id --> view id
+				    if ($(view).is(':visible')) {
+				      return;
+				    } // already active, do nothing
+				    $('[id$=view]')
+				      .not(view)
+				      .hide(); // select all views except current, hide
+				    $(view).show(); // show current
+
+				    var view = '#MSAview'; // button id --> view id
+				    if ($(view).is(':visible')) {
+				      return;
+				    } // already active, do nothing
+				    $('[id$=view]')
+				      .not(view)
+				      .hide(); // select all views except current, hide
+				    $(view).show(); // show current
+
+				    //console.log('done logo color');
+
+
+
+		    });
+		});  
+
+// original
+// clustal
+
+
+    </script>
+  
+
+</body></html>
