@@ -1,5 +1,0 @@
-#File	/tmp/tmppbonmvx2.fastq.gz	/tmp/tmpofynsbg8.fastq.gz
-#Total	854584
-#Matched	109860	12.85538%
-#Name	Reads	ReadsPct
-1	109860	12.85538%

@@ -1,5 +1,0 @@
-#File	/tmp/tmptiuujtcb.fastq.gz
-#Total	535208
-#Matched	532110	99.42116%
-#Name	Reads	ReadsPct
-1	532110	99.42116%
