@@ -1,0 +1,5 @@
+#File	/tmp/tmp7b14cbo8.fastq.gz
+#Total	1271948
+#Matched	831032	65.33538%
+#Name	Reads	ReadsPct
+1	831032	65.33538%

@@ -1,5 +1,0 @@
-#File	/tmp/tmpf_45q5z_.fastq.gz	/tmp/tmpf_ytss2x.fastq.gz
-#Total	1838932
-#Matched	901382	49.01660%
-#Name	Reads	ReadsPct
-1	901382	49.01660%

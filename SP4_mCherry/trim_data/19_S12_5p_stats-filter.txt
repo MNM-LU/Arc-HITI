@@ -1,5 +1,0 @@
-#File	/tmp/tmp6y3_fokr.fastq.gz
-#Total	145288
-#Matched	144771	99.64416%
-#Name	Reads	ReadsPct
-1	144771	99.64416%

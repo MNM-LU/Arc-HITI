@@ -1,0 +1,5 @@
+#File	/tmp/tmprg16_83c.fastq.gz
+#Total	661307
+#Matched	587355	88.81730%
+#Name	Reads	ReadsPct
+1	587355	88.81730%

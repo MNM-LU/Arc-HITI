@@ -1,5 +1,0 @@
-#File	/tmp/tmpsm_wyugl.fastq.gz	/tmp/tmptixl4x4_.fastq.gz
-#Total	2092796
-#Matched	873598	41.74310%
-#Name	Reads	ReadsPct
-1	873598	41.74310%

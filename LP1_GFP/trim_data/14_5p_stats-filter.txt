@@ -1,5 +1,0 @@
-#File	/tmp/tmp0bugmodp.fastq.gz	/tmp/tmpd_7kvjkk.fastq.gz
-#Total	8687130
-#Matched	112207	1.29165%
-#Name	Reads	ReadsPct
-1	112207	1.29165%

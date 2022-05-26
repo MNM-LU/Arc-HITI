@@ -186,7 +186,6 @@ def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral
     # cutadapt_call="cutadapt -a "+rliteral+" -o " + test_file_p5_filter2 + " " + test_file_p5_filter2
     # call([cutadapt_call], shell=True)
 
-
     test_file_p5_out_starcode = tempfile.NamedTemporaryFile(suffix = '.tsv').name
     starcode_call= "/media/data/AtteR/Attes_bin/starcode/starcode -i "+test_file_p5_filter2+" -t 32 -o "+test_file_p5_out_starcode
     call([starcode_call], shell=True)
@@ -236,9 +235,7 @@ def import_fasta(result):
         NT_and_perc[str(record.description)]=str(Seq(record.seq))
     return(NT_and_perc)
 
-
 from functools import reduce
-
 
 #reads in the read files
 def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,read_fwd, direc):
@@ -253,7 +250,7 @@ def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,re
             animal_p7_cat = tempfile.NamedTemporaryFile(suffix = '.fastq.gz').name
             test_file_p5_out = tempfile.NamedTemporaryFile(suffix = '.fastq').name
             test_file_p7_out = tempfile.NamedTemporaryFile(suffix = '.fastq').name
-            test_file_p5_filter = tempfile.NamedTemporaryFile(suffix = '.fastq').name#when bbduk applied
+            test_file_p5_filter = tempfile.NamedTemporaryFile(suffix = '.fastq').name
 
 
             if read_fwd:
@@ -287,8 +284,8 @@ def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,re
             test_file_p5_filter2 = tempfile.NamedTemporaryFile(suffix = '.fastq').name #when cutadapt applied on 5'
 
             #cutadapt_call="cutadapt -g "+lliteral+" -o " + test_file_p5_filter2 + " " + test_file_p5_filter
-            #cutadapt_call="cutadapt -g "+lliteral+" --discard-untrimmed " + test_file_p5_filter + " > " + test_file_p5_filter2
-            cutadapt_call="cutadapt -g " +lliteral+ " --discard-untrimmed" + " -o " + test_file_p5_filter2 + " " + test_file_p5_filter
+            cutadapt_call="cutadapt -g "+lliteral+" --discard-untrimmed " + test_file_p5_filter + " > " + test_file_p5_filter2
+            #cutadapt_call="cutadapt -g " +lliteral+ " --discard-untrimmed" + " -o " + test_file_p5_filter2 + " " + test_file_p5_filter
 
             call([cutadapt_call], shell=True)
 
@@ -718,6 +715,7 @@ class translate_3p:
         aa_df.insert(0, 'Seq_stats', first_column)
         return(aa_df)
 
+
 class translate_5p:
     def __init__(self, result, corr_frame):
         self.result=result
@@ -793,17 +791,17 @@ def translate_NT(result, corr_frame, direc, out_csv):
         for i, aa_seq in enumerate(df_aa[ref_fr]):
             #yield iteratively the header of the certain seq and the corresponding seq
             #header=">"+ str(id_f)+"_CluSeq:" + str((round(full_df.iloc[seq_i,-4],5))) + "_var:"+str((round(full_df.iloc[seq_i,-2],5))) +"_sd:" + str((round(full_df.iloc[seq_i,-1],5)))
-            #seq_obj_align = aligner_init(full_df.iloc[seq_i,0], target_sequence, gop, gep).align()
-            seq_obj_align = aligner_init(aa_seq, ref_fr.split("|")[1], gop, gep).align()
-            seq_obj_align = re.sub(r'[(\d|\s]', '', seq_obj_align) #remove digits from the string caused by the alignment and empty spaces from the start
-            matches=SequenceMatcher(None,ref_fr.split("|")[1],seq_obj_align)
+            
+            #seq_obj_align = aligner_init(aa_seq, ref_fr.split("|")[1], gop, gep).align()
+            #seq_obj_align = re.sub(r'[(\d|\s]', '', seq_obj_align) #remove digits from the string caused by the alignment and empty spaces from the start
+            matches=SequenceMatcher(None,ref_fr.split("|")[1],aa_seq)
             matches.get_matching_blocks()
             range_line=0
             seqs=[]
             alignments_per_ref=[]
             for i in range(len(matches.get_matching_blocks())):
                 match=matches.get_matching_blocks()[i]
-                seqs.append(len(ref_fr.split("|")[1][range_line:match.a])*"-"+seq_obj_align[match.b:match.b+match.size])
+                seqs.append(len(ref_fr.split("|")[1][range_line:match.a])*"-"+aa_seq[match.b:match.b+match.size])
                 range_line=match.a+match.size
             alignments_per_ref.append(''.join(seqs))
             alignments_per_ref= str(alignments_per_ref).replace("['", "").replace("']", "")

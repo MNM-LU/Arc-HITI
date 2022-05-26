@@ -1,0 +1,5 @@
+#File	/tmp/tmpsgrgs570.fastq.gz	/tmp/tmpgb_x_qlc.fastq.gz
+#Total	2432260
+#Matched	1198690	49.28297%
+#Name	Reads	ReadsPct
+1	1198690	49.28297%

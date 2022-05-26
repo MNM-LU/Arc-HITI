@@ -1,5 +1,0 @@
-#File	/tmp/tmp7n22gn3d.fastq.gz
-#Total	472052
-#Matched	464222	98.34128%
-#Name	Reads	ReadsPct
-1	464222	98.34128%

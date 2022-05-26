@@ -1,5 +1,0 @@
-#File	/tmp/tmpal22wufs.fastq.gz	/tmp/tmpujrnfox9.fastq.gz
-#Total	2397256
-#Matched	980949	40.91966%
-#Name	Reads	ReadsPct
-1	980949	40.91966%

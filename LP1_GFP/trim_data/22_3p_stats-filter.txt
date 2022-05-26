@@ -1,5 +1,0 @@
-#File	/tmp/tmp1v6on_xy.fastq.gz	/tmp/tmpl9_84nom.fastq.gz
-#Total	639324
-#Matched	300549	47.01044%
-#Name	Reads	ReadsPct
-1	300549	47.01044%
