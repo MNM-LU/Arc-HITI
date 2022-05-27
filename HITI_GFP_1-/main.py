@@ -19,8 +19,8 @@ os.chdir(sample_dir)
 base_path = '/media/data/AtteR/projects/hiti/FASTQ_Generation_2020-03-09_08_30_27Z-13364364/'
 export_path=sample_dir = "trimmed_data/"
 
-#where the programs bbduk and starcode are found
-program_path="/media/data/AtteR/Attes_bin"
+# #where the programs bbduk and starcode are found
+# program_path="/media/data/AtteR/Attes_bin"
 
 #############
 
@@ -51,7 +51,7 @@ direc="3p"
 #read preprocessing for each sample: trim, record read counts before and after trimming, cluster the reads 
 #using starcode, calculate percentage, merge into the full dataframe containing read count-and percentage for
 #each sample.
-full_df=analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd, animal_list, target_sequence, direc, program_path)
+full_df=analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd, animal_list, target_sequence, direc)
 full_df_trim=calculate_perc_sd(full_df)
 result="unaligned/HITI_GFP_3p_1-.fasta"
 csv_file="/".join(result.split("/")[:-1]) +"/"+ result.split("/")[-1].split(".")[0] + ".csv"

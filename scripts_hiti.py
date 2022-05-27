@@ -143,7 +143,7 @@ def create_datadict2(base_path, transgene):
                 data_dict[animal_group]=lanes
 
     return(data_dict)
-def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral,read_fwd,direc, program_path):
+def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral,read_fwd,direc):
     animal_nr = str(animal_nr)
     "Filters and trims the reads"
     search_path = base_path+animal_nr+'*'+transgene+'*'+direc+'*/'
@@ -174,10 +174,10 @@ def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral
     hdist = '3'
     param=" k="+kmer+" hdist="+hdist+" rcomp=f skipr2=t threads=32 overwrite=true"
     
-    call_sequence = program_path + "/bbmap/bbduk.sh in="+animal_p7_cat+" in2="+animal_p5_cat+" outm1="+test_file_p7_out+" outm2="+test_file_p5_out+" literal="+filterlitteral+" stats="+stats_out + param
+    call_sequence = "bbduk.sh in="+animal_p7_cat+" in2="+animal_p5_cat+" outm1="+test_file_p7_out+" outm2="+test_file_p5_out+" literal="+filterlitteral+" stats="+stats_out + param
     call([call_sequence], shell=True)
     
-    call_sequence = program_path + "/bbmap/bbduk.sh in="+test_file_p5_out+" out="+test_file_p5_filter+ " literal=AAAAAAAAA,CCCCCCCCC,GGGGGGGGG,TTTTTTTTT k=9 mm=f overwrite=true minlength=40"
+    call_sequence = "bbduk.sh in="+test_file_p5_out+" out="+test_file_p5_filter+ " literal=AAAAAAAAA,CCCCCCCCC,GGGGGGGGG,TTTTTTTTT k=9 mm=f overwrite=true minlength=40"
     call([call_sequence], shell=True)
     test_file_p5_filter2 = tempfile.NamedTemporaryFile(suffix = '.fastq').name #when cutadapt applied
 
@@ -187,10 +187,13 @@ def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral
     # call([cutadapt_call], shell=True)
 
     test_file_p5_out_starcode = tempfile.NamedTemporaryFile(suffix = '.tsv').name
-    starcode_call= program_path + "/starcode/starcode -i "+test_file_p5_filter2+" -t 32 -o "+test_file_p5_out_starcode
+    starcode_call= "starcode/starcode -i "+test_file_p5_filter2+" -t 32 -o "+test_file_p5_out_starcode
     call([starcode_call], shell=True)
-    
+
     df=pd.read_csv(test_file_p5_out_starcode, sep='\t', header=None)
+    # result="unaligned/Starcode_HITI_GFP_3p_" + animal_nr + "_.csv"
+    # df.to_csv(result)
+
     df = df.rename(columns={0: 'sequence', 1:'count'})
     total_counts = int(df[['count']].sum())
     #df = df[df['count'].astype(int)>total_counts/10000]
@@ -200,10 +203,10 @@ def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral
     
     return df
 
-def analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd,animal_list, target_sequence, direc, program_path):
+def analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd,animal_list, target_sequence, direc):
     complete_df = pd.DataFrame({'sequence': [target_sequence]})
     for animal in animal_list:
-        df_this = trimRead_hiti(animal,base_path,transgene,filterlitteral,lliteral,rliteral,read_fwd,direc, program_path)
+        df_this = trimRead_hiti(animal,base_path,transgene,filterlitteral,lliteral,rliteral,read_fwd,direc)
         complete_df = pd.merge(complete_df, df_this, on="sequence", how='outer')
     
     complete_df = complete_df.fillna(value=0)
@@ -238,7 +241,7 @@ def import_fasta(result):
 from functools import reduce
 
 #reads in the read files
-def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,read_fwd, direc, program_path):
+def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,read_fwd, direc):
     complete_df = pd.DataFrame(columns=['sequence'])
     df_animal=[]
     seq_animal=[]
@@ -275,11 +278,11 @@ def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,re
 
             #to check if the read is an amplicon
             #call_sequence = "/media/data/AtteR/Attes_bin/bbmap/bbduk.sh in="+animal_p7_cat+" in2="+animal_p5_cat+" outm1="+test_file_p7_out+" outm2="+test_file_p5_out+" literal="+filterlitteral+param
-            call_sequence = program_path + "/bbmap/bbduk.sh in="+ animal_p5_cat +" outm1="+test_file_p5_out+" literal="+filterlitteral+" stats="+stats_out + param
+            call_sequence = "bbduk.sh in="+ animal_p5_cat +" outm1="+test_file_p5_out+" literal="+filterlitteral+" stats="+stats_out + param
 
             call([call_sequence], shell=True)
             #actual trimming
-            call_sequence = program_path + "/bbmap/bbduk.sh in="+test_file_p5_out+" out="+test_file_p5_filter+ " literal=AAAAAAAAA,CCCCCCCCC,GGGGGGGGG,TTTTTTTTT k=9 mm=f overwrite=true minlength=40"
+            call_sequence = "bbduk.sh in="+test_file_p5_out+" out="+test_file_p5_filter+ " literal=AAAAAAAAA,CCCCCCCCC,GGGGGGGGG,TTTTTTTTT k=9 mm=f overwrite=true minlength=40"
             call([call_sequence], shell=True)
             test_file_p5_filter2 = tempfile.NamedTemporaryFile(suffix = '.fastq').name #when cutadapt applied on 5'
 
@@ -291,7 +294,7 @@ def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,re
 
             print("Cutadapt done! Performed on test_file_p5_filter2: "+ test_file_p5_filter2)
             test_file_p5_out_starcode = tempfile.NamedTemporaryFile(suffix = '.tsv').name
-            starcode_call= program_path + "/starcode/starcode -i "+test_file_p5_filter2+" -t 32 -r 5 -o "+test_file_p5_out_starcode
+            starcode_call= "starcode -i "+test_file_p5_filter2+" -t 32 -r 5 -o "+test_file_p5_out_starcode
             call([starcode_call], shell=True)
 
             df=pd.read_csv(test_file_p5_out_starcode, sep='\t', header=None)

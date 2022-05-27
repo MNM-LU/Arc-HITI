@@ -46,23 +46,6 @@ for i, seq in enumerate(df_trim_full.iloc[:,0]):
     df_trim_full[i,0]=seq_obj
 df_trim_full.iloc[0,0]
 
-result="unaligned/mCherry_3p_2+.fasta"
-id_f = 1
-ref="Ref"
-csv_file="/".join(result.split("/")[:-1]) +"/"+ result.split("/")[-1].split(".")[0] + ".csv"
-df_trim_full.to_csv(csv_file)
-
-#save along with added insertion of "-".
-with open(result, "w") as handle:
-    seq_obj = SeqRecord(Seq(target_sequence), id=str(0), description=ref)
-    count = SeqIO.write(seq_obj, handle, "fasta")
-    for seq_i in range(len(df_trim_full.index)):
-        descr="CluSeq:" + str(round(df_trim_full.iloc[seq_i,-2],8)) + "_sd:" + str(round(df_trim_full.iloc[seq_i,-1],8))
-        insert_site=df_trim_full.iloc[seq_i,0].find('AGCCGAAC') + len('AGCCGAAC')
-        seq_obj= SeqRecord(Seq(df_trim_full.iloc[seq_i,0][:insert_site] + "-" + df_trim_full.iloc[seq_i,0][insert_site:]), id=str(id_f), description=descr)
-        count = SeqIO.write(seq_obj, handle, "fasta")
-        id_f+=1
-print("Saved!")
 
 #save_fasta(result, df_trim_full, target_sequence)
 ####################
@@ -89,7 +72,6 @@ translate_NT(result, corr_frame,direc, out_csv)
 
 ####################
 #SP1 5' 
-assay_end = '5p'
 filterlitteral = 'GCCTAGGCTAAGAACTCCTCCGCGCCACCATGGTGAGCAAGGGCGAGGAGGATAACATGG'
 #rev compl of prev rliteral
 lliteral=' literal=CCATGTTATCCTCCTCGCCC'
