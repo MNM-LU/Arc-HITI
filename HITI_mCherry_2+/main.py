@@ -48,42 +48,6 @@ csv_file="/".join(result.split("/")[:-1]) +"/"+ result.split("/")[-1].split(".")
 df_trim_full.to_csv(csv_file)
 full_df_trim=pd.read_csv(csv_file, index_col=[0])
 
-full_df_trim.iloc[0,0]
-nt='CTGTACAAGCCGAACAGTTCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCATA'
-
-nt='CTGTACAAGCCGAACAGTTCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCATA'
-
-ts=(str(Seq(target_sequence[0:]).translate()))
-ts
-aa=(str(Seq(full_df_trim.iloc[0,0][0:]).translate()))
-aa=(str(Seq('CTGTACAAGCCGAACAGTTCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCATA'[0:]).translate()))
-aa
-LYKPNSSEPQHRRPDGAGP
-LYKPNSSEPQHRRPDGAGP
-'''
-NT: CTGTACAAGCCGAACAGTTCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCATA ---AA: LYKPNSSEPQHRRPDGAGP
-NT: CTGTACAAGCCGAACTGTTCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCATA---AA: LYKPNCSEPQHRRPDGAGP
-NT: CTGTACAAGCCGAACATGTTCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCAT---AA: LYKPNMFGAAAPTTRWSWT
-NT: CTGTACAAGCCGAACAGGTTCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCAT---AA: LYKPNRFGAAAPTTRWSWT
-'''
-
-LYKPNVRSRSTDDQMELDHMTTGGLHAYP
-LYKPN-R-R--D----------GG----P
-
-matches=SequenceMatcher(None,ts,aa)
-matches.get_matching_blocks()
-range_line=0
-seqs=[]
-alignments_per_ref=[]
-for i in range(len(matches.get_matching_blocks())):
-    match=matches.get_matching_blocks()[i]
-    seqs.append(len(ts[range_line:match.a])*"-"+aa[match.b:match.b+match.size])
-    range_line=match.a+match.size
-alignments_per_ref.append(''.join(seqs))
-
-
-
-
 ###################
 output_path="aligned/NT/"
 result=output_path + "mCherry_3p_2+_prim.fasta"
