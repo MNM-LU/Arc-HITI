@@ -17,6 +17,10 @@ sample_dir=scripts_dir + "/HITI_mCherry_2+"
 os.chdir(sample_dir)
 #path to the analysis folder
 base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-only/SP1_3p"
+
+#where the programs bbduk and starcode are found
+program_path="/media/data/AtteR/Attes_bin"
+
 #############
 
 #SP1 3' 
@@ -33,7 +37,7 @@ target_sequence=target_sequence.upper()
 #using starcode, calculate percentage, merge into the full dataframe containing read count-and percentage for
 #each sample. 
 
-df_full=import_reads_process_mini(base_path, target_sequence, filterlitteral, lliteral,rliteral,read_fwd, direc)
+df_full=import_reads_process_mini(base_path, target_sequence, filterlitteral, lliteral,rliteral,read_fwd, direc, program_path)
 df_trim_full=calculate_perc_sd(df_full)
 
 df_trim_full.iloc[0,0]
@@ -91,48 +95,62 @@ corr_frame=0
 result="unaligned/mCherry_3p_2+.fasta"
 output_html="aligned/AA/mCherry_3p_2+.html"
 out_csv="aligned/AA/mCherry_3p_2+.csv"
-ref_aa_cor=dict()
-aa_ampls=[]
-seq_info=[] #this will be merged later with the final dict that has the aligned AAs against the ref at certain frame
 
-alt_frames=[0,1,2]
-alt_frames.remove(corr_frame)    
-for record in SeqIO.parse(result, "fasta"):
-    if "Ref" in record.description:
-        #refs_aa_frames["Frame:" + str(alt_frame)]=str(Seq(record.seq[alt_frame:]).translate())
-        ref_key="Frame_corr:" + str(corr_frame) +"|" +str(Seq(record.seq[corr_frame:]).translate())
-    else:
-        seq_info.append(record.description)
-        aa_ampls.append(str(Seq(record.seq[corr_frame:]).translate()))
-        print("NT: " + record.seq + "---AA: "+ str(Seq(record.seq[corr_frame:]).translate()))
+####################
 
 
-aa_ampls[0]
-ref_aa_cor[ref_key]=aa_ampls
-ref_aa_cor.keys()
-ref_aa_cor['Frame_corr:0|LYKPNVRSRSTDDQMELDHMTTGGLHAYP'][0]
-ref_aa=dict()
-for alt_frame in alt_frames:
-    aa_ampls=[]
-    for record in SeqIO.parse(result, "fasta"):
-        if "Ref" in record.description:
-            #refs_aa_frames["Frame:" + str(alt_frame)]=str(Seq(record.seq[alt_frame:]).translate())
-            ref_key="Frame:" + str(alt_frame) +"|" +str(Seq(record.seq[alt_frame:]).translate())
-        else:
-            aa_ampls.append(str(Seq(record.seq[alt_frame:]).translate()))
-    ref_aa[ref_key]=aa_ampls
-seq_info_dic = {'Seq_stats': seq_info}
-ref_aa_cor.update(ref_aa)
-ref_aa_cor.update(seq_info_dic)
-aa_df=pd.DataFrame(ref_aa_cor)
-first_column = aa_df.pop('Seq_stats')
-# insert column using insert(position,column_name,
-# first_column) function
-aa_df.insert(0, 'Seq_stats', first_column)
+####################
+translate_NT(result, corr_frame,direc, out_csv)
+####################
 
-aa_df.iloc[0,1]
-##############################################################
-##############################################################
+
+
+####################
+#SP1 5' 
+assay_end = '5p'
+filterlitteral = 'GCCTAGGCTAAGAACTCCTCCGCGCCACCATGGTGAGCAAGGGCGAGGAGGATAACATGG'
+#rev compl of prev rliteral
+lliteral=' literal=CCATGTTATCCTCCTCGCCC'
+rliteral = ' literal=GTGTCTCCGGTCCCCAAAAT'
+read_fwd = True
+direc="5p"
+#rev compl
+target_sequence="tgctcaccatggtggcgcggaggagttcttagcctAGGCTAAGAACTCCTCTGAGGCAGAAGCCGGAAGGGAGCAGAGCCGGCGGCTGCAGCG"
+target_sequence=target_sequence.upper()
+base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-only/SP1_5p"
+
+############
+#read preprocessing for each sample: trim, record read counts before and after trimming, cluster the reads 
+#using starcode, calculate percentage, merge into the full dataframe containing read count-and percentage for
+#each sample.
+df_full=import_reads_process_mini(base_path, target_sequence, filterlitteral, lliteral, rliteral, read_fwd, direc, program_path)
+df_trim_full2=calculate_perc_sd(df_full)
+result="unaligned/mCherry_5p_2+.fasta"
+save_fasta(result, df_trim_full2, target_sequence)
+
+csv_file="/".join(result.split("/")[:-1]) +"/"+ result.split("/")[-1].split(".")[0] + ".csv"
+df_trim_full2.to_csv(csv_file)
+
+#NT
+####################
+output_path="aligned/NT/"
+result=output_path+"mCherry_5p_2+_prim.fasta"
+test_res=aligner(df_trim_full2, target_sequence, "align_local2", result, output_path,lliteral, rliteral, 4,2)
+####################
+
+
+
+#AA
+#446%3
+#need to make a reverse complement of an imported read?
+####################
+# corr_frame=2
+# result="unaligned/mCherry_5p_2+.fasta"
+# output_html="aligned/AA/mCherry_5p_2+_AA.html"
+# out_csv="aligned/AA/mCherry_5p_2+_AA.csv"
+# translate_NT(result, corr_frame,direc, out_csv)
+####################
+
 class translate_3p:
     def __init__(self, result, corr_frame):
         self.result=result
@@ -232,7 +250,7 @@ class align_local2():
 #NT
 nt="CTGTACAAGCCGAACAGTTCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCATA"
 aa=Seq(nt).translate()
-aa 
+aa
 class align_local3():
     aligned_data=dict()
     def __init__(self, amplicon, ref,gop=-3, gep=-1):
@@ -261,7 +279,7 @@ df_aa.iloc[0,1]
 df_aa_c=df_aa.copy()
 for i, seq in enumerate(df_aa_c.iloc[:,1]):
     if seq=='':
-        df_aa=df_aa_c.drop(df_aa_c.index[i]) 
+        df_aa=df_aa_c.drop(df_aa_c.index[i])
 
 align_method="align_local3"
 align_class = {"align_local": align_local,
@@ -285,7 +303,7 @@ for i, aa_seq in enumerate(df_aa.iloc[:,1]):
     #header=">"+ str(id_f)+"_CluSeq:" + str((round(full_df.iloc[seq_i,-4],5))) + "_var:"+str((round(full_df.iloc[seq_i,-2],5))) +"_sd:" + str((round(full_df.iloc[seq_i,-1],5)))
     #seq_obj_align = aligner_init(full_df.iloc[seq_i,0], target_sequence, gop, gep).align()
     #seq_obj_align = aligner_init(aa_seq, ts, gop, gep).align()
-    seq_obj_align = re.sub(r'[(\d|\s]', '', seq_obj_align) #remove digits from the string caused by the alignment and empty spaces from the start
+    #seq_obj_align = re.sub(r'[(\d|\s]', '', seq_obj_align) #remove digits from the string caused by the alignment and empty spaces from the start
     matches=SequenceMatcher(None,ref_fr.split("|")[1],aa_seq)
     matches.get_matching_blocks()
     range_line=0
@@ -293,7 +311,7 @@ for i, aa_seq in enumerate(df_aa.iloc[:,1]):
     alignments_per_ref=[]
     for i in range(len(matches.get_matching_blocks())):
         match=matches.get_matching_blocks()[i]
-        seqs.append(len(ref_fr.split("|")[1][range_line:match.a])*"-"+seq_obj_align[match.b:match.b+match.size])
+        seqs.append(len(ref_fr.split("|")[1][range_line:match.a])*"-"+aa_seq[match.b:match.b+match.size])
         range_line=match.a+match.size
     alignments_per_ref.append(''.join(seqs))
     alignments_per_ref= str(alignments_per_ref).replace("['", "").replace("']", "")
@@ -315,71 +333,5 @@ first_column = df_aa_align.pop('Seq_stats')
 # first_column) function
 df_aa_align.insert(0, 'Seq_stats', first_column)
 df_aa_align.to_csv(out_csv)
-
-for i, ref_fr in enumerate(df_aa_align.columns[1:], start=1):
-    aa_file="aligned/AA/fasta/" +result.split("/")[-1].split(".")[-2] + '_' +ref_fr.split("|")[0] + ".fasta"
-    with open(aa_file, "w") as f:
-        f.write(">0_Ref_" + ref_fr.split("|")[0] + "\n")
-        f.write(ref_fr.split("|")[1] + "\n")
-        for a, aa_seq in enumerate(list(df_aa_align.iloc[:,i])):
-            f.write(">"+ df_aa_align.iloc[a,0] + "\n")
-            f.write(aa_seq + "\n")
-    mview_file= "aligned/AA/html/" +aa_file.split("/")[-1].split(".")[-2] + ".html"
-    mview_command='/media/data/AtteR/Attes_bin/mview -in fasta -html head -css on -reference 1 -coloring identity ' + aa_file + '>' + mview_file
-    call([mview_command], shell=True)
-    print("Alignments created in html format! Files found inside aligned/AA directory")
-
-
-translate_NT(result, corr_frame,direc, out_csv)
-####################
-
-
-
-####################
-#SP1 5' 
-assay_end = '5p'
-filterlitteral = 'GCCTAGGCTAAGAACTCCTCCGCGCCACCATGGTGAGCAAGGGCGAGGAGGATAACATGG'
-#rev compl of prev rliteral
-lliteral=' literal=CCATGTTATCCTCCTCGCCC'
-rliteral = ' literal=GTGTCTCCGGTCCCCAAAAT'
-read_fwd = True
-direc="5p"
-#rev compl
-target_sequence="tgctcaccatggtggcgcggaggagttcttagcctAGGCTAAGAACTCCTCTGAGGCAGAAGCCGGAAGGGAGCAGAGCCGGCGGCTGCAGCG"
-target_sequence=target_sequence.upper()
-base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-only/SP1_5p"
-
-############
-#read preprocessing for each sample: trim, record read counts before and after trimming, cluster the reads 
-#using starcode, calculate percentage, merge into the full dataframe containing read count-and percentage for
-#each sample.
-df_full=import_reads_process_mini(base_path, target_sequence, filterlitteral, lliteral, rliteral, read_fwd, direc)
-df_trim_full2=calculate_perc_sd(df_full)
-result="unaligned/mCherry_5p_2+.fasta"
-save_fasta(result, df_trim_full2, target_sequence)
-
-csv_file="/".join(result.split("/")[:-1]) +"/"+ result.split("/")[-1].split(".")[0] + ".csv"
-df_trim_full2.to_csv(csv_file)
-
-#NT
-####################
-output_path="aligned/NT/"
-result=output_path+"mCherry_5p_2+_prim.fasta"
-test_res=aligner(df_trim_full2, target_sequence, "align_local2", result, output_path,lliteral, rliteral, 4,2)
-####################
-
-
-
-#AA
-#446%3
-#need to make a reverse complement of an imported read?
-####################
-corr_frame=2
-result="unaligned/mCherry_5p_2+.fasta"
-output_html="aligned/AA/mCherry_5p_2+_AA.html"
-out_csv="aligned/AA/mCherry_5p_2+_AA.csv"
-translate_NT(result, corr_frame,direc, out_csv)
-####################
-
 
 

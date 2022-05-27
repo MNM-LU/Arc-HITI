@@ -1,0 +1,5 @@
+#File	/tmp/tmpaz0lv65x.fastq.gz
+#Total	135744
+#Matched	28030	20.64916%
+#Name	Reads	ReadsPct
+1	28030	20.64916%

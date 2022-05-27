@@ -18,6 +18,10 @@ sample_dir=scripts_dir + "/HITI_mCherry_10+"
 os.chdir(sample_dir)
 #path to the analysis folder
 base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-only/SP4_3p"
+
+#where the programs bbduk and starcode are found
+program_path="/media/data/AtteR/Attes_bin"
+
 #############
 
 #############
@@ -33,7 +37,7 @@ target_sequence=target_sequence.upper()
 #read preprocessing for each sample: trim, record read counts before and after trimming, cluster the reads 
 #using starcode, calculate percentage, merge into the full dataframe containing read count-and percentage for
 #each sample.
-df_full=import_reads_process_mini(base_path, target_sequence,filterlitteral,lliteral,rliteral,read_fwd, direc)
+df_full=import_reads_process_mini(base_path, target_sequence,filterlitteral,lliteral,rliteral,read_fwd, direc, program_path)
 df_trim_full=calculate_perc_sd(df_full)
 result="unaligned/HITI_mCherry_3p_10+.fasta"
 save_fasta(result, df_trim_full, target_sequence)
@@ -96,7 +100,7 @@ base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-
 #using starcode, calculate percentage, merge into the full dataframe containing read count-and percentage for
 #each sample.
 
-df_full=import_reads_process_mini(base_path, target_sequence,filterlitteral,lliteral,rliteral,read_fwd, direc)
+df_full=import_reads_process_mini(base_path, target_sequence,filterlitteral,lliteral,rliteral,read_fwd, direc, program_path)
 df_trim_full=calculate_perc_sd(df_full)
 result="unaligned/HITI_mCherry_5p_10+.fasta"
 save_fasta(result, df_trim_full, target_sequence)
@@ -114,10 +118,11 @@ aligner(df_trim_full, target_sequence, "align_local2", result, output_path, llit
 #AA
 #484%3
 ####################
-corr_frame=1
+corr_frame=2
 result="unaligned/HITI_mCherry_5p_10+.fasta"
 output_html="aligned/AA/HITI_mCherry_5p_10+_AA.html"
 out_csv="aligned/AA/HITI_mCherry_5p_10+_AA.csv"
+direc="3p"
 translate_NT(result, corr_frame,direc, out_csv)
 
 ####################

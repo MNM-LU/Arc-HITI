@@ -17,6 +17,9 @@ os.chdir(sample_dir)
 #path to the analysis folder
 base_path = '/media/data/AtteR/projects/hiti/FASTQ_Generation_2020-03-09_08_30_27Z-13364364/'
 export_path=sample_dir = "trimmed_data/"
+
+#where the programs bbduk and starcode are found
+program_path="/media/data/AtteR/Attes_bin"
 #############
 
 
@@ -36,7 +39,7 @@ target_sequence=target_sequence.upper()
 #read preprocessing for each sample: trim, record read counts before and after trimming, cluster the reads 
 #using starcode, calculate percentage, merge into the full dataframe containing read count-and percentage for
 #each sample.
-full_df=analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd, animal_list, target_sequence, direc)
+full_df=analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd, animal_list, target_sequence, direc, program_path)
 result="unaligned/HITI_mCherry_3p_1-.fasta"
 full_df_trim=calculate_perc_sd(full_df)
 save_fasta(result, full_df_trim, target_sequence)
@@ -53,7 +56,7 @@ test_res=aligner(full_df_trim, target_sequence, "align_local2", result, output_p
 
 #AA
 ####################
-corr_frame=0
+corr_frame=1
 result="unaligned/HITI_mCherry_3p_1-.fasta"
 out_csv="aligned/AA/HITI_mCherry_3p_1-_AA.csv"
 output_html="aligned/AA/HITI_mCherry_3p_1-_AA.html"
@@ -83,7 +86,7 @@ target_sequence = target_sequence.upper()
 #using starcode, calculate percentage, merge into the full dataframe containing read count-and percentage for
 #each sample.
 
-full_df=analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd, animal_list, target_sequence, direc)
+full_df=analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd, animal_list, target_sequence, direc, program_path)
 full_df_trim=calculate_perc_sd(full_df)
 result="unaligned/HITI_mCherry_5p_1-.fasta"
 save_fasta(result, full_df_trim, target_sequence)
@@ -101,10 +104,10 @@ aligner(full_df_trim, target_sequence, "align_local2", result, output_path, llit
 
 #AA
 #439%3
-corr_frame=1
-result="unaligned/HITI_mCherry_5p_1-.fasta"
-out_csv="aligned/AA/HITI_mCherry_5p_1-_AA.csv"
-output_html="aligned/AA/HITI_mCherry_5p_1-_AA.html"
+# corr_frame=1
+# result="unaligned/HITI_mCherry_5p_1-.fasta"
+# out_csv="aligned/AA/HITI_mCherry_5p_1-_AA.csv"
+# output_html="aligned/AA/HITI_mCherry_5p_1-_AA.html"
 
-translate_NT(result, corr_frame,direc, out_csv)
+# translate_NT(result, corr_frame,direc, out_csv)
 
