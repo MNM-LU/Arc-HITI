@@ -29,7 +29,7 @@ lliteral=" literal=CGGCGGCATGGACGAG"
 rliteral=" literal=GTCTTCTACCGTCTGGAGAGG"
 direc="3p"
 filterlitteral="CGGCGGCATGGACGAGCTGTACAAGCCGAACGTTCGGAGCCGCAGCACCGACGACCAG"
-target_sequence="ctgtacaagccgaacGTTCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCATATGACCACCGGCGGCCTCCACGCCTACCCT"
+target_sequence="ctgtacaagccgaacGTTCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCATATGACCACCGGCGGCCTCCACGCCTACCCTGCCCCGCGGGGTGGGCCGGCCGCCAAAC"
 target_sequence=target_sequence.upper()
 
 #########
@@ -40,13 +40,35 @@ target_sequence=target_sequence.upper()
 df_full=import_reads_process_mini(base_path, target_sequence, filterlitteral, lliteral,rliteral,read_fwd, direc, program_path)
 df_trim_full=calculate_perc_sd(df_full)
 
+for i, seq in enumerate(df_trim_full.iloc[:,0]):
+    insert_site=seq.find('AGCCGAAC') + len('AGCCGAAC')
+    seq_obj= seq[:insert_site] + "-" + seq[insert_site:]
+    df_trim_full[i,0]=seq_obj
 df_trim_full.iloc[0,0]
+
 result="unaligned/mCherry_3p_2+.fasta"
-save_fasta(result, df_trim_full, target_sequence)
-####################
+id_f = 1
+ref="Ref"
 csv_file="/".join(result.split("/")[:-1]) +"/"+ result.split("/")[-1].split(".")[0] + ".csv"
 df_trim_full.to_csv(csv_file)
-full_df_trim=pd.read_csv(csv_file, index_col=[0])
+
+#save along with added insertion of "-".
+with open(result, "w") as handle:
+    seq_obj = SeqRecord(Seq(target_sequence), id=str(0), description=ref)
+    count = SeqIO.write(seq_obj, handle, "fasta")
+    for seq_i in range(len(df_trim_full.index)):
+        descr="CluSeq:" + str(round(df_trim_full.iloc[seq_i,-2],8)) + "_sd:" + str(round(df_trim_full.iloc[seq_i,-1],8))
+        insert_site=df_trim_full.iloc[seq_i,0].find('AGCCGAAC') + len('AGCCGAAC')
+        seq_obj= SeqRecord(Seq(df_trim_full.iloc[seq_i,0][:insert_site] + "-" + df_trim_full.iloc[seq_i,0][insert_site:]), id=str(id_f), description=descr)
+        count = SeqIO.write(seq_obj, handle, "fasta")
+        id_f+=1
+print("Saved!")
+
+#save_fasta(result, df_trim_full, target_sequence)
+####################
+# csv_file="/".join(result.split("/")[:-1]) +"/"+ result.split("/")[-1].split(".")[0] + ".csv"
+# df_trim_full.to_csv(csv_file)
+# full_df_trim=pd.read_csv(csv_file, index_col=[0])
 
 ###################
 output_path="aligned/NT/"
@@ -60,10 +82,6 @@ result="unaligned/mCherry_3p_2+.fasta"
 output_html="aligned/AA/mCherry_3p_2+.html"
 out_csv="aligned/AA/mCherry_3p_2+.csv"
 
-####################
-
-
-####################
 translate_NT(result, corr_frame,direc, out_csv)
 ####################
 

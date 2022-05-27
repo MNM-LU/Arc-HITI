@@ -53,8 +53,8 @@ def calculate_perc_sd(full_df):
     full_df['sd']=full_df[perc_cols].std(axis=1)
 
     full_df[count_cols]
-    full_df_trim = full_df.drop(full_df[full_df["total_reads_seq"] <= 1].index)
-    return(full_df_trim)
+    #full_df_trim = full_df.drop(full_df[full_df["total_reads_seq"] <= 1].index)
+    return(full_df)
 
 
 #uses perc sum and then division approach for the seqs
@@ -87,7 +87,7 @@ def calculate_perc_sd2(full_df):
     #discard seqs that contribute less than 0.0001% percentage
     rows_drop=[]
     full_df[count_cols]
-    full_df_trim = full_df.drop(full_df[full_df["total_reads_seq"] <= 10].index)
+    #full_df_trim = full_df.drop(full_df[full_df["total_reads_seq"] <= 3].index)
 
     #return(full_df_trim.iloc[0:round(len(full_df_trim.index)),:])
     return(full_df_trim)
@@ -223,7 +223,7 @@ def save_fasta(filename, full_df, target_sequence):
         seq_obj = SeqRecord(Seq(target_sequence), id=str(0), description=ref)
         count = SeqIO.write(seq_obj, handle, "fasta")
         for seq_i in range(len(full_df.index)):
-            descr="CluSeq:" + str(round(full_df.iloc[seq_i,-2],8)) + "_sd:" + str(round(full_df.iloc[seq_i,-1],8))
+            descr="CluSeq:" + str(round(full_df.iloc[seq_i,-2],5)) + "_sd:" + str(round(full_df.iloc[seq_i,-1],5))
             seq_obj = SeqRecord(Seq(full_df.iloc[seq_i,0]), id=str(id_f), description=descr)
             count = SeqIO.write(seq_obj, handle, "fasta")
             id_f+=1
@@ -603,7 +603,7 @@ def aligner(full_df, target_sequence, align_method, filename, output_path, llite
     for seq_i in range(len(full_df.iloc[:,-1])):
         #yield iteratively the header of the certain seq and the corresponding seq
         #header=">"+ str(id_f)+"_CluSeq:" + str((round(full_df.iloc[seq_i,-4],5))) + "_var:"+str((round(full_df.iloc[seq_i,-2],5))) +"_sd:" + str((round(full_df.iloc[seq_i,-1],5)))
-        header="CluSeq:" + str((round(full_df.iloc[seq_i,-2], 8))) + "_sd:" + str((round(full_df.iloc[seq_i,-1],8)))
+        header="CluSeq:" + str((round(full_df.iloc[seq_i,-2], 5))) + "_sd:" + str((round(full_df.iloc[seq_i,-1],5)))
         #seq_obj_align = aligner_init(full_df.iloc[seq_i,0], target_sequence, gop, gep).align()
         seq_obj_align = aligner_init(full_df.iloc[seq_i,0], target_sequence, gop, gep).align()
         seq_obj_align = re.sub(r'[(\d|\s]', '', seq_obj_align) #remove digits from the string caused by the alignment and empty spaces from the start
@@ -760,7 +760,7 @@ class translate_5p:
         aa_df.insert(0, 'Seq_stats', first_column)
         return(aa_df)
 
-def translate_NT(result, corr_frame, direc, out_csv,direc):
+def translate_NT(result, corr_frame, direc, out_csv):
     strand_dir= {"3p": translate_3p,
             "5p": translate_5p}  
 

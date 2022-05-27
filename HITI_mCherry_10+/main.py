@@ -122,7 +122,7 @@ corr_frame=2
 result="unaligned/HITI_mCherry_5p_10+.fasta"
 output_html="aligned/AA/HITI_mCherry_5p_10+_AA.html"
 out_csv="aligned/AA/HITI_mCherry_5p_10+_AA.csv"
-direc="3p"
+direc="5p"
 translate_NT(result, corr_frame,direc, out_csv)
 
 ####################
