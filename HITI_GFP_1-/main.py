@@ -241,22 +241,6 @@ full_df_trim.to_csv(csv_file)
 save_fasta(result, full_df_trim, target_sequence)
 #full_df_trim=pd.read_csv(csv_file,  index_col=[0])
 #########
-for i, seq in enumerate(full_df_trim.iloc[:,0]):
-    #full_df_trim.iloc[i, 0]=seq.upper()
-
-align_class = {"align_local": align_local,
-        "align_local2": align_local2,
-        "align_local3":align_local3,
-        "align_global":align_global,
-        "align_global2":align_global2}  
-id_f=1
-aligner_init = align_class.get(str("align_local2"), None)  # Get the chosen class, or None if input is bad
-
-nts=['A','G','C','T']
-for i, seq in enumerate(full_df_trim.iloc[:,0]):
-    seq_nt=full_df.iloc[i,0].upper()
-    seq_nt
-    seq_obj_align = aligner_init(seq_nt, target_sequence, 3, 1).align()
 
 
 #NT

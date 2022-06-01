@@ -43,7 +43,7 @@ df_trim_full=calculate_perc_sd(df_full,3)
 #save_fasta(result, df_trim_full, target_sequence)
 ####################
 result="unaligned/mCherry_3p_2+.fasta"
-save_fasta(result, full_df_trim, target_sequence)
+save_fasta(result, df_trim_full, target_sequence)
 
 csv_file="/".join(result.split("/")[:-1]) +"/"+ result.split("/")[-1].split(".")[0] + ".csv"
 csv_file="unaligned/mCherry_3p_2+.csv"
