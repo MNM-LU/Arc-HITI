@@ -19,7 +19,7 @@ base_path = '/media/data/AtteR/projects/hiti/FASTQ_Generation_2020-03-09_08_30_2
 export_path=sample_dir = "trimmed_data/"
 
 #where the programs bbduk and starcode are found
-# program_path="/media/data/AtteR/Attes_bin"
+program_path="/media/data/AtteR/Attes_bin/"
 #############
 
 
@@ -39,29 +39,15 @@ target_sequence=target_sequence.upper()
 #read preprocessing for each sample: trim, record read counts before and after trimming, cluster the reads 
 #using starcode, calculate percentage, merge into the full dataframe containing read count-and percentage for
 #each sample.
-full_df=analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd, animal_list, target_sequence, direc)
+full_df=analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd, animal_list, target_sequence, direc, program_path)
 result="unaligned/HITI_mCherry_3p_1-.fasta"
-full_df_trim=calculate_perc_sd(full_df)
-full_df = full_df.fillna(value=0)
-perc_cols = [col for col in full_df.columns if 'percent' in col]
-count_cols = [col for col in full_df.columns if 'count' in col]
-
-perc_cols
-full_df['total_reads_seq'] = full_df[count_cols].sum(axis=1)  
-full_df["percent_mean"]=full_df[perc_cols].mean(axis=1)
-full_df['sd']=full_df[perc_cols].std(axis=1)
-
-full_df["percent_mean"].sum(axis=0)
-
-full_df[count_cols]
-#full_df_trim = full_df.drop(full_df[full_df["total_reads_seq"] <= 1].index)
+full_df_trim=calculate_perc_sd(full_df, 3)
 
 save_fasta(result, full_df_trim, target_sequence)
 csv_file="/".join(result.split("/")[:-1]) +"/"+ result.split("/")[-1].split(".")[0] + ".csv"
 full_df.to_csv(csv_file)
-full_df_trim=pd.read_csv(csv_file, index_col=[0])
+#full_df_trim=pd.read_csv(csv_file, index_col=[0])
 
-full_df.iloc[0:5,:]
 #NT
 ####################
 output_path="aligned/NT/"
@@ -103,7 +89,7 @@ target_sequence = target_sequence.upper()
 #each sample.
 
 full_df=analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd, animal_list, target_sequence, direc, program_path)
-full_df_trim=calculate_perc_sd(full_df)
+full_df_trim=calculate_perc_sd(full_df,3)
 result="unaligned/HITI_mCherry_5p_1-.fasta"
 save_fasta(result, full_df_trim, target_sequence)
 #########

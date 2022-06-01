@@ -1,5 +1,5 @@
-#File	/tmp/tmpc_v_ej79.fastq.gz	/tmp/tmprc5ac07q.fastq.gz
+#File	/tmp/tmpipmnvawl.fastq.gz	/tmp/tmp1p8e8a1y.fastq.gz
 #Total	1990372
-#Matched	220	0.01105%
+#Matched	92986	4.67179%
 #Name	Reads	ReadsPct
-1	220	0.01105%
+1	92986	4.67179%

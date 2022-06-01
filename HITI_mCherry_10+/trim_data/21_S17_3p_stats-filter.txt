@@ -1,5 +1,5 @@
-#File	/tmp/tmpo3yv6pwu.fastq.gz
-#Total	1271948
-#Matched	831032	65.33538%
+#File	/tmp/tmp3yon47v2.fastq.gz	/tmp/tmpl738aod6.fastq.gz
+#Total	2543896
+#Matched	831032	32.66769%
 #Name	Reads	ReadsPct
-1	831032	65.33538%
+1	831032	32.66769%

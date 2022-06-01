@@ -42,19 +42,29 @@ import statistics as st
 #to run with using data processed with this function. if using the second version, comment out the 
 #line header="CluSeq:" + str((round(full_df.iloc[seq_i,-4],5))) + "_var:"+str((round(full_df.iloc[seq_i,-2],5))) +"_sd:" + str((round(full_df.iloc[seq_i,-1],5)))
 #which is inside the aligner function
-def calculate_perc_sd(full_df):
-    full_df = full_df.fillna(value=0)
-    perc_cols = [col for col in full_df.columns if 'percent' in col]
-    count_cols = [col for col in full_df.columns if 'count' in col]
+def calculate_perc_sd(full_df, min_read_no):
+    full_df2 = full_df.fillna(value=0)
+    count_cols = [col for col in full_df2.columns if 'count' in col]
+    full_df2['total_reads_seq'] = full_df2[count_cols].sum(axis=1)  
+    full_df2['total_reads_seq'].sum()
+    full_df2 = full_df2.drop(full_df2[full_df2["total_reads_seq"] <= min_read_no].index)
 
-    perc_cols
-    full_df['total_reads_seq'] = full_df[count_cols].sum(axis=1)  
-    full_df["percent_mean"]=full_df[perc_cols].mean(axis=1)
-    full_df['sd']=full_df[perc_cols].std(axis=1)
+    #get the total counts, remove the outliers, then calculate percs for each sample
 
-    full_df[count_cols]
-    #full_df_trim = full_df.drop(full_df[full_df["total_reads_seq"] <= 1].index)
-    return(full_df)
+    total_df=full_df2.copy()
+    for i, count in enumerate(full_df2.iloc[:,1:-1], start=1):
+        total_counts = int(full_df2[[count]].sum()) #per col
+        col_name=full_df2.columns[i].split("_")[0] + "_percent"
+        df = pd.DataFrame(columns=[col_name])
+        df[col_name] = (full_df2[count] / total_counts)
+        #full_df2.insert(i, df)
+        total_df=pd.concat([total_df,df], axis=1)
+    perc_cols = [col for col in total_df.columns if 'percent' in col]
+    total_df["percent_mean"]=total_df[perc_cols].mean(axis=1)
+    total_df['sd']=total_df[perc_cols].std(axis=1)
+    total_df= total_df.sort_values('percent_mean', ascending=False)
+    return(total_df)
+
 
 
 #uses perc sum and then division approach for the seqs
@@ -125,6 +135,59 @@ def create_datadict(base_path, transgene, animal_list):
 
     return(data_dict)
 
+#removes small values and reorganises the dict from createst to smallest in terms of cluster perc value
+#def reorganise_perc(aligned_data_trim):
+def reorganise_perc(aligned_data_trim):
+    perc_and_index=dict()
+    for i, id in enumerate(aligned_data_trim.keys()):
+        perc_and_index[i]=float(id.split("_")[0].split(":")[1])
+
+    import operator
+    perc_and_index_sorted = dict( sorted(perc_and_index.items(), key=operator.itemgetter(1),reverse=True))
+    to_be_del=[]
+    perc_and_index_sorted2=dict()
+
+    #first transform values with e notation into floats
+
+    # for key, perc in perc_and_index_sorted.items():
+    #     if "e" in perc:
+    #         print(perc)
+    #         perc_and_index_sorted[key]=perc
+
+    # for i, perc in perc_and_index_sorted.items():
+    #     if float(perc)<0.000000001:
+    #         to_be_del.append(i)
+    #     # if "e" in perc:
+    #     #     to_be_del.append(i)
+    #     else:
+    #         perc_and_index_sorted2[i]=perc
+    for i, perc in perc_and_index_sorted.items():
+        perc_and_index_sorted2[i]=perc
+
+    #from the original dict remove the ones that are too small and reorder based on the order given in perc_and_index_sorted2.
+    #create new empty dict, go over the perc_and_index2, take their index, based on this take the correct key-value pair from
+    #the original dict and save this into the new one. the end result is an ordered dict
+
+    i = 0
+    elems_to_del = []
+    for key in aligned_data_trim.keys():
+        if i in to_be_del:
+            print(key)
+            elems_to_del.append(key)
+        i += 1
+
+    for key in elems_to_del:
+        if key in aligned_data_trim:
+            del aligned_data_trim[key]
+
+    reorg_data_dict=dict()
+    for perc in perc_and_index_sorted2.values():
+        for key in aligned_data_trim.keys():
+            if str(perc) in key:
+                reorg_data_dict[key]=aligned_data_trim[key]
+    return(reorg_data_dict)
+
+
 def create_datadict2(base_path, transgene):
     group_folders = [folder for folder in os.listdir(base_path) if transgene in folder]
     animals=[]
@@ -143,7 +206,9 @@ def create_datadict2(base_path, transgene):
                 data_dict[animal_group]=lanes
 
     return(data_dict)
-def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral,read_fwd,direc):
+def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral,read_fwd,direc, program_path):
+    complete_df = pd.DataFrame(columns=['sequence'])
+
     animal_nr = str(animal_nr)
     "Filters and trims the reads"
     search_path = base_path+animal_nr+'*'+transgene+'*'+direc+'*/'
@@ -175,8 +240,10 @@ def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral
     param=" k="+kmer+" hdist="+hdist+" rcomp=f skipr2=t threads=32 overwrite=true"
     
     call_sequence = "bbduk.sh in="+animal_p7_cat+" in2="+animal_p5_cat+" outm1="+test_file_p7_out+" outm2="+test_file_p5_out+" literal="+filterlitteral+" stats="+stats_out + param
+#    call([call_sequence], shell=True)
+    #call_sequence = "bbduk.sh in="+animal_p5_cat +" in2="+animal_p7_cat+" outm1="+ test_file_p5_out +" outm2="+test_file_p7_out+" literal="+filterlitteral+" stats="+stats_out + param
     call([call_sequence], shell=True)
-    
+
     call_sequence = "bbduk.sh in="+test_file_p5_out+" out="+test_file_p5_filter+ " literal=AAAAAAAAA,CCCCCCCCC,GGGGGGGGG,TTTTTTTTT k=9 mm=f overwrite=true minlength=40"
     call([call_sequence], shell=True)
     test_file_p5_filter2 = tempfile.NamedTemporaryFile(suffix = '.fastq').name #when cutadapt applied
@@ -187,33 +254,25 @@ def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral
     # call([cutadapt_call], shell=True)
 
     test_file_p5_out_starcode = tempfile.NamedTemporaryFile(suffix = '.tsv').name
-    starcode_call= "starcode -i "+test_file_p5_filter2+" -t 32 -o "+test_file_p5_out_starcode
+    starcode_call= program_path + "starcode/starcode -i "+test_file_p5_filter2+" -t 32 -r 5 -o "+test_file_p5_out_starcode
+
     call([starcode_call], shell=True)
 
     df=pd.read_csv(test_file_p5_out_starcode, sep='\t', header=None)
     # result="unaligned/Starcode_HITI_GFP_3p_" + animal_nr + "_.csv"
     # df.to_csv(result)
-
     df = df.rename(columns={0: 'sequence', 1:'count'})
-    total_counts = int(df[['count']].sum())
-    #df = df[df['count'].astype(int)>total_counts/10000]
-    total_counts = int(df[['count']].sum())
-    df['percent'] = (df['count'] / total_counts)
-    df = df.rename(columns={'percent':animal_nr+'_percent','count':animal_nr+'_count',})
-    
+    df = df.rename(columns={'count':animal_nr+'_count',})
+
     return df
 
-def analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd,animal_list, target_sequence, direc):
+def analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd,animal_list, target_sequence, direc, program_path):
     complete_df = pd.DataFrame({'sequence': [target_sequence]})
     for animal in animal_list:
-        df_this = trimRead_hiti(animal,base_path,transgene,filterlitteral,lliteral,rliteral,read_fwd,direc)
+        df_this = trimRead_hiti(animal,base_path,transgene,filterlitteral,lliteral,rliteral,read_fwd,direc, program_path)
         complete_df = pd.merge(complete_df, df_this, on="sequence", how='outer')
     
     complete_df = complete_df.fillna(value=0)
-    perc_cols = [col for col in complete_df.columns if 'percent' in col]
-    #complete_df['percent_sum'] = complete_df[perc_cols].sum(axis=1)
-    #export_csv = export_path+transgene+'_'+assay_end+'.csv'
-    #complete_df.to_csv(export_csv, index=False)
     return complete_df
 
 #saves file as fasta and csv
@@ -241,10 +300,8 @@ def import_fasta(result):
 from functools import reduce
 
 #reads in the read files
-def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,read_fwd, direc):
+def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,read_fwd, direc, program_path):
     complete_df = pd.DataFrame(columns=['sequence'])
-    df_animal=[]
-    seq_animal=[]
     for read in os.listdir(base_path):
         animal_group_name=read.split("_")[3] + "_" + read.split("_")[4]
         print(animal_group_name)
@@ -278,7 +335,9 @@ def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,re
 
             #to check if the read is an amplicon
             #call_sequence = "/media/data/AtteR/Attes_bin/bbmap/bbduk.sh in="+animal_p7_cat+" in2="+animal_p5_cat+" outm1="+test_file_p7_out+" outm2="+test_file_p5_out+" literal="+filterlitteral+param
-            call_sequence = "bbduk.sh in="+ animal_p5_cat +" outm1="+test_file_p5_out+" literal="+filterlitteral+" stats="+stats_out + param
+            #call_sequence = "bbduk.sh in="+ animal_p5_cat +" outm1="+test_file_p5_out+" literal="+filterlitteral+" stats="+stats_out + param
+            call_sequence = "bbduk.sh in="+animal_p5_cat +" in2="+animal_p7_cat+" outm1="+ test_file_p5_out +" outm2="+test_file_p7_out+" literal="+filterlitteral+" stats="+stats_out + param
+            call([call_sequence], shell=True)
 
             call([call_sequence], shell=True)
             #actual trimming
@@ -294,14 +353,13 @@ def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,re
 
             print("Cutadapt done! Performed on test_file_p5_filter2: "+ test_file_p5_filter2)
             test_file_p5_out_starcode = tempfile.NamedTemporaryFile(suffix = '.tsv').name
-            starcode_call= "starcode -i "+test_file_p5_filter2+" -t 32 -r 5 -o "+test_file_p5_out_starcode
+            starcode_call= program_path + "starcode/starcode -i "+test_file_p5_filter2+" -t 32 -r 5 -o "+test_file_p5_out_starcode
             call([starcode_call], shell=True)
 
             df=pd.read_csv(test_file_p5_out_starcode, sep='\t', header=None)
             df = df.rename(columns={0: 'sequence', 1:'count'})
-            total_counts = int(df[['count']].sum())
-            df['percent'] = (df['count'] / total_counts)
-            df = df.rename(columns={'percent':animal_group_name+'_percent','count':animal_group_name+'_count',})
+            df = df.rename(columns={'count':animal_group_name+'_count',})
+
             complete_df=pd.merge(complete_df, df, on=['sequence'], how='outer')
     
     #double check that the primer has been removed:
@@ -310,7 +368,6 @@ def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,re
     #         complete_df.iloc[i,0]=seq.replace(lliteral.split("=")[1], '')
 
     return(complete_df)
-
 
 # def create_datadict(base_path, transgene):
 #     #hip_folders = [folder for folder in os.listdir(base_path) if "mCherry" in folder and "h_" in folder or "s_" in folder]
@@ -533,58 +590,6 @@ def add_primers_save(aligned_data_trim,filename, target_sequence,lliteral):
             count = SeqIO.write(seq_obj, handle, "fasta")
             id_f+=1
     print("Saved!")
-
-#removes small values and reorganises the dict from createst to smallest in terms of cluster perc value
-#def reorganise_perc(aligned_data_trim):
-def reorganise_perc(aligned_data_trim):
-    perc_and_index=dict()
-    for i, id in enumerate(aligned_data_trim.keys()):
-        perc_and_index[i]=float(id.split("_")[0].split(":")[1])
-
-    import operator
-    perc_and_index_sorted = dict( sorted(perc_and_index.items(), key=operator.itemgetter(1),reverse=True))
-    to_be_del=[]
-    perc_and_index_sorted2=dict()
-
-    #first transform values with e notation into floats
-
-    # for key, perc in perc_and_index_sorted.items():
-    #     if "e" in perc:
-    #         print(perc)
-    #         perc_and_index_sorted[key]=perc
-
-    # for i, perc in perc_and_index_sorted.items():
-    #     if float(perc)<0.000000001:
-    #         to_be_del.append(i)
-    #     # if "e" in perc:
-    #     #     to_be_del.append(i)
-    #     else:
-    #         perc_and_index_sorted2[i]=perc
-    for i, perc in perc_and_index_sorted.items():
-        perc_and_index_sorted2[i]=perc
-
-    #from the original dict remove the ones that are too small and reorder based on the order given in perc_and_index_sorted2.
-    #create new empty dict, go over the perc_and_index2, take their index, based on this take the correct key-value pair from
-    #the original dict and save this into the new one. the end result is an ordered dict
-
-    i = 0
-    elems_to_del = []
-    for key in aligned_data_trim.keys():
-        if i in to_be_del:
-            print(key)
-            elems_to_del.append(key)
-        i += 1
-
-    for key in elems_to_del:
-        if key in aligned_data_trim:
-            del aligned_data_trim[key]
-
-    reorg_data_dict=dict()
-    for perc in perc_and_index_sorted2.values():
-        for key in aligned_data_trim.keys():
-            if str(perc) in key:
-                reorg_data_dict[key]=aligned_data_trim[key]
-    return(reorg_data_dict)
 
 
 #takes in the df and the choice of the alignment method. methods are found in class

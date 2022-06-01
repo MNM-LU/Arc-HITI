@@ -19,7 +19,7 @@ base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-
 export_path=sample_dir = "trimmed_data/"
 
 #where the programs bbduk and starcode are found
-program_path="/media/data/AtteR/Attes_bin"
+# program_path="/media/data/AtteR/Attes_bin"
 
 #############
 
@@ -38,10 +38,12 @@ target_sequence = target_sequence.upper()
 #using starcode, calculate percentage, merge into the full dataframe containing read count-and percentage for
 #each sample.
 df_full=import_reads_process_mini(base_path, target_sequence,filterlitteral,lliteral,rliteral,read_fwd, direc, program_path)
-df_trim_full=calculate_perc_sd(df_full)
+df_trim_full=calculate_perc_sd(df_full,3)
 result="unaligned/SATI_mCherry_5p_1-.fasta"
 save_fasta(result, df_trim_full, target_sequence)
 
+
+df_trim_full.iloc[:,-2].sum()
 
 #NT
 ####################
