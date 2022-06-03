@@ -206,7 +206,7 @@ def create_datadict2(base_path, transgene):
                 data_dict[animal_group]=lanes
 
     return(data_dict)
-def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral,read_fwd,direc):
+def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral,read_fwd,direc, program_path):
     complete_df = pd.DataFrame(columns=['sequence'])
 
     animal_nr = str(animal_nr)
@@ -239,9 +239,9 @@ def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral
     hdist = '3'
     param=" k="+kmer+" hdist="+hdist+" rcomp=f skipr2=t threads=32 overwrite=true"
     
-    call_sequence = "bbduk.sh in="+animal_p7_cat+" in2="+animal_p5_cat+" outm1="+test_file_p7_out+" outm2="+test_file_p5_out+" literal="+filterlitteral+" stats="+stats_out + param
+    # call_sequence = "bbduk.sh in="+animal_p7_cat+" in2="+animal_p5_cat+" outm1="+test_file_p7_out+" outm2="+test_file_p5_out+" literal="+filterlitteral+" stats="+stats_out + param
 #    call([call_sequence], shell=True)
-    #call_sequence = "bbduk.sh in="+animal_p5_cat +" in2="+animal_p7_cat+" outm1="+ test_file_p5_out +" outm2="+test_file_p7_out+" literal="+filterlitteral+" stats="+stats_out + param
+    call_sequence = "bbduk.sh in="+animal_p5_cat +" in2="+animal_p7_cat+" outm1="+ test_file_p5_out +" outm2="+test_file_p7_out+" literal="+filterlitteral+" stats="+stats_out + param
     call([call_sequence], shell=True)
 
     call_sequence = "bbduk.sh in="+test_file_p5_out+" out="+test_file_p5_filter+ " literal=AAAAAAAAA,CCCCCCCCC,GGGGGGGGG,TTTTTTTTT k=9 mm=f overwrite=true minlength=40"
@@ -249,12 +249,13 @@ def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral
     test_file_p5_filter2 = tempfile.NamedTemporaryFile(suffix = '.fastq').name #when cutadapt applied
 
     cutadapt_call="cutadapt -g "+lliteral+ " --discard-untrimmed -o " + test_file_p5_filter2 + " " + test_file_p5_filter
+    
     call([cutadapt_call], shell=True)
     # cutadapt_call="cutadapt -a "+rliteral+" -o " + test_file_p5_filter2 + " " + test_file_p5_filter2
     # call([cutadapt_call], shell=True)
 
     test_file_p5_out_starcode = tempfile.NamedTemporaryFile(suffix = '.tsv').name
-    starcode_call= "starcode -i "+test_file_p5_filter2+" -t 32 -r 5 -o "+test_file_p5_out_starcode
+    starcode_call= "/media/data/AtteR/Attes_bin/starcode/starcode -i "+test_file_p5_filter2+" -t 32 -r 5 -o "+test_file_p5_out_starcode
 
     call([starcode_call], shell=True)
 
@@ -266,10 +267,10 @@ def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral
 
     return df
 
-def analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd,animal_list, target_sequence, direc):
+def analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd,animal_list, target_sequence, direc,program_path):
     complete_df = pd.DataFrame({'sequence': [target_sequence]})
     for animal in animal_list:
-        df_this = trimRead_hiti(animal,base_path,transgene,filterlitteral,lliteral,rliteral,read_fwd,direc)
+        df_this = trimRead_hiti(animal,base_path,transgene,filterlitteral,lliteral,rliteral,read_fwd,direc,program_path)
         complete_df = pd.merge(complete_df, df_this, on="sequence", how='outer')
     
     complete_df = complete_df.fillna(value=0)
@@ -300,7 +301,7 @@ def import_fasta(result):
 from functools import reduce
 
 #reads in the read files
-def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,read_fwd, direc):
+def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,read_fwd, direc,program_path):
     complete_df = pd.DataFrame(columns=['sequence'])
     for read in os.listdir(base_path):
         animal_group_name=read.split("_")[3] + "_" + read.split("_")[4]
@@ -339,7 +340,6 @@ def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,re
             call_sequence = "bbduk.sh in="+animal_p5_cat +" in2="+animal_p7_cat+" outm1="+ test_file_p5_out +" outm2="+test_file_p7_out+" literal="+filterlitteral+" stats="+stats_out + param
             call([call_sequence], shell=True)
 
-            call([call_sequence], shell=True)
             #actual trimming
             call_sequence = "bbduk.sh in="+test_file_p5_out+" out="+test_file_p5_filter+ " literal=AAAAAAAAA,CCCCCCCCC,GGGGGGGGG,TTTTTTTTT k=9 mm=f overwrite=true minlength=40"
             call([call_sequence], shell=True)
@@ -353,7 +353,7 @@ def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,re
 
             print("Cutadapt done! Performed on test_file_p5_filter2: "+ test_file_p5_filter2)
             test_file_p5_out_starcode = tempfile.NamedTemporaryFile(suffix = '.tsv').name
-            starcode_call= "starcode -i "+test_file_p5_filter2+" -t 32 -r 5 -o "+test_file_p5_out_starcode
+            starcode_call= program_path+ "/starcode/starcode -i "+test_file_p5_filter2+" -t 32 -r 5 -o "+test_file_p5_out_starcode
             call([starcode_call], shell=True)
 
             df=pd.read_csv(test_file_p5_out_starcode, sep='\t', header=None)
@@ -725,9 +725,10 @@ class translate_3p:
 
 
 class translate_5p:
-    def __init__(self, result, corr_frame):
+    def __init__(self, result, corr_frame, cut):
         self.result=result
         self.corr_frame=corr_frame
+        self.cut=cut
 
     def translate_nt(self):
         ref_aa_cor=dict()
@@ -742,9 +743,12 @@ class translate_5p:
                 ref_key="Frame_corr:" + str(self.corr_frame) +"|" +str(rev_compl_seq[self.corr_frame:].translate())
             else:
                 seq_info.append(record.description)
-                rev_compl_seq=Seq(record.seq).reverse_complement()
-                print(str(rev_compl_seq[self.corr_frame:].translate()))
-                aa_ampls.append(str(rev_compl_seq[self.corr_frame:].translate()))
+                print(len(str(record.seq))-self.cut)
+                rev_compl_seq=Seq(str(record.seq)).reverse_complement()
+                #rev_compl_seqnc=Seq(n[0:(len(n)-8)]).reverse_complement()
+                print(str(rev_compl_seq[rev_compl_seq.find("ATG"):][self.corr_frame:].translate()))
+                aa_ampls.append(str(rev_compl_seq[rev_compl_seq.find("ATG"):][self.corr_frame:].translate()))
+        print("All translated in correct frame")
         ref_aa_cor[ref_key]=aa_ampls
         ref_aa=dict()
         for alt_frame in alt_frames:
@@ -768,12 +772,12 @@ class translate_5p:
         aa_df.insert(0, 'Seq_stats', first_column)
         return(aa_df)
 
-def translate_NT(result, corr_frame, direc, out_csv):
+def translate_NT(result, corr_frame, cut, direc, out_csv):
     strand_dir= {"3p": translate_3p,
             "5p": translate_5p}  
 
     trans_init = strand_dir.get(str(direc), None)  # Get the chosen class, or None if input is bad
-    df_aa = trans_init(result, corr_frame).translate_nt()
+    df_aa = trans_init(result, corr_frame, cut=0).translate_nt()
     for i, seq in enumerate(df_aa.iloc[:,1]):
         if seq=='':
             df_aa=df_aa.drop(df_aa.index[i]) 

@@ -1,0 +1,142 @@
+>0_Ref_Frame:2
+GAGPYDVIWSSSGE
+>1 CluSeq:0.80362_sd:0.04352
+--GP--V--S----
+>2 CluSeq:0.03096_sd:0.01106
+--GP--V--S----
+>3 CluSeq:0.02255_sd:0.02351
+GAGPYDV--S----
+>4 CluSeq:0.02204_sd:0.00288
+--GP--V--S----
+>5 CluSeq:0.01448_sd:0.01269
+-------IWSS---
+>7 CluSeq:0.0129_sd:0.02234
+--GP--V--S----
+>8 CluSeq:0.00955_sd:0.01102
+-AGP--V--S----
+>9 CluSeq:0.00606_sd:0.0105
+--GP--V--S----
+>10 CluSeq:0.00602_sd:0.01043
+GAGPY-V--S----
+>11 CluSeq:0.00443_sd:0.00767
+GAGPY-V--S----
+>12 CluSeq:0.00414_sd:0.00718
+-A-P-----SS---
+>14 CluSeq:0.00292_sd:0.00507
+GAGPYDV--S----
+>15 CluSeq:0.00244_sd:0.00423
+-AGP--V--S----
+>16 CluSeq:0.00233_sd:0.00403
+--GP--V--S----
+>17 CluSeq:0.00215_sd:0.00372
+G-GP--V--S----
+>18 CluSeq:0.00215_sd:0.00372
+-----DV--S----
+>19 CluSeq:0.00214_sd:0.00371
+G---YD---SS--E
+>20 CluSeq:0.00207_sd:0.00358
+--GP--V--S----
+>22 CluSeq:0.00191_sd:0.0033
+--GP--V--S----
+>23 CluSeq:0.00191_sd:0.0033
+--GP--V--S----
+>24 CluSeq:0.00185_sd:0.00321
+GAGPYDV--S----
+>25 CluSeq:0.00165_sd:0.00286
+G-GP--V--S----
+>26 CluSeq:0.00161_sd:0.00279
+G-GP--V--S----
+>27 CluSeq:0.00152_sd:0.00203
+--GPY-V--S----
+>28 CluSeq:0.00133_sd:0.0023
+GAGPYD--WSS---
+>29 CluSeq:0.0013_sd:0.00225
+-A----V--S----
+>30 CluSeq:0.00128_sd:0.00222
+-AGP--V--S----
+>31 CluSeq:0.00116_sd:0.00202
+GAGPYDV--S----
+>32 CluSeq:0.00109_sd:0.00189
+GAGP--V--S--G-
+>33 CluSeq:0.00108_sd:0.00187
+--GP--V--S----
+>34 CluSeq:0.00099_sd:0.00172
+--GP--V--S----
+>35 CluSeq:0.00091_sd:0.00158
+--GP--V--S----
+>36 CluSeq:0.00086_sd:0.00148
+--GP--V--S----
+>37 CluSeq:0.00081_sd:0.0014
+--GP--V--S----
+>38 CluSeq:0.00079_sd:0.00137
+G-GP--V--S----
+>39 CluSeq:0.00061_sd:0.00074
+--GPY-V--S----
+>40 CluSeq:0.00049_sd:0.00085
+-AGP--V--S----
+>41 CluSeq:0.00048_sd:0.00083
+--GP--V--S----
+>42 CluSeq:0.00045_sd:0.00079
+-AGPY-V--S----
+>43 CluSeq:0.0004_sd:0.00068
+-A-----I-SSSG-
+>44 CluSeq:0.0003_sd:0.00052
+G-G--DV--S----
+>45 CluSeq:0.00027_sd:0.00036
+--GPY-V--S----
+>46 CluSeq:0.00021_sd:0.00037
+GA-P----WSS---
+>47 CluSeq:0.00021_sd:0.00036
+GA-P----WSS---
+>48 CluSeq:0.00019_sd:0.00033
+--GP--V--S----
+>49 CluSeq:0.00018_sd:0.00031
+--GP-D------GE
+>50 CluSeq:0.00015_sd:0.00025
+-A------W-----
+>51 CluSeq:0.00014_sd:0.00024
+-A----V--S----
+>52 CluSeq:0.00013_sd:0.00023
+--GP--V--S----
+>53 CluSeq:0.00012_sd:0.0002
+-A-----I-SSSG-
+>54 CluSeq:0.00011_sd:0.0002
+GA-P----WSS---
+>55 CluSeq:0.00011_sd:0.00019
+--GP-D------GE
+>56 CluSeq:0.0001_sd:0.00017
+GAGP--V--S----
+>57 CluSeq:8e-05_sd:0.00013
+G-GP-------SGE
+>58 CluSeq:8e-05_sd:0.00013
+-AGP--V--S----
+>59 CluSeq:7e-05_sd:0.00013
+G-GP--V--S----
+>60 CluSeq:7e-05_sd:0.00012
+-AGPY-V--S----
+>61 CluSeq:7e-05_sd:0.00012
+G-G--DV--S----
+>62 CluSeq:6e-05_sd:0.00011
+--GP-D------GE
+>63 CluSeq:6e-05_sd:0.0001
+GA-P----WSS---
+>64 CluSeq:5e-05_sd:9e-05
+GA-P----WSS---
+>65 CluSeq:4e-05_sd:7e-05
+GAG---------G-
+>66 CluSeq:4e-05_sd:7e-05
+-AGP-D--------
+>67 CluSeq:3e-05_sd:5e-05
+G-----V-W-----
+>68 CluSeq:2e-05_sd:4e-05
+--GP--V--S----
+>70 CluSeq:1e-05_sd:2e-05
+G-GP--V--S----
+>71 CluSeq:1e-05_sd:2e-05
+G-----V-W-----
+>72 CluSeq:1e-05_sd:2e-05
+-AGP-D--------
+>73 CluSeq:1e-05_sd:2e-05
+---PYDVIWSSSG-
+>74 CluSeq:1e-05_sd:2e-05
+G-GP--V--S----
