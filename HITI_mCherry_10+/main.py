@@ -37,14 +37,14 @@ target_sequence=target_sequence.upper()
 #read preprocessing for each sample: trim, record read counts before and after trimming, cluster the reads 
 #using starcode, calculate percentage, merge into the full dataframe containing read count-and percentage for
 #each sample.
-df_full=import_reads_process_mini(base_path, target_sequence,filterlitteral,lliteral,rliteral,read_fwd, direc, program_path)
+df_full=import_reads_process_mini(base_path, target_sequence,filterlitteral,lliteral,rliteral,read_fwd, direc)
 df_trim_full=calculate_perc_sd(df_full,3)
 result="unaligned/HITI_mCherry_3p_10+.fasta"
 save_fasta(result, df_trim_full, target_sequence)
 
 csv_file="/".join(result.split("/")[:-1]) +"/"+ result.split("/")[-1].split(".")[0] + ".csv"
 df_trim_full.to_csv(csv_file)
-full_df_trim=pd.read_csv(csv_file, index_col=[0])
+#full_df_trim=pd.read_csv(csv_file, index_col=[0])
 #NT
 ####################
 output_path="aligned/NT/"
@@ -100,7 +100,7 @@ base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-
 #using starcode, calculate percentage, merge into the full dataframe containing read count-and percentage for
 #each sample.
 
-df_full=import_reads_process_mini(base_path, target_sequence,filterlitteral,lliteral,rliteral,read_fwd, direc, program_path)
+df_full=import_reads_process_mini(base_path, target_sequence,filterlitteral,lliteral,rliteral,read_fwd, direc)
 df_trim_full=calculate_perc_sd(df_full,3)
 result="unaligned/HITI_mCherry_5p_10+.fasta"
 save_fasta(result, df_trim_full, target_sequence)

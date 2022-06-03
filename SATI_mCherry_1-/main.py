@@ -37,7 +37,7 @@ target_sequence = target_sequence.upper()
 #read preprocessing for each sample: trim, record read counts before and after trimming, cluster the reads 
 #using starcode, calculate percentage, merge into the full dataframe containing read count-and percentage for
 #each sample.
-df_full=import_reads_process_mini(base_path, target_sequence,filterlitteral,lliteral,rliteral,read_fwd, direc, program_path)
+df_full=import_reads_process_mini(base_path, target_sequence,filterlitteral,lliteral,rliteral,read_fwd, direc)
 df_trim_full=calculate_perc_sd(df_full,3)
 result="unaligned/SATI_mCherry_5p_1-.fasta"
 save_fasta(result, df_trim_full, target_sequence)

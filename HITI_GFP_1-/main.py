@@ -20,7 +20,7 @@ base_path = '/media/data/AtteR/projects/hiti/FASTQ_Generation_2020-03-09_08_30_2
 export_path=sample_dir + "trimmed_data/"
 
 # #where the programs bbduk and starcode are found
-program_path="/media/data/AtteR/Attes_bin/"
+# program_path="/media/data/AtteR/Attes_bin/"
 
 #############
 
@@ -70,7 +70,7 @@ def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral
     # call([cutadapt_call], shell=True)
 
     test_file_p5_out_starcode = tempfile.NamedTemporaryFile(suffix = '.tsv').name
-    starcode_call= "/media/data/AtteR/Attes_bin/starcode/starcode -i "+test_file_p5_filter2+" -t 32 -o "+test_file_p5_out_starcode
+    starcode_call= "starcode -i "+test_file_p5_filter2+" -t 32 -o "+test_file_p5_out_starcode
     call([starcode_call], shell=True)
 
     df=pd.read_csv(test_file_p5_out_starcode, sep='\t', header=None)
@@ -194,7 +194,7 @@ def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral
     # call([cutadapt_call], shell=True)
 
     test_file_p5_out_starcode = tempfile.NamedTemporaryFile(suffix = '.tsv').name
-    starcode_call= "/media/data/AtteR/Attes_bin/starcode/starcode -i "+test_file_p5_filter2+" -t 32 -o "+test_file_p5_out_starcode
+    starcode_call= "starcode -i "+test_file_p5_filter2+" -t 32 -o "+test_file_p5_out_starcode
     call([starcode_call], shell=True)
 
     df=pd.read_csv(test_file_p5_out_starcode, sep='\t', header=None)

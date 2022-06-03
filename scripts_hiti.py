@@ -206,7 +206,7 @@ def create_datadict2(base_path, transgene):
                 data_dict[animal_group]=lanes
 
     return(data_dict)
-def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral,read_fwd,direc, program_path):
+def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral,read_fwd,direc):
     complete_df = pd.DataFrame(columns=['sequence'])
 
     animal_nr = str(animal_nr)
@@ -254,7 +254,7 @@ def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral
     # call([cutadapt_call], shell=True)
 
     test_file_p5_out_starcode = tempfile.NamedTemporaryFile(suffix = '.tsv').name
-    starcode_call= program_path + "starcode/starcode -i "+test_file_p5_filter2+" -t 32 -r 5 -o "+test_file_p5_out_starcode
+    starcode_call= "starcode -i "+test_file_p5_filter2+" -t 32 -r 5 -o "+test_file_p5_out_starcode
 
     call([starcode_call], shell=True)
 
@@ -266,10 +266,10 @@ def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral
 
     return df
 
-def analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd,animal_list, target_sequence, direc, program_path):
+def analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd,animal_list, target_sequence, direc):
     complete_df = pd.DataFrame({'sequence': [target_sequence]})
     for animal in animal_list:
-        df_this = trimRead_hiti(animal,base_path,transgene,filterlitteral,lliteral,rliteral,read_fwd,direc, program_path)
+        df_this = trimRead_hiti(animal,base_path,transgene,filterlitteral,lliteral,rliteral,read_fwd,direc)
         complete_df = pd.merge(complete_df, df_this, on="sequence", how='outer')
     
     complete_df = complete_df.fillna(value=0)
@@ -300,7 +300,7 @@ def import_fasta(result):
 from functools import reduce
 
 #reads in the read files
-def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,read_fwd, direc, program_path):
+def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,read_fwd, direc):
     complete_df = pd.DataFrame(columns=['sequence'])
     for read in os.listdir(base_path):
         animal_group_name=read.split("_")[3] + "_" + read.split("_")[4]
@@ -353,7 +353,7 @@ def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,re
 
             print("Cutadapt done! Performed on test_file_p5_filter2: "+ test_file_p5_filter2)
             test_file_p5_out_starcode = tempfile.NamedTemporaryFile(suffix = '.tsv').name
-            starcode_call= program_path + "starcode/starcode -i "+test_file_p5_filter2+" -t 32 -r 5 -o "+test_file_p5_out_starcode
+            starcode_call= "starcode -i "+test_file_p5_filter2+" -t 32 -r 5 -o "+test_file_p5_out_starcode
             call([starcode_call], shell=True)
 
             df=pd.read_csv(test_file_p5_out_starcode, sep='\t', header=None)
