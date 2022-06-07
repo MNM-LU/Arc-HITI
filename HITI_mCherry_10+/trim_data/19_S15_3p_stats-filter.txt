@@ -1,4 +1,4 @@
-#File	/tmp/tmp_mq0tpo1.fastq.gz	/tmp/tmpivjktvur.fastq.gz
+#File	/tmp/tmpnhf1xjzq.fastq.gz	/tmp/tmpjsr8g8uy.fastq.gz
 #Total	1070416
 #Matched	532110	49.71058%
 #Name	Reads	ReadsPct
