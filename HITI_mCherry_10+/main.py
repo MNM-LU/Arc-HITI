@@ -20,7 +20,7 @@ os.chdir(sample_dir)
 base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-only/SP4_3p"
 
 #where the programs bbduk and starcode are found
-# program_path="/media/data/AtteR/Attes_bin"
+program_path="/media/data/AtteR/Attes_bin"
 
 #############
 
@@ -62,7 +62,7 @@ aa_fasta="unaligned/HITI_mCherry_3p_10+_AA.fasta"
 #translate and save results as csv
 #df_aa=translate_nt_aa_csv(result,corr_frame, out_csv)
 
-translate_NT(result, corr_frame,direc, out_csv)
+translate_NT(result, corr_frame,direc, out_csv, lliteral.split("=")[1])
 
 
 
@@ -90,9 +90,10 @@ direc = "5p"
 lliteral = ' literal=CCATGTTATCCTCCTCGCCCT'  #trimmed away one extra T from the amplicons
 rliteral = ' literal=ATTTTGGGGACCGGAGACAC'
 filterlitteral="CCATGTTATCCTCCTCGCCCTTGCTCACCCGAGCTGGACCATATGACGTCATATGGT"
-target_sequence="tgctcacCCGAGCTGGACCATATGACGTCATATGGTCCAGCTCCATCTGGTCGTCGGTGCTGCGGCTCCGAACAGGCTAAGAACTCCTCTGAGGCAGA"
 target_sequence="tgctcacCCGAGCTGGACCATATGACGTCATATGGTCCAGCTCCAT"
 target_sequence="tgctcacCCGAGCTGGACCATATGACGTCATATGGTCCAGCTCCATCTGGTCGTCGGTG"
+target_sequence="tgctcacCCGAGCTGGACCATATGACGTCATATGGTCCAGCTCCATCTGGTCGTCGGTGCTGCGGCTCCGAACAGGCTAAGAACTCCTCTGAGGCAGA"
+
 target_sequence=target_sequence.upper()
 read_fwd = True
 base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-only/SP4_5p"
@@ -126,6 +127,6 @@ result="unaligned/HITI_mCherry_5p_10+.fasta"
 output_html="aligned/AA/HITI_mCherry_5p_10+_AA.html"
 out_csv="aligned/AA/HITI_mCherry_5p_10+_AA.csv"
 direc="5p"
-translate_NT(result, corr_frame, direc, out_csv)
+translate_NT(result, corr_frame,direc, out_csv, lliteral.split("=")[1])
 
 ####################

@@ -31,6 +31,7 @@ direc="3p"
 filterlitteral="CGGCGGCATGGACGAGCTGTACAAGCCGAACGTTCGGAGCCGCAGCACCGACGACCAG"
 target_sequence="ctgtacaagccgaacGTTCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCATATGACCACCGGCGGCCTCCACGCCTACCCTGCCCCGCGGGGTGGGCCGGCCGCCAAACCCAATGTGATCCTGCAGATTGGTAAGTGCCGAGCTGA"
 target_sequence=target_sequence.upper()
+target_sequence="CTGTACAAGCCGAAC---GTTCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCATATGACCACCGGCGGCCTCCACGCCTACCCTGCCCCGCGGGGTGGGCCGGCCGCCAAACCCAATGTGATCCTGCAGATTGGTAAGTGCCGAGCTGA"
 
 #########
 #read preprocessing for each sample: trim, record read counts before and after trimming, cluster the reads 
@@ -64,7 +65,7 @@ result="unaligned/mCherry_3p_2+.fasta"
 output_html="aligned/AA/mCherry_3p_2+.html"
 out_csv="aligned/AA/mCherry_3p_2+.csv"
 
-translate_NT(result, corr_frame,direc, out_csv)
+translate_NT(result, corr_frame,direc, out_csv, lliteral.split("=")[1])
 ####################
 
 

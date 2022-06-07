@@ -1,142 +1,142 @@
 >0_Ref_Frame:1
-TDDQMELDHMTSYGPARVS
+PCYPPRP-MELDHMTSYGPARVS
 >1 CluSeq:0.80362_sd:0.04352
-----MELDHMTSYGPARVS
+PCYPPRP-----HM---G-A---
 >2 CluSeq:0.03096_sd:0.01106
-----MELDHMT-YGPARVS
+PCYPPRP-----HM---G-A---
 >3 CluSeq:0.02255_sd:0.02351
-----MELDHMT--G-A---
+PCYPPRP--E-------------
 >4 CluSeq:0.02204_sd:0.00288
-----MELDHM-SYGPARVS
+PCYPPRP-----HM---G-A---
 >5 CluSeq:0.01448_sd:0.01269
-----MELDHM-S-G-----
+PCYPPRP-------TSYGPARVS
 >7 CluSeq:0.0129_sd:0.02234
-----MELDHMTS-G-----
+PCYPPRP-------T-YGPARVS
 >8 CluSeq:0.00955_sd:0.01102
----Q--L------G-A---
+PCYPPRP--E-------------
 >9 CluSeq:0.00606_sd:0.0105
-----MELDH--SYGPARVS
+PCYPPRP-----HM---G-A---
 >10 CluSeq:0.00602_sd:0.01043
-----MELDHM---G-A---
+PCYPPRP--E-------------
 >11 CluSeq:0.00443_sd:0.00767
-----MELDHM---G-A---
+PCYPPRP--E-------------
 >12 CluSeq:0.00414_sd:0.00718
--------------------
+PCYPPRP----------------
 >14 CluSeq:0.00292_sd:0.00507
-----MELDHMTS-G-A---
+PCYPPRP--E-------------
 >15 CluSeq:0.00244_sd:0.00423
-----MELD---S-G-----
+PCYPPRP-------TSYGPARVS
 >16 CluSeq:0.00233_sd:0.00403
-----MELDHMT-YGPARVS
+PCYPPRP-M-L------G-A---
 >17 CluSeq:0.00215_sd:0.00372
-----MELDHM-SYGPARVS
+PCYPPRP--E--HM---G-A---
 >18 CluSeq:0.00215_sd:0.00372
-----MELDHMT-----RVS
+PCYPPRP---L------G-A---
 >19 CluSeq:0.00214_sd:0.00371
--------------------
+PCYPPRP----------------
 >20 CluSeq:0.00207_sd:0.00358
-----MELDHMTS-G-----
+PCYPPRP-----H----GPARVS
 >22 CluSeq:0.00191_sd:0.0033
-----MELDH--S-G-----
+PCYPPRP-------TSYGPARVS
 >23 CluSeq:0.00191_sd:0.0033
-----MELDH--SYGPARVS
+PCYPPRP-----HM---G-A---
 >24 CluSeq:0.00185_sd:0.00321
-----MELDHMT----A---
+PCYPPRP--E-------------
 >25 CluSeq:0.00165_sd:0.00286
----Q--L------G-A---
+PCYPPRP--E-------------
 >26 CluSeq:0.00161_sd:0.00279
----Q--L------G-A---
+PCYPPRP--E-------------
 >27 CluSeq:0.00152_sd:0.00203
----------MTSYGPARVS
+PCYPPRP-----HM---G-A---
 >28 CluSeq:0.00133_sd:0.0023
-----MELDHMT--G-A---
+PCYPPRP--E-------------
 >29 CluSeq:0.0013_sd:0.00225
-----MELDHMT----ARVS
+PCYPPRP---L------G-A---
 >30 CluSeq:0.00128_sd:0.00222
----Q--L------G-A---
+PCYPPRP--E-------------
 >31 CluSeq:0.00116_sd:0.00202
-----MELDHMT--G-A---
+PCYPPRP--E-------------
 >32 CluSeq:0.00109_sd:0.00189
----QM--------------
+PCYPPRP--------S-G-----
 >33 CluSeq:0.00108_sd:0.00187
-----MELDHMTSYGPARVS
+PCYPPRP-----HM---G-A---
 >34 CluSeq:0.00099_sd:0.00172
-----MELDHMTSYGPARVS
+PCYPPRP-----HM---G-A---
 >35 CluSeq:0.00091_sd:0.00158
-----MELDH--S-G-----
+PCYPPRP-M------SYGPARVS
 >36 CluSeq:0.00086_sd:0.00148
-----MELDHMT-YGPARVS
+PCYPPRP-M-L------G-A---
 >37 CluSeq:0.00081_sd:0.0014
-----MELDH--SYGPARVS
+PCYPPRP-----HM---G-A---
 >38 CluSeq:0.00079_sd:0.00137
----Q--L------G-A---
+PCYPPRP--E-------------
 >39 CluSeq:0.00061_sd:0.00074
----------MTSYGPARVS
+PCYPPRP-----HM---G-A---
 >40 CluSeq:0.00049_sd:0.00085
----Q--L------G-A---
+PCYPPRP--E-------------
 >41 CluSeq:0.00048_sd:0.00083
-----MELDHMT--GPARVS
+PCYPPRP---L------G-A---
 >42 CluSeq:0.00045_sd:0.00079
----Q--L------G-A---
+PCYPPRP--E-------------
 >43 CluSeq:0.0004_sd:0.00068
----Q--L------G-A---
+PCYPPRP--E-------------
 >44 CluSeq:0.0003_sd:0.00052
--D----L----S--P----
+PCYPPRP--E----TS-GP----
 >45 CluSeq:0.00027_sd:0.00036
----------MTSYGPARVS
+PCYPPRP-M-L------G-A---
 >46 CluSeq:0.00021_sd:0.00037
-----MELDHMT--G-----
+PCYPPRP-------T-----RVS
 >47 CluSeq:0.00021_sd:0.00036
-----MELDHMT--G-----
+PCYPPRP-------T-----RVS
 >48 CluSeq:0.00019_sd:0.00033
-----MELDHMT-YGPARVS
+PCYPPRP-M-L------G-A---
 >49 CluSeq:0.00018_sd:0.00031
-----M-L--M-S-G-A---
+PCYPPRP----------G-A---
 >50 CluSeq:0.00015_sd:0.00025
-T-----L----------V-
+PCYPPRP---L----SY-PA---
 >51 CluSeq:0.00014_sd:0.00024
-----MELDHMT-Y-PARVS
+PCYPPRP---L------G-A---
 >52 CluSeq:0.00013_sd:0.00023
----Q--L------G-A---
+PCYPPRP--E-------------
 >53 CluSeq:0.00012_sd:0.0002
----Q--L------G-A---
+PCYPPRP--E-------------
 >54 CluSeq:0.00011_sd:0.0002
-----MELD-MT--G-----
+PCYPPRP-------T-----RVS
 >55 CluSeq:0.00011_sd:0.00019
-----M------S-G-A---
+PCYPPRP----------G-----
 >56 CluSeq:0.0001_sd:0.00017
----Q--L------G-A---
+PCYPPRP--E-------------
 >57 CluSeq:8e-05_sd:0.00013
-----M--------GP-RV-
+PCYPPRP--EL----------VS
 >58 CluSeq:8e-05_sd:0.00013
----Q--L------G-A---
+PCYPPRP--E-------------
 >59 CluSeq:7e-05_sd:0.00013
-----MELDHMTSYGPARVS
+PCYPPRP-----HM---G-A---
 >60 CluSeq:7e-05_sd:0.00012
----Q--L------G-A---
+PCYPPRP--E-------------
 >61 CluSeq:7e-05_sd:0.00012
--D----L----S--P----
+PCYPPRP--E----TS-GP----
 >62 CluSeq:6e-05_sd:0.00011
-----M-L--M-S-G-A---
+PCYPPRP----------G-A---
 >63 CluSeq:6e-05_sd:0.0001
-----MELDHMT--G-----
+PCYPPRP-------T-----RVS
 >64 CluSeq:5e-05_sd:9e-05
-----MELD-MT--G-----
+PCYPPRP-------T-----RVS
 >65 CluSeq:4e-05_sd:7e-05
-----M------S-G-A---
+PCYPPRP----------G-----
 >66 CluSeq:4e-05_sd:7e-05
--------------------
+PCYPPRP----------------
 >67 CluSeq:3e-05_sd:5e-05
-T------------G--R--
+PCYPPRP--E-------G-----
 >68 CluSeq:2e-05_sd:4e-05
----Q--L------G-A---
+PCYPPRP--E-------------
 >70 CluSeq:1e-05_sd:2e-05
-----MELDHMTSYGPARVS
+PCYPPRP-----HM---G-A---
 >71 CluSeq:1e-05_sd:2e-05
-T------------G--R--
+PCYPPRP--E-------G-----
 >72 CluSeq:1e-05_sd:2e-05
-TD-----------------
+PCYPPRP--E-------G--R--
 >73 CluSeq:1e-05_sd:2e-05
----------MTSYGPARV-
+PCYPPRP-----HM-S-G-----
 >74 CluSeq:1e-05_sd:2e-05
-----MELDHMT-----RVS
+PCYPPRP-------TSYGPARVS

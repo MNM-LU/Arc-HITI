@@ -24,79 +24,6 @@ export_path=sample_dir + "trimmed_data/"
 
 #############
 
-#############
-#edited script for read preprocessing and clustering:
-def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral,read_fwd,direc):
-    animal_nr = str(animal_nr)
-    "Filters and trims the reads"
-    search_path = base_path+animal_nr+'*'+transgene+'*'+direc+'*/'
-    
-    animal_p5_cat = tempfile.NamedTemporaryFile(suffix = '.fastq.gz').name
-    animal_p7_cat = tempfile.NamedTemporaryFile(suffix = '.fastq.gz').name
-    test_file_p5_out = tempfile.NamedTemporaryFile(suffix = '.fastq').name
-    test_file_p7_out = tempfile.NamedTemporaryFile(suffix = '.fastq').name
-    test_file_p5_filter = tempfile.NamedTemporaryFile(suffix = '.fastq').name
-    
-    if read_fwd:
-        animal_p5 = glob.glob(search_path+'*R1*')
-        animal_p7 = glob.glob(search_path+'*R2*')
-    else:
-        animal_p5 = glob.glob(search_path+'*R2*')
-        animal_p7 = glob.glob(search_path+'*R1*')
-    
-    stats_out = "trim_data/"+animal_nr+ "_" + direc +'_stats-filter.txt'
-
-    cat_p5= "cat "+" ".join(animal_p5)+" > "+animal_p5_cat
-    call([cat_p5], shell=True)
-    cat_p7= "cat "+" ".join(animal_p7)+" > "+animal_p7_cat
-    call([cat_p7], shell=True)
-
-    #stats_out = export_path+animal_nr+'_'+transgene+'_'+assay_end+'_stats-filter.txt'
-    
-    kmer = '20'
-    hdist = '3'
-    param=" k="+kmer+" hdist="+hdist+" rcomp=f skipr2=t threads=32 overwrite=true"
-    
-    call_sequence = "bbduk.sh in="+animal_p5_cat +" in2="+animal_p7_cat+" outm1="+ test_file_p5_out +" outm2="+test_file_p7_out+" literal="+filterlitteral+" stats="+stats_out + param
-    call([call_sequence], shell=True)
-
-    call_sequence = "bbduk.sh in="+test_file_p5_out+" out="+test_file_p5_filter+ " literal=AAAAAAAAA,CCCCCCCCC,GGGGGGGGG,TTTTTTTTT k=9 mm=f overwrite=true minlength=40"
-    call([call_sequence], shell=True)
-    test_file_p5_filter2 = tempfile.NamedTemporaryFile(suffix = '.fastq').name #when cutadapt applied
-
-    cutadapt_call="cutadapt -g "+lliteral+ " --discard-untrimmed -o " + test_file_p5_filter2 + " " + test_file_p5_filter
-    call([cutadapt_call], shell=True)
-    # cutadapt_call="cutadapt -a "+rliteral+" -o " + test_file_p5_filter2 + " " + test_file_p5_filter2
-    # call([cutadapt_call], shell=True)
-
-    test_file_p5_out_starcode = tempfile.NamedTemporaryFile(suffix = '.tsv').name
-    starcode_call= "starcode -i "+test_file_p5_filter2+" -t 32 -o "+test_file_p5_out_starcode
-    call([starcode_call], shell=True)
-
-    df=pd.read_csv(test_file_p5_out_starcode, sep='\t', header=None)
-    # result="unaligned/Starcode_HITI_GFP_3p_" + animal_nr + "_.csv"
-    # df.to_csv(result)
-
-    df = df.rename(columns={0: 'sequence', 1:'count'})
-    df = df.rename(columns={'count':animal_nr+'_count',})
-    
-    return df
-
-def analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd,animal_list, target_sequence, direc):
-    complete_df = pd.DataFrame({'sequence': [target_sequence]})
-    for animal in animal_list:
-        df_this = trimRead_hiti(animal,base_path,transgene,filterlitteral,lliteral,rliteral,read_fwd,direc)
-        complete_df = pd.merge(complete_df, df_this, on="sequence", how='outer')
-    
-    complete_df = complete_df.fillna(value=0)
-    #complete_df['percent_sum'] = complete_df[perc_cols].sum(axis=1)
-    #export_csv = export_path+transgene+'_'+assay_end+'.csv'
-    #complete_df.to_csv(export_csv, index=False)
-    print("Done!")
-    return complete_df
-
-#saves file as fasta and csv
-
 
 
 
@@ -110,7 +37,7 @@ filterlitteral=filterlitteral.upper()
 lliteral = ' literal=GTGGTCATATGGTCCAGCTCC'
 
 target_sequence='ATCTGGTCGTCGGTGCTGCGGCTCCGcggagccgcagcaccgaCCTTGTACAGCTCGTCCATGCCGAGAGTGATCCCGGCGGCGGTCACGAACTCCAGCAGGACCATGTGATCGCGCTTCTCGTTGGGGTCTTTGCTCAGGGCGGACTGGGTGCTCAGGTAGTGGTTGTCGGGCAGCAGCACGGGGCCGTCGCCGATGGGGGTGTTCTGCTGGTAGTGGTCGGCGAGCTGCACGCTGCCGTCCTCGATGTTGTGGCGGATCTTGAAGTTCACCTTGATGCCGTTCTTCTGCTTGTCGGCCATGATATAGACGTTGTGGCTGTTGTAGTTGTACTCCAGCTTGTGCCCCAGGATGTTGCCGTCCTCCTTGAAGTCGATGCCCTTCAGCTCGATGCGGTTCACCAGGGTGTCGCCCTCGAACTTCACCTCGGCGCGGG'
-filterlitteral='CAGCTCCATCTGGTCGTCGGT'
+#filterlitteral='GTGGTCATATGGTCCAGCTCCATCTGGTCGTCGGTGCTGCGGCTC'
 rliteral=''
 target_sequence='ATCTGGTCGTCGGTGCTGCGGCTCCGcggagccgcagcaccgaCCTTGTACAGCTCGTCCATGCCGAGAGTGATCCCGGCGGCGGTCACGAACTCCAGCAGGACCATGTGATCGCGCTTCTCGTTGGGGTCTTTGCTCAGGGCGGACTGGGTGCTCAGGTAGTGGTTGTCGGGCAGCAGCACGGGGCCGTCGCCGATGGGGGTGTTCTGCTGGTAGTGGTCGGCGAGCTGCACGCTGCCGTCCTCGATGTTGTGGCGGATCTTGAAGTTCACCTTGATGCCGTTCTTCTGCTTGTCGGCCATGATATAGACGTTGTGGCTGTTGTAGTTGTACTCCAGCTTGTGCCCCAGGATGTTGCCGTCCTCCTTGAAGTCGATGCCCTTCAGCTCGATGCGGTTCACCAGGGTGTCGCCCTCGAACTTCACCTCGGCGCGGG'
 target_sequence=target_sequence.upper()
@@ -144,67 +71,11 @@ corr_frame=2
 result="unaligned/HITI_GFP_3p_1-.fasta"
 out_csv="aligned/AA/HITI_GFP_3p_1-_AA.csv"
 output_html="aligned/AA/HITI_GFP_3p_1-_AA.html"
-translate_NT(result, corr_frame,direc, out_csv)
+translate_NT(result, corr_frame,direc, out_csv, lliteral.split("=")[1])
 
 ####################
 
 
-
-def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral,read_fwd,direc):
-    animal_nr = str(animal_nr)
-    "Filters and trims the reads"
-    search_path = base_path+animal_nr+'*'+transgene+'*'+direc+'*/'
-    
-    animal_p5_cat = tempfile.NamedTemporaryFile(suffix = '.fastq.gz').name
-    animal_p7_cat = tempfile.NamedTemporaryFile(suffix = '.fastq.gz').name
-    test_file_p5_out = tempfile.NamedTemporaryFile(suffix = '.fastq').name
-    test_file_p7_out = tempfile.NamedTemporaryFile(suffix = '.fastq').name
-    test_file_p5_filter = tempfile.NamedTemporaryFile(suffix = '.fastq').name
-    
-    if read_fwd:
-        animal_p5 = glob.glob(search_path+'*R1*')
-        animal_p7 = glob.glob(search_path+'*R2*')
-    else:
-        animal_p5 = glob.glob(search_path+'*R2*')
-        animal_p7 = glob.glob(search_path+'*R1*')
-    
-    stats_out = "trim_data/"+animal_nr+ "_" + direc +'_stats-filter.txt'
-
-    cat_p5= "cat "+" ".join(animal_p5)+" > "+animal_p5_cat
-    call([cat_p5], shell=True)
-    cat_p7= "cat "+" ".join(animal_p7)+" > "+animal_p7_cat
-    call([cat_p7], shell=True)
-
-    #stats_out = export_path+animal_nr+'_'+transgene+'_'+assay_end+'_stats-filter.txt'
-    
-    kmer = '20'
-    hdist = '3'
-    param=" k="+kmer+" hdist="+hdist+" rcomp=f skipr2=t threads=32 overwrite=true"
-    
-    call_sequence = "bbduk.sh in="+animal_p7_cat+" in2="+animal_p5_cat+" outm1="+test_file_p7_out+" outm2="+test_file_p5_out+" literal="+filterlitteral+" stats="+stats_out + param
-    call([call_sequence], shell=True)
-
-    call_sequence = "bbduk.sh in="+test_file_p5_out+" out="+test_file_p5_filter+ " literal=AAAAAAAAA,CCCCCCCCC,GGGGGGGGG,TTTTTTTTT k=9 mm=f overwrite=true minlength=40"
-    call([call_sequence], shell=True)
-    test_file_p5_filter2 = tempfile.NamedTemporaryFile(suffix = '.fastq').name #when cutadapt applied
-
-    cutadapt_call="cutadapt -g "+lliteral+ " --discard-untrimmed -o " + test_file_p5_filter2 + " " + test_file_p5_filter
-    call([cutadapt_call], shell=True)
-    # cutadapt_call="cutadapt -a "+rliteral+" -o " + test_file_p5_filter2 + " " + test_file_p5_filter2
-    # call([cutadapt_call], shell=True)
-
-    test_file_p5_out_starcode = tempfile.NamedTemporaryFile(suffix = '.tsv').name
-    starcode_call= "starcode -i "+test_file_p5_filter2+" -t 32 -o "+test_file_p5_out_starcode
-    call([starcode_call], shell=True)
-
-    df=pd.read_csv(test_file_p5_out_starcode, sep='\t', header=None)
-    # result="unaligned/Starcode_HITI_GFP_3p_" + animal_nr + "_.csv"
-    # df.to_csv(result)
-
-    df = df.rename(columns={0: 'sequence', 1:'count'})
-    df = df.rename(columns={'count':animal_nr+'_count',})
-    
-    return df
 
 #GFP 5p
 #############
@@ -215,15 +86,14 @@ direc="5p"
 animal_list = [13, 14, 15, 16, 17, 18] 
 # filterlitteral = 'GCGCGGGTCTTGTAGTTGCCGTCGTCCTTGAAGAAGATGGTGCGCTCCTGGACG'
 
-#original vars used
-lliteral = ' literal=CCTCAGAGGAGTTCT'
-rliteral = ' literal=GGCGAGGAGCTGTT'
 base_path = '/media/data/AtteR/projects/hiti/FASTQ_Generation_2020-03-09_08_30_27Z-13364364/'
 export_path = '/media/data/AtteR/projects/hiti/pipeline_output_reorg/'
 #target_sequence="GCGCGGGTCTTGTAGTTGCCGTCGTCCTTGAAGAAGATGGTGCGCTCCTGGACGTAGCCTTCGGGCATGGCGGACTTGAAGAAGTCGTGCTGCTTCATGTGGTCGGGGTAGCGGCTGAAGCACTGCACGCCGTAGGTCAGGGTGGTCACGAGGGTGGGCCAGGGCACGGGCAGCTTGCCGGTGGTGCAGATGAACTTCAGGGTCAGCTTGCCGTAGGTGGCATCGCCCTCGCCCTCGCCGGACACGCTGAACTTGTGGCCGTTTACGTCGCCGTCCAGCTCGACCAGGATGGGCACCACCCCGGTGAACAGCTCCTCGCCCTTGCTCACCATGGTGGCGCGcctgttAACAGGCTA"
 target_sequence="TTAGCTTCTGCCTCAGAGGAGTTCTTAGCCTGTTAACAGGCGCGCCACCATGGTGAGCAAGGGCGAGGAGCTGTTCACCGGGGTGGTGCCCATCCTGGTCGAGCTGGACGGCGACGTAAACGGCCACAAGTTCAGCGTGTCCGGCGAGGGCGAGGGCGATGCCACCTACGGCAAGCTGACCCTGAAGTTCATCTGCACCACCGGCAAGCTGCCCGTGCCCTGGCCCACCCTCGTGACCACCCTGACCTACGGCGTGCAGTGCTTCAGCCGCTACCCCGACCACATGAAGCAGCACGACTTCTTCAAGTCCGCCATGCCCGAAGGCTACGTCCAGGAGCGCACCATCTTCTTCAAGGACGACGGCAACTACAAGACCCGCGCCGAGGTGAAGTTCGAGGGC"
+target_sequence="TAGCCTGTTaacaggCGCGCCACCATGGTGAGCAAGGGCGAGGAGCTGTTCACCGGGGTGGTGCCCATCCTGGTCGAGCTGGACGGCGACGTAAACGGCCACAAG"
 target_sequence=target_sequence.upper()
 filterlitteral = 'GCGCGGGTCTTGTAGTTGCCGTCGTCCTTGAAGAAGATGGTGCGCTCCTGGACG'
+filterlitteral="CCTCAGAGGAGTTCTTAGCCTGTTaacaggCGCGCCACCATGGTGAGCAAGGGC"
 lliteral = ' literal=CCTCAGAGGAGTTCT'
 rliteral = ' literal=GGCGAGGAGCTGTT'
 

@@ -1,142 +1,142 @@
 >0_Ref_Frame:2
-PTTRWSWTI*RHMVQLG*A
+PCYPPRP-MELDHMTSYGPARVS
 >1 CluSeq:0.80362_sd:0.04352
------------HMV-----
+PCYPPRP----------GP--VS
 >2 CluSeq:0.03096_sd:0.01106
------------HMV-----
+PCYPPRP----------GP---S
 >3 CluSeq:0.02255_sd:0.02351
--T----------MVQLG*A
+PCYPPRP----D----YGPARVS
 >4 CluSeq:0.02204_sd:0.00288
------------HMV-----
+PCYPPRP----------GP--VS
 >5 CluSeq:0.01448_sd:0.01269
------------HMV--G--
+PCYPPRP-----HM---G-A---
 >7 CluSeq:0.0129_sd:0.02234
--T--WS----------G--
+PCYPPRP----DHM---G-A---
 >8 CluSeq:0.00955_sd:0.01102
-------------MVQLG*A
+PCYPPRP----------GPARVS
 >9 CluSeq:0.00606_sd:0.0105
-P--R-S-------------
+PCYPPRP----------GP--VS
 >10 CluSeq:0.00602_sd:0.01043
------S-----HMVQLG*A
+PCYPPRP--------SYGPARVS
 >11 CluSeq:0.00443_sd:0.00767
-----------RHMVQLG*A
+PCYPPRP--------SYGPARVS
 >12 CluSeq:0.00414_sd:0.00718
--------------------
+PCYPPRP----------------
 >14 CluSeq:0.00292_sd:0.00507
--T---S-----HMVQLG*A
+PCYPPRP----D---SYGPARVS
 >15 CluSeq:0.00244_sd:0.00423
-----WS----------G--
+PCYPPRP-----HM---G-A---
 >16 CluSeq:0.00233_sd:0.00403
------------HMV-----
+PCYPPRP----------GP---S
 >17 CluSeq:0.00215_sd:0.00372
------------HMV-----
+PCYPPRP---------YG---VS
 >18 CluSeq:0.00215_sd:0.00372
---TR-S-------------
+PCYPPRP----------GP---S
 >19 CluSeq:0.00214_sd:0.00371
--------------------
+PCYPPRP----------------
 >20 CluSeq:0.00207_sd:0.00358
--T--WS----------G--
+PCYPPRP----------GPA---
 >22 CluSeq:0.00191_sd:0.0033
-----WS----------G--
+PCYPPRP-----HM---G-A---
 >23 CluSeq:0.00191_sd:0.0033
-P--R-S-------------
+PCYPPRP----------GP---S
 >24 CluSeq:0.00185_sd:0.00321
------------HM----*A
+PCYPPRP----------GP--VS
 >25 CluSeq:0.00165_sd:0.00286
-------------MVQLG*A
+PCYPPRP----------GPARVS
 >26 CluSeq:0.00161_sd:0.00279
-------------MVQLG*A
+PCYPPRP----------GPARVS
 >27 CluSeq:0.00152_sd:0.00203
-P--R-S-------------
+PCYPPRP--E-------------
 >28 CluSeq:0.00133_sd:0.0023
--T---------HMVQLG*A
+PCYPPRP----D---SYGPARVS
 >29 CluSeq:0.0013_sd:0.00225
------------HMV-----
+PCYPPRP----------GP---S
 >30 CluSeq:0.00128_sd:0.00222
-------------MVQLG*A
+PCYPPRP----------GPARVS
 >31 CluSeq:0.00116_sd:0.00202
------------HM-QLG*A
+PCYPPRP----D------PARVS
 >32 CluSeq:0.00109_sd:0.00189
-P--R--------M------
+PCYPPRP----D-------A---
 >33 CluSeq:0.00108_sd:0.00187
------------HMV-----
+PCYPPRP----------GP--VS
 >34 CluSeq:0.00099_sd:0.00172
---TRWS----R--V-----
+PCYPPRP----------GP--VS
 >35 CluSeq:0.00091_sd:0.00158
-----WS----------G--
+PCYPPRP-----HM---G-A---
 >36 CluSeq:0.00086_sd:0.00148
---TR-S-------------
+PCYPPRP----------GP--VS
 >37 CluSeq:0.00081_sd:0.0014
-P--R-S-------------
+PCYPPRP----------GP---S
 >38 CluSeq:0.00079_sd:0.00137
-------------MVQLG*A
+PCYPPRP----------GPARVS
 >39 CluSeq:0.00061_sd:0.00074
-P--R-S-------------
+PCYPPRP--E-------------
 >40 CluSeq:0.00049_sd:0.00085
-------------MVQLG*A
+PCYPPRP----------GPARVS
 >41 CluSeq:0.00048_sd:0.00083
------------HMV-----
+PCYPPRP----------GP---S
 >42 CluSeq:0.00045_sd:0.00079
-------------MVQLG*A
+PCYPPRP----------GPARVS
 >43 CluSeq:0.0004_sd:0.00068
-------------MVQLG*A
+PCYPPRP----------GPARVS
 >44 CluSeq:0.0003_sd:0.00052
-P------------------
+PCYPPRP---------Y---RVS
 >45 CluSeq:0.00027_sd:0.00036
-P--R-S-------------
+PCYPPRP--E-------------
 >46 CluSeq:0.00021_sd:0.00037
------------HM---G--
+PCYPPRP----------GPA---
 >47 CluSeq:0.00021_sd:0.00036
------------HM---G--
+PCYPPRP----------GPA---
 >48 CluSeq:0.00019_sd:0.00033
------------HMV-----
+PCYPPRP----------GP--VS
 >49 CluSeq:0.00018_sd:0.00031
----R------R-----G-A
+PCYPPRP--E-------G-----
 >50 CluSeq:0.00015_sd:0.00025
-P------TI----V-----
+PCYPPRP-------TS-G-----
 >51 CluSeq:0.00014_sd:0.00024
---TR-S-------------
+PCYPPRP----------GP--VS
 >52 CluSeq:0.00013_sd:0.00023
-------------MVQLG*A
+PCYPPRP----------GPARVS
 >53 CluSeq:0.00012_sd:0.0002
-------------MVQLG*A
+PCYPPRP----------GPARVS
 >54 CluSeq:0.00011_sd:0.0002
--T--------------G--
+PCYPPRP----D-----G-A---
 >55 CluSeq:0.00011_sd:0.00019
----R------R-----G-A
+PCYPPRP--E-------G-----
 >56 CluSeq:0.0001_sd:0.00017
-------------MVQLG*A
+PCYPPRP----------GPARVS
 >57 CluSeq:8e-05_sd:0.00013
-P--RW--------V--G--
+PCYPPRP------------ARV-
 >58 CluSeq:8e-05_sd:0.00013
-------------MVQLG*A
+PCYPPRP----------GPARVS
 >59 CluSeq:7e-05_sd:0.00013
--TTR-S-------------
+PCYPPRP----DH-------RVS
 >60 CluSeq:7e-05_sd:0.00012
-------------MVQLG*A
+PCYPPRP----------GPARVS
 >61 CluSeq:7e-05_sd:0.00012
-P------------------
+PCYPPRP---------Y---RVS
 >62 CluSeq:6e-05_sd:0.00011
----R------R-----G-A
+PCYPPRP--E-------G-----
 >63 CluSeq:6e-05_sd:0.0001
------------HM---G--
+PCYPPRP----------GPA---
 >64 CluSeq:5e-05_sd:9e-05
--T--------------G--
+PCYPPRP----D-----G-A---
 >65 CluSeq:4e-05_sd:7e-05
----R------R-----G-A
+PCYPPRP--E-------G-----
 >66 CluSeq:4e-05_sd:7e-05
--------------------
+PCYPPRP----------------
 >67 CluSeq:3e-05_sd:5e-05
--T-R---------------
+PCYPPRP--EL------------
 >68 CluSeq:2e-05_sd:4e-05
-------------MVQLG*A
+PCYPPRP----------GPARVS
 >70 CluSeq:1e-05_sd:2e-05
------------HMV-----
+PCYPPRP----------GP-RVS
 >71 CluSeq:1e-05_sd:2e-05
--T-R---------------
+PCYPPRP--EL------------
 >72 CluSeq:1e-05_sd:2e-05
-P--R------R--------
+PCYPPRP--E-------G-----
 >73 CluSeq:1e-05_sd:2e-05
-P---------RHMVQLG*A
+PCYPPRP----D---SYGPARVS
 >74 CluSeq:1e-05_sd:2e-05
---TRWS----------G--
+PCYPPRP----DHM---G-A---

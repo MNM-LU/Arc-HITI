@@ -594,7 +594,8 @@ def aligner(full_df, target_sequence, align_method, filename, output_path, llite
     add_primers_save(aligned_data_trim, filename, target_sequence, lliteral)
     #Generate a visual alignment file using mview
     mview_file=output_path +filename.split("/")[-1].split(".")[-2] + ".html"
-    mview_command='/media/data/AtteR/Attes_bin/mview -in fasta -html head -css on -reference 1 -coloring identity ' + filename + '>' + mview_file
+    mview_command='mview -in fasta -html head -css on -reference 1 -coloring identity ' + filename + '>' + mview_file
+    #mview_command='/media/data/AtteR/Attes_bin/mview -in fasta -html head -css on -reference 1 -coloring identity ' + filename + '>' + mview_file
     call([mview_command], shell=True)
     print("html file created as "+ mview_file)
     return(aligned_data_trim)
@@ -675,7 +676,7 @@ class translate_3p:
             for record in SeqIO.parse(self.result, "fasta"):
                 if "Ref" in record.description:
                     #refs_aa_frames["Frame:" + str(alt_frame)]=str(Seq(record.seq[alt_frame:]).translate())
-                    ref_key="Frame:" + str(alt_frame) +"|" +str(Seq(record.seq[alt_frame:]).translate())
+                    ref_key="Frame:" + str(alt_frame) +"|" +str(Seq(record.seq[self.corr_frame:]).translate())
                 else:
                     aa_ampls.append(str(Seq(record.seq[alt_frame:]).translate()))
             ref_aa[ref_key]=aa_ampls
@@ -721,10 +722,10 @@ class translate_5p:
                 if "Ref" in record.description:
                     rev_compl_seq=Seq(record.seq).reverse_complement()
                     #refs_aa_frames["Frame:" + str(alt_frame)]=str(Seq(record.seq[alt_frame:]).translate())
-                    ref_key="Frame:" + str(alt_frame) +"|" +str(rev_compl_seq[alt_frame:].translate())
+                    ref_key="Frame:" + str(alt_frame) +"|" +str(rev_compl_seq[rev_compl_seq.find("ATG"):][self.corr_frame:].translate())
                 else:
                     rev_compl_seq=Seq(record.seq).reverse_complement()
-                    aa_ampls.append(str(rev_compl_seq[rev_compl_seq.find("ATG"):].translate()))
+                    aa_ampls.append(str(rev_compl_seq[rev_compl_seq.find("ATG"):][alt_frame:].translate()))
             ref_aa[ref_key]=aa_ampls
         seq_info_dic = {'Seq_stats': seq_info}
         ref_aa_cor.update(ref_aa)
@@ -736,7 +737,7 @@ class translate_5p:
         aa_df.insert(0, 'Seq_stats', first_column)
         return(aa_df)
 
-def translate_NT(result, corr_frame, direc, out_csv):
+def translate_NT(result, corr_frame, direc, out_csv, primer):
     strand_dir= {"3p": translate_3p,
             "5p": translate_5p}  
 
@@ -760,6 +761,7 @@ def translate_NT(result, corr_frame, direc, out_csv):
     seq_info_dic=df_aa.iloc[:,0]
     seq_info_dic={df_aa.columns[0]: df_aa.iloc[:,0]}
     dic_aa_align=dict()
+    print(df_aa)
     for ref_fr in df_aa.columns[1:]:
         #print(ref_fr)
         seqs_in_frame=[]
@@ -795,10 +797,10 @@ def translate_NT(result, corr_frame, direc, out_csv):
         aa_file="aligned/AA/fasta/" +result.split("/")[-1].split(".")[-2] + '_' +ref_fr.split("|")[0] + ".fasta"
         with open(aa_file, "w") as f:
             f.write(">0_Ref_" + ref_fr.split("|")[0] + "\n")
-            f.write(ref_fr.split("|")[1] + "\n")
+            f.write(str(Seq(primer).translate()) + "-" +ref_fr.split("|")[1] + "\n")
             for a, aa_seq in enumerate(list(df_aa_align.iloc[:,i])):
                 f.write(">"+ df_aa_align.iloc[a,0] + "\n")
-                f.write(aa_seq + "\n")
+                f.write(str(Seq(primer).translate()) + "-" + aa_seq + "\n")
         mview_file= "aligned/AA/html/" +aa_file.split("/")[-1].split(".")[-2] + ".html"
         mview_command='/media/data/AtteR/Attes_bin/mview -in fasta -html head -css on -reference 1 -coloring identity ' + aa_file + '>' + mview_file
         call([mview_command], shell=True)

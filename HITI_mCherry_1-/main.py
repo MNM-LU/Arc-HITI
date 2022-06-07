@@ -63,7 +63,7 @@ result="unaligned/HITI_mCherry_3p_1-.fasta"
 out_csv="aligned/AA/HITI_mCherry_3p_1-_AA.csv"
 output_html="aligned/AA/HITI_mCherry_3p_1-_AA.html"
 
-translate_NT(result, corr_frame,direc, out_csv)
+translate_NT(result, corr_frame,direc, out_csv, lliteral.split("=")[1])
 
 
 #mCherry 5p
