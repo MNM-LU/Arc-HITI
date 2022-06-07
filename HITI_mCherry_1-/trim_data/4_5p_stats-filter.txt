@@ -1,5 +1,5 @@
-#File	/tmp/tmpobvopuff.fastq.gz	/tmp/tmpdmpln474.fastq.gz
+#File	/tmp/tmpx72ti24u.fastq.gz	/tmp/tmpkrk_xj5r.fastq.gz
 #Total	2301098
-#Matched	1120271	48.68419%
+#Matched	1135404	49.34184%
 #Name	Reads	ReadsPct
-1	1120271	48.68419%
+1	1135404	49.34184%

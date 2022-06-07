@@ -20,7 +20,7 @@ os.chdir(sample_dir)
 base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-only/SP4_3p"
 
 #where the programs bbduk and starcode are found
-program_path="/media/data/AtteR/Attes_bin"
+# program_path="/media/data/AtteR/Attes_bin"
 
 #############
 
@@ -90,18 +90,20 @@ direc = "5p"
 lliteral = ' literal=CCATGTTATCCTCCTCGCCCT'  #trimmed away one extra T from the amplicons
 rliteral = ' literal=ATTTTGGGGACCGGAGACAC'
 filterlitteral="CCATGTTATCCTCCTCGCCCTTGCTCACCCGAGCTGGACCATATGACGTCATATGGT"
-target_sequence="tgctcacCCGAGCTGGACCATATGACGTCATATGGTCCAGCTCCATCTGGTCGTCGGTGCTGCGGCTCCGAACAGGCTAAGAACTCCTCTGAGGCAGAAGCCGGAAGGGAGCAGAGCCGGCGGCTGCAGCGGCAGTGGCAGGTGT"
+target_sequence="tgctcacCCGAGCTGGACCATATGACGTCATATGGTCCAGCTCCATCTGGTCGTCGGTGCTGCGGCTCCGAACAGGCTAAGAACTCCTCTGAGGCAGA"
 target_sequence="tgctcacCCGAGCTGGACCATATGACGTCATATGGTCCAGCTCCAT"
+target_sequence="tgctcacCCGAGCTGGACCATATGACGTCATATGGTCCAGCTCCATCTGGTCGTCGGTG"
 target_sequence=target_sequence.upper()
 read_fwd = True
 base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-only/SP4_5p"
+
 
 ############
 #read preprocessing for each sample: trim, record read counts before and after trimming, cluster the reads 
 #using starcode, calculate percentage, merge into the full dataframe containing read count-and percentage for
 #each sample.
 
-df_full=import_reads_process_mini(base_path, target_sequence,filterlitteral,lliteral,rliteral,read_fwd, direc,program_path)
+df_full=import_reads_process_mini(base_path, target_sequence,filterlitteral,lliteral,rliteral,read_fwd, direc)
 df_trim_full=calculate_perc_sd(df_full,3)
 result="unaligned/HITI_mCherry_5p_10+.fasta"
 save_fasta(result, df_trim_full, target_sequence)
@@ -121,74 +123,9 @@ aligner(df_trim_full, target_sequence, "align_local2", result, output_path, llit
 ####################
 corr_frame=0
 result="unaligned/HITI_mCherry_5p_10+.fasta"
-cut=8  #cut off 8 NTs from the right 
 output_html="aligned/AA/HITI_mCherry_5p_10+_AA.html"
 out_csv="aligned/AA/HITI_mCherry_5p_10+_AA.csv"
 direc="5p"
-
-r='TGCTCACCCGAGCTGGACCATATGACGTCATATGGTCCAGCTCCAT'
-
-r=r.upper()
-rc=Seq(r).reverse_complement()
-rc=str(rc.translate())
-rc
-
-n='TGCTCACCCGAGCTGGACCATATGACGTCATATGGTCCAGCTCCATCTGGTCGT'
-nc=Seq(n[0:]).reverse_complement()
-nc=str(nc.translate())
-nc
-
-nc.find("ATG")
-nc[8:]
-
-
-
-matches=SequenceMatcher(None, rc,nc)
-matches.get_matching_blocks()[]
-match=matches.get_matching_blocks()[i]
-seqs.append(len(ref_fr.split("|")[1][range_line:match.a])*"-"+aa_seq[match.b:match.b+match.size])
-
-
-ref_aa_cor=dict()
-aa_ampls=[]
-seq_info=[] #this will be merged later with the final dict that has the aligned AAs against the ref at certain frame
-alt_frames=[0,1,2]
-alt_frames.remove(corr_frame)    
-for record in SeqIO.parse(result, "fasta"):
-    if "Ref" in record.description:
-        #refs_aa_frames["Frame:" + str(alt_frame)]=str(Seq(record.seq[alt_frame:]).translate())
-        rev_compl_seq=Seq(record.seq).reverse_complement()
-        ref_key="Frame_corr:" + str(corr_frame) +"|" +str(rev_compl_seq[corr_frame:].translate())
-    else:
-        seq_info.append(record.description)
-        rev_compl_seq=Seq(str(record.seq[corr_frame:(len(str(record.seq))-cut)])).reverse_complement()
-        print(record.seq)
-        print(str(rev_compl_seq[corr_frame:].translate()))
-        aa_ampls.append(str(rev_compl_seq.translate()))
-ref_aa_cor[ref_key]=aa_ampls
-ref_aa=dict()
-for alt_frame in alt_frames:
-    aa_ampls=[]
-    for record in SeqIO.parse(result, "fasta"):
-        if "Ref" in record.description:
-            rev_compl_seq=Seq(record.seq).reverse_complement()
-            #refs_aa_frames["Frame:" + str(alt_frame)]=str(Seq(record.seq[alt_frame:]).translate())
-            ref_key="Frame:" + str(alt_frame) +"|" +str(rev_compl_seq[alt_frame:].translate())
-        else:
-            rev_compl_seq=Seq(record.seq).reverse_complement()
-            aa_ampls.append(str(rev_compl_seq[alt_frame:].translate()))
-    ref_aa[ref_key]=aa_ampls
-seq_info_dic = {'Seq_stats': seq_info}
-ref_aa_cor.update(ref_aa)
-ref_aa_cor.update(seq_info_dic)
-aa_df=pd.DataFrame(ref_aa_cor)
-first_column = aa_df.pop('Seq_stats')
-# insert column using insert(position,column_name,
-# first_column) function
-aa_df.insert(0, 'Seq_stats', first_column)
-
-
-
-translate_NT(result, corr_frame, cut, direc, out_csv)
+translate_NT(result, corr_frame, direc, out_csv)
 
 ####################

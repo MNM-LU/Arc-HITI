@@ -1,142 +1,142 @@
 >0_Ref_Frame:1
-WSWTI*RHMVQLG*A
+TDDQMELDHMTSYGPARVS
 >1 CluSeq:0.80362_sd:0.04352
-WS----------G--
+----MELDHMTSYGPARVS
 >2 CluSeq:0.03096_sd:0.01106
-WS----------G--
+----MELDHMT-YGPARVS
 >3 CluSeq:0.02255_sd:0.02351
-WSWTI*-----LG--
+----MELDHMT--G-A---
 >4 CluSeq:0.02204_sd:0.00288
-WS----------G--
+----MELDHM-SYGPARVS
 >5 CluSeq:0.01448_sd:0.01269
--------HMV--G--
+----MELDHM-S-G-----
 >7 CluSeq:0.0129_sd:0.02234
-WS----------G--
+----MELDHMTS-G-----
 >8 CluSeq:0.00955_sd:0.01102
-WS----------G--
+---Q--L------G-A---
 >9 CluSeq:0.00606_sd:0.0105
-WS----------G--
+----MELDH--SYGPARVS
 >10 CluSeq:0.00602_sd:0.01043
-WSWTI----V--G--
+----MELDHM---G-A---
 >11 CluSeq:0.00443_sd:0.00767
-WSWTI-------G--
+----MELDHM---G-A---
 >12 CluSeq:0.00414_sd:0.00718
--S---------LG*-
+-------------------
 >14 CluSeq:0.00292_sd:0.00507
-WSWTI*---V--G--
+----MELDHMTS-G-A---
 >15 CluSeq:0.00244_sd:0.00423
-WS----------G--
+----MELD---S-G-----
 >16 CluSeq:0.00233_sd:0.00403
-WS----------G--
+----MELDHMT-YGPARVS
 >17 CluSeq:0.00215_sd:0.00372
-WS----------G--
+----MELDHM-SYGPARVS
 >18 CluSeq:0.00215_sd:0.00372
--S----------G--
+----MELDHMT-----RVS
 >19 CluSeq:0.00214_sd:0.00371
--S----R----LG-A
+-------------------
 >20 CluSeq:0.00207_sd:0.00358
-WS----------G--
+----MELDHMTS-G-----
 >22 CluSeq:0.00191_sd:0.0033
-WS----------G--
+----MELDH--S-G-----
 >23 CluSeq:0.00191_sd:0.0033
-WS----------G--
+----MELDH--SYGPARVS
 >24 CluSeq:0.00185_sd:0.00321
-WSWTI*R--------
+----MELDHMT----A---
 >25 CluSeq:0.00165_sd:0.00286
-WS----------G--
+---Q--L------G-A---
 >26 CluSeq:0.00161_sd:0.00279
-WS----------G--
+---Q--L------G-A---
 >27 CluSeq:0.00152_sd:0.00203
-WS----------G--
+---------MTSYGPARVS
 >28 CluSeq:0.00133_sd:0.0023
-WSWTI*---V--G--
+----MELDHMT--G-A---
 >29 CluSeq:0.0013_sd:0.00225
--S----------G--
+----MELDHMT----ARVS
 >30 CluSeq:0.00128_sd:0.00222
-WS----------G--
+---Q--L------G-A---
 >31 CluSeq:0.00116_sd:0.00202
-WSWTI*------G--
+----MELDHMT--G-A---
 >32 CluSeq:0.00109_sd:0.00189
-WS----R-M------
+---QM--------------
 >33 CluSeq:0.00108_sd:0.00187
-WS----------G--
+----MELDHMTSYGPARVS
 >34 CluSeq:0.00099_sd:0.00172
-WS----------G--
+----MELDHMTSYGPARVS
 >35 CluSeq:0.00091_sd:0.00158
-WS----------G--
+----MELDH--S-G-----
 >36 CluSeq:0.00086_sd:0.00148
-WS----------G--
+----MELDHMT-YGPARVS
 >37 CluSeq:0.00081_sd:0.0014
-WS----------G--
+----MELDH--SYGPARVS
 >38 CluSeq:0.00079_sd:0.00137
-WS----------G--
+---Q--L------G-A---
 >39 CluSeq:0.00061_sd:0.00074
-WS----------G--
+---------MTSYGPARVS
 >40 CluSeq:0.00049_sd:0.00085
-WS----------G--
+---Q--L------G-A---
 >41 CluSeq:0.00048_sd:0.00083
-WS----------G--
+----MELDHMT--GPARVS
 >42 CluSeq:0.00045_sd:0.00079
-WS----------G--
+---Q--L------G-A---
 >43 CluSeq:0.0004_sd:0.00068
-WS----------G--
+---Q--L------G-A---
 >44 CluSeq:0.0003_sd:0.00052
--SWT---H-------
+-D----L----S--P----
 >45 CluSeq:0.00027_sd:0.00036
-WS----------G--
+---------MTSYGPARVS
 >46 CluSeq:0.00021_sd:0.00037
--S-T---HM---G--
+----MELDHMT--G-----
 >47 CluSeq:0.00021_sd:0.00036
--S-T---HM---G--
+----MELDHMT--G-----
 >48 CluSeq:0.00019_sd:0.00033
-WS----------G--
+----MELDHMT-YGPARVS
 >49 CluSeq:0.00018_sd:0.00031
-W--------V--G*A
+----M-L--M-S-G-A---
 >50 CluSeq:0.00015_sd:0.00025
----TI----V-----
+T-----L----------V-
 >51 CluSeq:0.00014_sd:0.00024
--S----------G--
+----MELDHMT-Y-PARVS
 >52 CluSeq:0.00013_sd:0.00023
-WS----------G--
+---Q--L------G-A---
 >53 CluSeq:0.00012_sd:0.0002
-WS----------G--
+---Q--L------G-A---
 >54 CluSeq:0.00011_sd:0.0002
--S-T----M--LG--
+----MELD-MT--G-----
 >55 CluSeq:0.00011_sd:0.00019
-W--------V--G*A
+----M------S-G-A---
 >56 CluSeq:0.0001_sd:0.00017
-WS----------G--
+---Q--L------G-A---
 >57 CluSeq:8e-05_sd:0.00013
-WSW--*---------
+----M--------GP-RV-
 >58 CluSeq:8e-05_sd:0.00013
-WS----------G--
+---Q--L------G-A---
 >59 CluSeq:7e-05_sd:0.00013
-WS----------G--
+----MELDHMTSYGPARVS
 >60 CluSeq:7e-05_sd:0.00012
-WS----------G--
+---Q--L------G-A---
 >61 CluSeq:7e-05_sd:0.00012
--SWT---H-------
+-D----L----S--P----
 >62 CluSeq:6e-05_sd:0.00011
-W--------V--G*A
+----M-L--M-S-G-A---
 >63 CluSeq:6e-05_sd:0.0001
--S-T---HM---G--
+----MELDHMT--G-----
 >64 CluSeq:5e-05_sd:9e-05
--S-T----M--LG--
+----MELD-MT--G-----
 >65 CluSeq:4e-05_sd:7e-05
-W--------V--G*A
+----M------S-G-A---
 >66 CluSeq:4e-05_sd:7e-05
-WS----R-----G--
+-------------------
 >67 CluSeq:3e-05_sd:5e-05
------*RH---L---
+T------------G--R--
 >68 CluSeq:2e-05_sd:4e-05
-WS----------G--
+---Q--L------G-A---
 >70 CluSeq:1e-05_sd:2e-05
-WS----------G--
+----MELDHMTSYGPARVS
 >71 CluSeq:1e-05_sd:2e-05
--S---------L---
+T------------G--R--
 >72 CluSeq:1e-05_sd:2e-05
-WS----R-----G--
+TD-----------------
 >73 CluSeq:1e-05_sd:2e-05
----TI*RHMVQLG--
+---------MTSYGPARV-
 >74 CluSeq:1e-05_sd:2e-05
-WS----------G--
+----MELDHMT-----RVS

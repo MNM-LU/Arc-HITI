@@ -206,7 +206,7 @@ def create_datadict2(base_path, transgene):
                 data_dict[animal_group]=lanes
 
     return(data_dict)
-def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral,read_fwd,direc, program_path):
+def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral,read_fwd,direc):
     complete_df = pd.DataFrame(columns=['sequence'])
 
     animal_nr = str(animal_nr)
@@ -255,7 +255,7 @@ def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral
     # call([cutadapt_call], shell=True)
 
     test_file_p5_out_starcode = tempfile.NamedTemporaryFile(suffix = '.tsv').name
-    starcode_call= "/media/data/AtteR/Attes_bin/starcode/starcode -i "+test_file_p5_filter2+" -t 32 -r 5 -o "+test_file_p5_out_starcode
+    starcode_call= "starcode -i "+test_file_p5_filter2+" -t 32 -r 5 -o "+test_file_p5_out_starcode
 
     call([starcode_call], shell=True)
 
@@ -267,10 +267,10 @@ def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral
 
     return df
 
-def analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd,animal_list, target_sequence, direc,program_path):
+def analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd,animal_list, target_sequence, direc):
     complete_df = pd.DataFrame({'sequence': [target_sequence]})
     for animal in animal_list:
-        df_this = trimRead_hiti(animal,base_path,transgene,filterlitteral,lliteral,rliteral,read_fwd,direc,program_path)
+        df_this = trimRead_hiti(animal,base_path,transgene,filterlitteral,lliteral,rliteral,read_fwd,direc)
         complete_df = pd.merge(complete_df, df_this, on="sequence", how='outer')
     
     complete_df = complete_df.fillna(value=0)
@@ -301,7 +301,7 @@ def import_fasta(result):
 from functools import reduce
 
 #reads in the read files
-def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,read_fwd, direc,program_path):
+def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,read_fwd, direc):
     complete_df = pd.DataFrame(columns=['sequence'])
     for read in os.listdir(base_path):
         animal_group_name=read.split("_")[3] + "_" + read.split("_")[4]
@@ -353,7 +353,7 @@ def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,re
 
             print("Cutadapt done! Performed on test_file_p5_filter2: "+ test_file_p5_filter2)
             test_file_p5_out_starcode = tempfile.NamedTemporaryFile(suffix = '.tsv').name
-            starcode_call= program_path+ "/starcode/starcode -i "+test_file_p5_filter2+" -t 32 -r 5 -o "+test_file_p5_out_starcode
+            starcode_call= "starcode -i "+test_file_p5_filter2+" -t 32 -r 5 -o "+test_file_p5_out_starcode
             call([starcode_call], shell=True)
 
             df=pd.read_csv(test_file_p5_out_starcode, sep='\t', header=None)
@@ -368,40 +368,6 @@ def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,re
     #         complete_df.iloc[i,0]=seq.replace(lliteral.split("=")[1], '')
 
     return(complete_df)
-
-# def create_datadict(base_path, transgene):
-#     #hip_folders = [folder for folder in os.listdir(base_path) if "mCherry" in folder and "h_" in folder or "s_" in folder]
-#     group_folders = [folder for folder in os.listdir(base_path) if transgene in folder]
-#     #str_folders = [folder for folder in os.listdir(base_path) if "mCherry" in folder and "s_" in folder]
-#     group_folders
-#     search_paths_groups = []
-#     search_paths_s = []
-
-
-#     def animal_names(group_folders):
-#         animals=[]
-#         animal_list = [*range(13)]
-
-#         for s in group_folders:
-#             animal_name="_".join(s.split("_")[:3])
-#             if int(animal_name.split("_")[0]) in animal_list:
-#                 print(animal_name)
-#                 animals.append("_".join(s.split("_")[:3]))
-#         #animals=list(set(animals))
-#         return(sorted(list(((set(animals))))))
-
-#     animals = animal_names(group_folders)
-#     data_dict = dict()
-#     for animal_group in animals:
-#         lanes=[]
-#         for g_f in group_folders:
-#             if animal_group in g_f:
-#                 g_p=base_path+g_f
-#                 lanes.append(g_p)
-#                 data_dict[animal_group]=lanes
-
-#     return(data_dict)
-
 
 import re
 ################
@@ -725,10 +691,9 @@ class translate_3p:
 
 
 class translate_5p:
-    def __init__(self, result, corr_frame, cut):
+    def __init__(self, result, corr_frame):
         self.result=result
         self.corr_frame=corr_frame
-        self.cut=cut
 
     def translate_nt(self):
         ref_aa_cor=dict()
@@ -740,10 +705,9 @@ class translate_5p:
             if "Ref" in record.description:
                 #refs_aa_frames["Frame:" + str(alt_frame)]=str(Seq(record.seq[alt_frame:]).translate())
                 rev_compl_seq=Seq(record.seq).reverse_complement()
-                ref_key="Frame_corr:" + str(self.corr_frame) +"|" +str(rev_compl_seq[self.corr_frame:].translate())
+                ref_key="Frame_corr:" + str(self.corr_frame) +"|" +str(rev_compl_seq[rev_compl_seq.find("ATG"):][self.corr_frame:].translate())
             else:
                 seq_info.append(record.description)
-                print(len(str(record.seq))-self.cut)
                 rev_compl_seq=Seq(str(record.seq)).reverse_complement()
                 #rev_compl_seqnc=Seq(n[0:(len(n)-8)]).reverse_complement()
                 print(str(rev_compl_seq[rev_compl_seq.find("ATG"):][self.corr_frame:].translate()))
@@ -760,7 +724,7 @@ class translate_5p:
                     ref_key="Frame:" + str(alt_frame) +"|" +str(rev_compl_seq[alt_frame:].translate())
                 else:
                     rev_compl_seq=Seq(record.seq).reverse_complement()
-                    aa_ampls.append(str(rev_compl_seq[alt_frame:].translate()))
+                    aa_ampls.append(str(rev_compl_seq[rev_compl_seq.find("ATG"):].translate()))
             ref_aa[ref_key]=aa_ampls
         seq_info_dic = {'Seq_stats': seq_info}
         ref_aa_cor.update(ref_aa)
@@ -772,12 +736,12 @@ class translate_5p:
         aa_df.insert(0, 'Seq_stats', first_column)
         return(aa_df)
 
-def translate_NT(result, corr_frame, cut, direc, out_csv):
+def translate_NT(result, corr_frame, direc, out_csv):
     strand_dir= {"3p": translate_3p,
             "5p": translate_5p}  
 
     trans_init = strand_dir.get(str(direc), None)  # Get the chosen class, or None if input is bad
-    df_aa = trans_init(result, corr_frame, cut=0).translate_nt()
+    df_aa = trans_init(result, corr_frame).translate_nt()
     for i, seq in enumerate(df_aa.iloc[:,1]):
         if seq=='':
             df_aa=df_aa.drop(df_aa.index[i]) 

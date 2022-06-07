@@ -19,7 +19,7 @@ base_path = '/media/data/AtteR/projects/hiti/FASTQ_Generation_2020-03-09_08_30_2
 export_path=sample_dir = "trimmed_data/"
 
 #where the programs bbduk and starcode are found
-program_path="/media/data/AtteR/Attes_bin"
+# program_path="/media/data/AtteR/Attes_bin"
 #############
 
 
@@ -40,7 +40,7 @@ target_sequence=target_sequence.upper()
 #read preprocessing for each sample: trim, record read counts before and after trimming, cluster the reads 
 #using starcode, calculate percentage, merge into the full dataframe containing read count-and percentage for
 #each sample.
-full_df=analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd, animal_list, target_sequence, direc, program_path)
+full_df=analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd, animal_list, target_sequence, direc)
 result="unaligned/HITI_mCherry_3p_1-.fasta"
 full_df_trim=calculate_perc_sd(full_df, 3)
 
@@ -65,6 +65,7 @@ output_html="aligned/AA/HITI_mCherry_3p_1-_AA.html"
 
 translate_NT(result, corr_frame,direc, out_csv)
 
+
 #mCherry 5p
 ############
 transgene='mCherry'
@@ -74,6 +75,7 @@ direc='5p'
 
 animal_list = [1, 2, 3, 4, 5, 6] 
 filterlitteral = 'CCCTCCCGGTGGGAGGCGCGCAGCAGAGCACATTAGTCACTCGGGGCTGTGAAG'
+filterlitteral = 'TTATCCTCCTCGCCCTTGCTCACCATGGTGGCGCGcctgttAACAGGCTAAG'
 lliteral = ' literal=TTATCCTCCTCGCCC'
 rliteral = ' literal=CCTCTGAGGCAGAA'
 
