@@ -136,6 +136,6 @@ out_csv="aligned/AA/HITI_mCherry_5p_10+_AA.csv"
 full_df_trim_AA=pd.read_csv(out_csv, index_col=[0])
 
 direc="5p"
-translate_NT(result, corr_frame,direc, out_csv, lliteral.split("=")[1],aa_primer_frame, direc)
+translate_NT(result, corr_frame,direc, out_csv, lliteral.split("=")[1],aa_primer_frame)
 
 ####################

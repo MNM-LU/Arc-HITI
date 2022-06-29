@@ -1,4 +1,4 @@
-,Seq_stats,Frame_corr:0|LYKPN-VRSRSTDDQMELDHMTTGGLHAYPAPRGGPAAKPNVILQIGKCRA,Frame:1|LYKPN-VRSRSTDDQMELDHMTTGGLHAYPAPRGGPAAKPNVILQIGKCRA,Frame:2|LYKPN-VRSRSTDDQMELDHMTTGGLHAYPAPRGGPAAKPNVILQIGKCRA
+,Seq_stats,Frame_corr_0|LYKPN-VRSRSTDDQMELDHMTTGGLHAYPAPRGGPAAKPNVILQIGKCRA,Frame_1|LYKPN-VRSRSTDDQMELDHMTTGGLHAYPAPRGGPAAKPNVILQIGKCRA,Frame_2|LYKPN-VRSRSTDDQMELDHMTTGGLHAYPAPRGGPAAKPNVILQIGKCRA
 0,1 CluSeq:0.24432_sd:0.05265,LYKPN--R-R--D----------G---A------GP---------------,------VRSRSTDDQMELDH-------------------------------,---P-----------------TT---------R---------I--------
 1,2 CluSeq:0.16176_sd:0.06664,LYKPN--R-------------TT---------R------------------,--------SR------------TGG--A------GP---------------,------VRSRSTDDQMELDH-------------------------------
 2,3 CluSeq:0.14877_sd:0.01353,LYKPN--R-R--D----------G---A------GP---------------,------VRSRSTDDQMELDH-------------------------------,------V-------Q-EL---TT---------R---------I--------
