@@ -255,7 +255,7 @@ def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral
     # call([cutadapt_call], shell=True)
 
     test_file_p5_out_starcode = tempfile.NamedTemporaryFile(suffix = '.tsv').name
-    starcode_call= "/media/data/AtteR/Attes_bin/starcode/starcode -i "+test_file_p5_filter2+" -t 32 -o "+test_file_p5_out_starcode
+    starcode_call= "starcode -i "+test_file_p5_filter2+" -t 32 -o "+test_file_p5_out_starcode
 
     call([starcode_call], shell=True)
 
@@ -337,11 +337,11 @@ def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,re
             #to check if the read is an amplicon
             #call_sequence = "/media/data/AtteR/Attes_bin/bbmap/bbduk.sh in="+animal_p7_cat+" in2="+animal_p5_cat+" outm1="+test_file_p7_out+" outm2="+test_file_p5_out+" literal="+filterlitteral+param
             #call_sequence = "bbduk.sh in="+ animal_p5_cat +" outm1="+test_file_p5_out+" literal="+filterlitteral+" stats="+stats_out + param
-            call_sequence = "/media/data/AtteR/Attes_bin/bbmap/bbduk.sh in="+animal_p5_cat +" in2="+animal_p7_cat+" outm1="+ test_file_p5_out +" outm2="+test_file_p7_out+" literal="+filterlitteral+" stats="+stats_out + param
+            call_sequence = "bbduk.sh in="+animal_p5_cat +" in2="+animal_p7_cat+" outm1="+ test_file_p5_out +" outm2="+test_file_p7_out+" literal="+filterlitteral+" stats="+stats_out + param
             call([call_sequence], shell=True)
 
             #actual trimming
-            call_sequence = "/media/data/AtteR/Attes_bin/bbmap/bbduk.sh in="+test_file_p5_out+" out="+test_file_p5_filter+ " literal=AAAAAAAAA,CCCCCCCCC,GGGGGGGGG,TTTTTTTTT k=9 mm=f overwrite=true minlength=40"
+            call_sequence = "bbduk.sh in="+test_file_p5_out+" out="+test_file_p5_filter+ " literal=AAAAAAAAA,CCCCCCCCC,GGGGGGGGG,TTTTTTTTT k=9 mm=f overwrite=true minlength=40"
             call([call_sequence], shell=True)
             test_file_p5_filter2 = tempfile.NamedTemporaryFile(suffix = '.fastq').name #when cutadapt applied on 5'
 
@@ -353,7 +353,7 @@ def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,re
 
             print("Cutadapt done! Performed on test_file_p5_filter2: "+ test_file_p5_filter2)
             test_file_p5_out_starcode = tempfile.NamedTemporaryFile(suffix = '.tsv').name
-            starcode_call= "/media/data/AtteR/Attes_bin/starcode/starcode -i "+test_file_p5_filter2+" -t 32 -r 5 -o "+test_file_p5_out_starcode
+            starcode_call= "starcode -i "+test_file_p5_filter2+" -t 32 -r 5 -o "+test_file_p5_out_starcode
             call([starcode_call], shell=True)
 
             df=pd.read_csv(test_file_p5_out_starcode, sep='\t', header=None)
@@ -627,7 +627,7 @@ def aligner(full_df, target_sequence, align_method, filename, output_path, llite
     add_primers_save2(aligned_data_trim, filename, target_sequence, lliteral, dir)
     #Generate a visual alignment file using mview
     mview_file=output_path +filename.split("/")[-1].split(".")[-2] + ".html"
-    mview_command='/media/data/AtteR/Attes_bin/mview -in fasta -html head -css on -reference 1 -coloring identity ' + filename + '>' + mview_file
+    mview_command='mview -in fasta -html head -css on -reference 1 -coloring identity ' + filename + '>' + mview_file
     #mview_command='/media/data/AtteR/Attes_bin/mview -in fasta -html head -css on -reference 1 -coloring identity ' + filename + '>' + mview_file
     call([mview_command], shell=True)
     print("html file created as "+ mview_file)
@@ -785,7 +785,7 @@ def write_AA_file(df_aa_align, result, primer, dir, aa_primer_frame):
                     f.write(">"+ df_aa_align.iloc[a,0] + "\n")
                     f.write(str(Seq(primer[aa_primer_frame:]).translate()) + "-" + aa_seq + "\n")
             mview_file= "aligned/AA/html/" +aa_file.split("/")[-1].split(".")[-2] + ".html"
-            mview_command='/media/data/AtteR/Attes_bin/mview -in fasta -html head -css on -reference 1 -coloring identity ' + aa_file + '>' + mview_file
+            mview_command='mview -in fasta -html head -css on -reference 1 -coloring identity ' + aa_file + '>' + mview_file
             call([mview_command], shell=True)
             print("Alignments created in html format! Files found inside aligned/AA directory")
 
@@ -799,7 +799,7 @@ def write_AA_file(df_aa_align, result, primer, dir, aa_primer_frame):
                     f.write(">"+ df_aa_align.iloc[a,0] + "\n")
                     f.write(aa_seq + "-" + str(Seq(primer).reverse_complement()[aa_primer_frame:].translate()) + "\n")
             mview_file= "aligned/AA/html/" +aa_file.split("/")[-1].split(".")[-2] + ".html"
-            mview_command='/media/data/AtteR/Attes_bin/mview -in fasta -html head -css on -reference 1 -coloring identity ' + aa_file + '>' + mview_file
+            mview_command='mview -in fasta -html head -css on -reference 1 -coloring identity ' + aa_file + '>' + mview_file
             call([mview_command], shell=True)
             print("Alignments created in html format! Files found inside aligned/AA directory")
 
