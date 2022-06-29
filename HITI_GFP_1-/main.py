@@ -35,20 +35,22 @@ read_fwd = True
 filterlitteral='CAGCTCCATCTGGTCGTCGGT'
 filterlitteral=filterlitteral.upper()
 lliteral = ' literal=GTGGTCATATGGTCCAGCTCC'
-
 target_sequence='ATCTGGTCGTCGGTGCTGCGGCTCCGcggagccgcagcaccgaCCTTGTACAGCTCGTCCATGCCGAGAGTGATCCCGGCGGCGGTCACGAACTCCAGCAGGACCATGTGATCGCGCTTCTCGTTGGGGTCTTTGCTCAGGGCGGACTGGGTGCTCAGGTAGTGGTTGTCGGGCAGCAGCACGGGGCCGTCGCCGATGGGGGTGTTCTGCTGGTAGTGGTCGGCGAGCTGCACGCTGCCGTCCTCGATGTTGTGGCGGATCTTGAAGTTCACCTTGATGCCGTTCTTCTGCTTGTCGGCCATGATATAGACGTTGTGGCTGTTGTAGTTGTACTCCAGCTTGTGCCCCAGGATGTTGCCGTCCTCCTTGAAGTCGATGCCCTTCAGCTCGATGCGGTTCACCAGGGTGTCGCCCTCGAACTTCACCTCGGCGCGGG'
 #filterlitteral='GTGGTCATATGGTCCAGCTCCATCTGGTCGTCGGTGCTGCGGCTC'
 rliteral=''
 target_sequence='ATCTGGTCGTCGGTGCTGCGGCTCCGcggagccgcagcaccgaCCTTGTACAGCTCGTCCATGCCGAGAGTGATCCCGGCGGCGGTCACGAACTCCAGCAGGACCATGTGATCGCGCTTCTCGTTGGGGTCTTTGCTCAGGGCGGACTGGGTGCTCAGGTAGTGGTTGTCGGGCAGCAGCACGGGGCCGTCGCCGATGGGGGTGTTCTGCTGGTAGTGGTCGGCGAGCTGCACGCTGCCGTCCTCGATGTTGTGGCGGATCTTGAAGTTCACCTTGATGCCGTTCTTCTGCTTGTCGGCCATGATATAGACGTTGTGGCTGTTGTAGTTGTACTCCAGCTTGTGCCCCAGGATGTTGCCGTCCTCCTTGAAGTCGATGCCCTTCAGCTCGATGCGGTTCACCAGGGTGTCGCCCTCGAACTTCACCTCGGCGCGGG'
+target_sequence='ACCACTACCTGAGCACCCAGTCCGCCCTGAGCAAAGACCCCAACGAGAAGCGCGATCACATGGTCCTGCTGGAGTTCGTGACCGCCGCCGGGATCACTCTCGGCATGGACGAGCTGTACAAGGtcggtgctgcggctccgCGGAGCCGCAGCACCGACGACCAGAT'
+target_sequence='ATCTGGTCGTCGGTGCTGCGGCTCCGcggagccgcagcaccgaCCTTGTACAGCTCGTCCATGCCGAGAGTGATCCCGGCGGCGGTCACGAACTCCAGCAGGACCATGTGATCGCGCTTCTCGTTGGGGTCTTT'
 target_sequence=target_sequence.upper()
 direc="3p"
 ####################
+
 
 #read preprocessing for each sample: trim, record read counts before and after trimming, cluster the reads 
 #using starcode, calculate percentage, merge into the full dataframe containing read count-and percentage for
 #each sample.
 full_df=analyze_all(base_path, transgene, filterlitteral,lliteral,rliteral,export_path,read_fwd, animal_list, target_sequence, direc)
-full_df_trim=calculate_perc_sd(full_df, 3)
+full_df_trim=calculate_perc_sd(full_df, 2)
 result="unaligned/HITI_GFP_3p_1-.fasta"
 csv_file="/".join(result.split("/")[:-1]) +"/"+ result.split("/")[-1].split(".")[0] + ".csv"
 full_df_trim.to_csv(csv_file)
@@ -61,17 +63,22 @@ save_fasta(result, full_df_trim, target_sequence)
 ####################
 output_path="aligned/NT/"
 result=output_path + "HITI_GFP_3p_1-_prim.fasta"
-aligner(full_df_trim, target_sequence, "align_local2", result, output_path, lliteral, rliteral, 3,1)
+aligner(full_df_trim, target_sequence, "align_local2", result, output_path, lliteral, rliteral, 3,1, "5p")
 ####################
 
 
 #AA
 ####################
 corr_frame=2
+aa_primer_frame=1
+
+#had to make the dir as 5p as then the seq is translated correctly as the GFP sample's 3p is on the rev strand
+direc="5p"
+
 result="unaligned/HITI_GFP_3p_1-.fasta"
 out_csv="aligned/AA/HITI_GFP_3p_1-_AA.csv"
 output_html="aligned/AA/HITI_GFP_3p_1-_AA.html"
-translate_NT(result, corr_frame,direc, out_csv, lliteral.split("=")[1])
+translate_NT(result, corr_frame,direc, out_csv, lliteral.split("=")[1], aa_primer_frame)
 
 ####################
 

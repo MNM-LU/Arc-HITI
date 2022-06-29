@@ -61,11 +61,12 @@ test_res=aligner(df_trim_full, target_sequence, "align_local2", result, output_p
 #AA
 ####################
 corr_frame=0
+aa_primer_frame=1
 result="unaligned/mCherry_3p_2+.fasta"
 output_html="aligned/AA/mCherry_3p_2+.html"
 out_csv="aligned/AA/mCherry_3p_2+.csv"
 
-translate_NT(result, corr_frame,direc, out_csv, lliteral.split("=")[1])
+translate_NT(result, corr_frame,direc, out_csv, lliteral.split("=")[1], aa_primer_frame)
 ####################
 
 
@@ -88,7 +89,10 @@ base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-
 #using starcode, calculate percentage, merge into the full dataframe containing read count-and percentage for
 #each sample.
 df_full=import_reads_process_mini(base_path, target_sequence, filterlitteral, lliteral, rliteral, read_fwd, direc)
+df_full
 df_trim_full2=calculate_perc_sd(df_full,3)
+df_trim_full2['percent_mean'].sum()
+
 result="unaligned/mCherry_5p_2+.fasta"
 save_fasta(result, df_trim_full2, target_sequence)
 

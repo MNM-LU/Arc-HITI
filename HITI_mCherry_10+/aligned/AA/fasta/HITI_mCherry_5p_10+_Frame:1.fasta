@@ -1,142 +1,142 @@
 >0_Ref_Frame:1
-PCYPPRP-MELDHMTSYGPARVS
+MELDHMTSYGPARVS-GEEDNM
 >1 CluSeq:0.80362_sd:0.04352
-PCYPPRP-----HM---G-A---
+----HM---G-A----GEEDNM
 >2 CluSeq:0.03096_sd:0.01106
-PCYPPRP-----HM---G-A---
+----HM---G-A----GEEDNM
 >3 CluSeq:0.02255_sd:0.02351
-PCYPPRP--E-------------
+-E--------------GEEDNM
 >4 CluSeq:0.02204_sd:0.00288
-PCYPPRP-----HM---G-A---
+----HM---G-A----GEEDNM
 >5 CluSeq:0.01448_sd:0.01269
-PCYPPRP-------TSYGPARVS
+------TSYGPARVS-GEEDNM
 >7 CluSeq:0.0129_sd:0.02234
-PCYPPRP-------T-YGPARVS
+------T-YGPARVS-GEEDNM
 >8 CluSeq:0.00955_sd:0.01102
-PCYPPRP--E-------------
+-E--------------GEEDNM
 >9 CluSeq:0.00606_sd:0.0105
-PCYPPRP-----HM---G-A---
+----HM---G-A----GEEDNM
 >10 CluSeq:0.00602_sd:0.01043
-PCYPPRP--E-------------
+-E--------------GEEDNM
 >11 CluSeq:0.00443_sd:0.00767
-PCYPPRP--E-------------
+-E--------------GEEDNM
 >12 CluSeq:0.00414_sd:0.00718
-PCYPPRP----------------
+----------------GEEDNM
 >14 CluSeq:0.00292_sd:0.00507
-PCYPPRP--E-------------
+-E--------------GEEDNM
 >15 CluSeq:0.00244_sd:0.00423
-PCYPPRP-------TSYGPARVS
+------TSYGPARVS-GEEDNM
 >16 CluSeq:0.00233_sd:0.00403
-PCYPPRP-M-L------G-A---
+M-L------G-A----GEEDNM
 >17 CluSeq:0.00215_sd:0.00372
-PCYPPRP--E--HM---G-A---
+-E--HM---G-A----GEEDNM
 >18 CluSeq:0.00215_sd:0.00372
-PCYPPRP---L------G-A---
+--L------G-A----GEEDNM
 >19 CluSeq:0.00214_sd:0.00371
-PCYPPRP----------------
+----------------GEEDNM
 >20 CluSeq:0.00207_sd:0.00358
-PCYPPRP-----H----GPARVS
+----H----GPARVS-GEEDNM
 >22 CluSeq:0.00191_sd:0.0033
-PCYPPRP-------TSYGPARVS
+------TSYGPARVS-GEEDNM
 >23 CluSeq:0.00191_sd:0.0033
-PCYPPRP-----HM---G-A---
+----HM---G-A----GEEDNM
 >24 CluSeq:0.00185_sd:0.00321
-PCYPPRP--E-------------
+-E--------------GEEDNM
 >25 CluSeq:0.00165_sd:0.00286
-PCYPPRP--E-------------
+-E--------------GEEDNM
 >26 CluSeq:0.00161_sd:0.00279
-PCYPPRP--E-------------
+-E--------------GEEDNM
 >27 CluSeq:0.00152_sd:0.00203
-PCYPPRP-----HM---G-A---
+----HM---G-A----GEEDNM
 >28 CluSeq:0.00133_sd:0.0023
-PCYPPRP--E-------------
+-E--------------GEEDNM
 >29 CluSeq:0.0013_sd:0.00225
-PCYPPRP---L------G-A---
+--L------G-A----GEEDNM
 >30 CluSeq:0.00128_sd:0.00222
-PCYPPRP--E-------------
+-E--------------GEEDNM
 >31 CluSeq:0.00116_sd:0.00202
-PCYPPRP--E-------------
+-E--------------GEEDNM
 >32 CluSeq:0.00109_sd:0.00189
-PCYPPRP--------S-G-----
+-------S-G------GEEDNM
 >33 CluSeq:0.00108_sd:0.00187
-PCYPPRP-----HM---G-A---
+----HM---G-A----GEEDNM
 >34 CluSeq:0.00099_sd:0.00172
-PCYPPRP-----HM---G-A---
+----HM---G-A----GEEDNM
 >35 CluSeq:0.00091_sd:0.00158
-PCYPPRP-M------SYGPARVS
+M------SYGPARVS-GEEDNM
 >36 CluSeq:0.00086_sd:0.00148
-PCYPPRP-M-L------G-A---
+M-L------G-A----GEEDNM
 >37 CluSeq:0.00081_sd:0.0014
-PCYPPRP-----HM---G-A---
+----HM---G-A----GEEDNM
 >38 CluSeq:0.00079_sd:0.00137
-PCYPPRP--E-------------
+-E--------------GEEDNM
 >39 CluSeq:0.00061_sd:0.00074
-PCYPPRP-----HM---G-A---
+----HM---G-A----GEEDNM
 >40 CluSeq:0.00049_sd:0.00085
-PCYPPRP--E-------------
+-E--------------GEEDNM
 >41 CluSeq:0.00048_sd:0.00083
-PCYPPRP---L------G-A---
+--L------G-A----GEEDNM
 >42 CluSeq:0.00045_sd:0.00079
-PCYPPRP--E-------------
+-E--------------GEEDNM
 >43 CluSeq:0.0004_sd:0.00068
-PCYPPRP--E-------------
+-E--------------GEEDNM
 >44 CluSeq:0.0003_sd:0.00052
-PCYPPRP--E----TS-GP----
+-E----TS-GP-----GEEDNM
 >45 CluSeq:0.00027_sd:0.00036
-PCYPPRP-M-L------G-A---
+M-L------G-A----GEEDNM
 >46 CluSeq:0.00021_sd:0.00037
-PCYPPRP-------T-----RVS
+------T-----RVS-GEEDNM
 >47 CluSeq:0.00021_sd:0.00036
-PCYPPRP-------T-----RVS
+------T-----RVS-GEEDNM
 >48 CluSeq:0.00019_sd:0.00033
-PCYPPRP-M-L------G-A---
+M-L------G-A----GEEDNM
 >49 CluSeq:0.00018_sd:0.00031
-PCYPPRP----------G-A---
+---------G-A----GEEDNM
 >50 CluSeq:0.00015_sd:0.00025
-PCYPPRP---L----SY-PA---
+--L----SY-PA----GEEDNM
 >51 CluSeq:0.00014_sd:0.00024
-PCYPPRP---L------G-A---
+--L------G-A----GEEDNM
 >52 CluSeq:0.00013_sd:0.00023
-PCYPPRP--E-------------
+-E--------------GEEDNM
 >53 CluSeq:0.00012_sd:0.0002
-PCYPPRP--E-------------
+-E--------------GEEDNM
 >54 CluSeq:0.00011_sd:0.0002
-PCYPPRP-------T-----RVS
+------T-----RVS-GEEDNM
 >55 CluSeq:0.00011_sd:0.00019
-PCYPPRP----------G-----
+---------G------GEEDNM
 >56 CluSeq:0.0001_sd:0.00017
-PCYPPRP--E-------------
+-E--------------GEEDNM
 >57 CluSeq:8e-05_sd:0.00013
-PCYPPRP--EL----------VS
+-EL----------VS-GEEDNM
 >58 CluSeq:8e-05_sd:0.00013
-PCYPPRP--E-------------
+-E--------------GEEDNM
 >59 CluSeq:7e-05_sd:0.00013
-PCYPPRP-----HM---G-A---
+----HM---G-A----GEEDNM
 >60 CluSeq:7e-05_sd:0.00012
-PCYPPRP--E-------------
+-E--------------GEEDNM
 >61 CluSeq:7e-05_sd:0.00012
-PCYPPRP--E----TS-GP----
+-E----TS-GP-----GEEDNM
 >62 CluSeq:6e-05_sd:0.00011
-PCYPPRP----------G-A---
+---------G-A----GEEDNM
 >63 CluSeq:6e-05_sd:0.0001
-PCYPPRP-------T-----RVS
+------T-----RVS-GEEDNM
 >64 CluSeq:5e-05_sd:9e-05
-PCYPPRP-------T-----RVS
+------T-----RVS-GEEDNM
 >65 CluSeq:4e-05_sd:7e-05
-PCYPPRP----------G-----
+---------G------GEEDNM
 >66 CluSeq:4e-05_sd:7e-05
-PCYPPRP----------------
+----------------GEEDNM
 >67 CluSeq:3e-05_sd:5e-05
-PCYPPRP--E-------G-----
+-E-------G------GEEDNM
 >68 CluSeq:2e-05_sd:4e-05
-PCYPPRP--E-------------
+-E--------------GEEDNM
 >70 CluSeq:1e-05_sd:2e-05
-PCYPPRP-----HM---G-A---
+----HM---G-A----GEEDNM
 >71 CluSeq:1e-05_sd:2e-05
-PCYPPRP--E-------G-----
+-E-------G------GEEDNM
 >72 CluSeq:1e-05_sd:2e-05
-PCYPPRP--E-------G--R--
+-E-------G--R---GEEDNM
 >73 CluSeq:1e-05_sd:2e-05
-PCYPPRP-----HM-S-G-----
+----HM-S-G------GEEDNM
 >74 CluSeq:1e-05_sd:2e-05
-PCYPPRP-------TSYGPARVS
+------TSYGPARVS-GEEDNM

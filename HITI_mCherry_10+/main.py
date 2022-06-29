@@ -44,7 +44,7 @@ save_fasta(result, df_trim_full, target_sequence)
 
 csv_file="/".join(result.split("/")[:-1]) +"/"+ result.split("/")[-1].split(".")[0] + ".csv"
 df_trim_full.to_csv(csv_file)
-#full_df_trim=pd.read_csv(csv_file, index_col=[0])
+df_trim_full=pd.read_csv(csv_file, index_col=[0])
 #NT
 ####################
 output_path="aligned/NT/"
@@ -55,6 +55,8 @@ aligner(df_trim_full, target_sequence, "align_local2", result, output_path,llite
 #AA
 ####################
 corr_frame=0
+aa_primer_frame=1
+
 result="unaligned/HITI_mCherry_3p_10+.fasta"
 output_html="aligned/AA/HITI_mCherry_3p_10+_AA.html"
 out_csv="aligned/AA/HITI_mCherry_3p_10+_AA.csv"
@@ -62,7 +64,7 @@ aa_fasta="unaligned/HITI_mCherry_3p_10+_AA.fasta"
 #translate and save results as csv
 #df_aa=translate_nt_aa_csv(result,corr_frame, out_csv)
 
-translate_NT(result, corr_frame,direc, out_csv, lliteral.split("=")[1])
+translate_NT(result, corr_frame,direc, out_csv, lliteral.split("=")[1], aa_primer_frame)
 
 
 
@@ -90,9 +92,9 @@ direc = "5p"
 lliteral = ' literal=CCATGTTATCCTCCTCGCCCT'  #trimmed away one extra T from the amplicons
 rliteral = ' literal=ATTTTGGGGACCGGAGACAC'
 filterlitteral="CCATGTTATCCTCCTCGCCCTTGCTCACCCGAGCTGGACCATATGACGTCATATGGT"
-target_sequence="tgctcacCCGAGCTGGACCATATGACGTCATATGGTCCAGCTCCAT"
-target_sequence="tgctcacCCGAGCTGGACCATATGACGTCATATGGTCCAGCTCCATCTGGTCGTCGGTG"
-target_sequence="tgctcacCCGAGCTGGACCATATGACGTCATATGGTCCAGCTCCATCTGGTCGTCGGTGCTGCGGCTCCGAACAGGCTAAGAACTCCTCTGAGGCAGA"
+#target_sequence="tgctcacCCGAGCTGGACCATATGACGTCATATGGTCCAGCTCCAT"
+#target_sequence="tgctcacCCGAGCTGGACCATATGACGTCATATGGTCCAGCTCCATCTGGTCGTCGGTG"
+target_sequence="tgctcacCCGAGCTGGACCATATGACGTCATATGGTCCAGCTCCATCTGGTCGTCGGTGCTGCGGCTCCGAACAGGCTAAGAACTCCTCTGAGGCAGAAGCCGGAAGGGAGCAGAGCCGGCGGCTGCAGCGGCAGTGGCAGGTGTGCGGTGCCGGAGGAGCTTAGCGAGTGTGGCAGGCTCGT"
 
 target_sequence=target_sequence.upper()
 read_fwd = True
@@ -111,22 +113,29 @@ save_fasta(result, df_trim_full, target_sequence)
 
 csv_file="/".join(result.split("/")[:-1]) +"/"+ result.split("/")[-1].split(".")[0] + ".csv"
 df_trim_full.to_csv(csv_file)
+df_trim_full=pd.read_csv(csv_file,  index_col=[0])
 
 #NT
 ####################
 output_path="aligned/NT/"
 result=output_path + "HITI_mCherry_5p_10+_prim.fasta"
-aligner(df_trim_full, target_sequence, "align_local2", result, output_path, lliteral, rliteral,4,2)
+
+aligner(df_trim_full, target_sequence, "align_local2", result, output_path, lliteral, rliteral,4,2,'5p')
 ####################
 
 #AA
 #484%3
 ####################
 corr_frame=0
+aa_primer_frame=2
+
 result="unaligned/HITI_mCherry_5p_10+.fasta"
 output_html="aligned/AA/HITI_mCherry_5p_10+_AA.html"
 out_csv="aligned/AA/HITI_mCherry_5p_10+_AA.csv"
+
+full_df_trim_AA=pd.read_csv(out_csv, index_col=[0])
+
 direc="5p"
-translate_NT(result, corr_frame,direc, out_csv, lliteral.split("=")[1])
+translate_NT(result, corr_frame,direc, out_csv, lliteral.split("=")[1],aa_primer_frame, direc)
 
 ####################
