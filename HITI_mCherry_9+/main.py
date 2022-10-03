@@ -1,5 +1,7 @@
 from cmath import nan
 from heapq import merge
+from locale import ABDAY_2
+from xml.dom.expatbuilder import theDOMImplementation
 import pandas as pd
 import os 
 
@@ -11,110 +13,129 @@ import os
 scripts_dir="/media/data/AtteR/projects/hiti/pipeline_output_reorg/hiti-arc-analysis"
 os.chdir(scripts_dir)
 from scripts_hiti import *
-from scripts_hiti import analyze_all
 #sample directory (inside which all the subdirectories exist)
-sample_dir=scripts_dir + "/HITI_mCherry_2+"
+sample_dir=scripts_dir + "/HITI_mCherry_10+"
 os.chdir(sample_dir)
 #path to the analysis folder
-base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-only/SP1_3p"
+base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-only/SP4_3p"
 
 #where the programs bbduk and starcode are found
-#program_path="/media/data/AtteR/Attes_bin/"
+program_path="/media/data/AtteR/Attes_bin"
 
 #############
 
-#SP1 3' 
+#############
+#SP4 3' 
 read_fwd = True
-lliteral=" literal=CGGCGGCATGGACGAG"
-rliteral=" literal=GTCTTCTACCGTCTGGAGAGG"
-direc="3p"
-filterlitteral="CGGCGGCATGGACGAGCTGTACAAGCCGAACGTTCGGAGCCGCAGCACCGACGACCAG"
-target_sequence="ctgtacaagccgaacGTTCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCATATGACCACCGGCGGCCTCCACGCCTACCCTGCCCCGCGGGGTGGGCCGGCCGCCAAACCCAATGTGATCCTGCAGATTGGTAAGTGCCGAGCTGA"
+direc = "3p"
+filterlitteral = 'CGGCGGCATGGACGAGCTGTACAAGATGGAGCTGGACCATATGACCCGGTGCACCGGCG'
+lliteral = ' literal=CGGCGGCATGGACGAG'
+rliteral = ' literal=CTGGGTCAAGCGTGAGATG'
+target_sequence="ctgtacaagATGGAGCTGGACCATATGACCCGGTGCACCGGCGGCCTCCACGCCTACCCTGCCCCGCGGGGTGGGCCGGCCGCCAAACCCAATGTGATCCTGCAGATTGGTAAGTGCCGAGCTGAGATGCTGGAACACGTACGGAGGACCCACCGGCATCTGTTGACCGAAGTGTCCAAGC"
 target_sequence=target_sequence.upper()
-target_sequence="CTGTACAAGCCGAAC---GTTCGGAGCCGCAGCACCGACGACCAGATGGAGCTGGACCATATGACCACCGGCGGCCTCCACGCCTACCCTGCCCCGCGGGGTGGGCCGGCCGCCAAACCCAATGTGATCCTGCAGATTGGTAAGTGCCGAGCTGA"
-
-#########
+############
 #read preprocessing for each sample: trim, record read counts before and after trimming, cluster the reads 
 #using starcode, calculate percentage, merge into the full dataframe containing read count-and percentage for
-#each sample. 
-
-df_full=import_reads_process_mini(base_path, target_sequence, filterlitteral, lliteral,rliteral,read_fwd, direc)
+#each sample.
+df_full=import_reads_process_mini(base_path, target_sequence,filterlitteral,lliteral,rliteral,read_fwd, direc)
 df_trim_full=calculate_perc_sd(df_full,3)
-
-#save_fasta(result, df_trim_full, target_sequence)
-####################
-result="unaligned/mCherry_3p_2+.fasta"
+result="unaligned/HITI_mCherry_3p_10+.fasta"
 save_fasta(result, df_trim_full, target_sequence)
 
 csv_file="/".join(result.split("/")[:-1]) +"/"+ result.split("/")[-1].split(".")[0] + ".csv"
-csv_file="unaligned/mCherry_3p_2+.csv"
 df_trim_full.to_csv(csv_file)
-
-#full_df_trim=pd.read_csv(csv_file, index_col=[0])
-
-
-###################
-output_path="aligned/NT/"
-result=output_path + "mCherry_3p_2+_prim.fasta"
-test_res=aligner(df_trim_full, target_sequence, "align_local2", result, output_path, lliteral, rliteral, 4,2)
+df_trim_full=pd.read_csv(csv_file, index_col=[0])
+#NT
 ####################
+output_path="aligned/NT/"
+result=output_path + "HITI_mCherry_3p_10+_prim.fasta"
+aligner(df_trim_full, target_sequence, "align_local2", result, output_path,lliteral, rliteral, 3,1)
+
+
 #AA
 ####################
 corr_frame=0
 aa_primer_frame=1
-result="unaligned/mCherry_3p_2+.fasta"
-output_html="aligned/AA/mCherry_3p_2+.html"
-out_csv="aligned/AA/mCherry_3p_2+.csv"
+
+result="unaligned/HITI_mCherry_3p_10+.fasta"
+output_html="aligned/AA/HITI_mCherry_3p_10+_AA.html"
+out_csv="aligned/AA/HITI_mCherry_3p_10+_AA.csv"
+aa_fasta="unaligned/HITI_mCherry_3p_10+_AA.fasta"
+#translate and save results as csv
+#df_aa=translate_nt_aa_csv(result,corr_frame, out_csv)
 
 translate_NT(result, corr_frame,direc, out_csv, lliteral.split("=")[1], aa_primer_frame)
-####################
 
 
 
-####################
-#SP1 5' 
-filterlitteral = 'GCCTAGGCTAAGAACTCCTCCGCGCCACCATGGTGAGCAAGGGCGAGGAGGATAACATGG'
-#rev compl of prev rliteral
-lliteral=' literal=CCATGTTATCCTCCTCGCCC'
-rliteral = ' literal=GTGTCTCCGGTCCCCAAAAT'
-read_fwd = True
-direc="5p"
-#rev compl
-target_sequence="tgctcaccatggtggcgcggaggagttcttagcctAGGCTAAGAACTCCTCTGAGGCAGAAGCCGGAAGGGAGCAGAGCCGGCGGCTGCAGCG"
+
+
+
+
+
+
+
+
+
+
+#5'
+#############
+#User configurable variables
+
+#path to the analysis folder
+base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-only/SP4_5p"
+#############
+
+
+#SP4 5'
+direc = "5p"
+lliteral = ' literal=CCATGTTATCCTCCTCGCCCT'  #trimmed away one extra T from the amplicons
+rliteral = ' literal=ATTTTGGGGACCGGAGACAC'
+filterlitteral="CCATGTTATCCTCCTCGCCCTTGCTCACCCGAGCTGGACCATATGACGTCATATGGT"
+#target_sequence="tgctcacCCGAGCTGGACCATATGACGTCATATGGTCCAGCTCCAT"
+#target_sequence="tgctcacCCGAGCTGGACCATATGACGTCATATGGTCCAGCTCCATCTGGTCGTCGGTG"
+target_sequence="tgctcacCCGAGCTGGACCATATGACGTCATATGGTCCAGCTCCATCTGGTCGTCGGTGCTGCGGCTCCGAACAGGCTAAGAACTCCTCTGAGGCAGAAGCCGGAAGGGAGCAGAGCCGGCGGCTGCAGCGGCAGTGGCAGGTGTGCGGTGCCGGAGGAGCTTAGCGAGTGTGGCAGGCTCGT"
+
 target_sequence=target_sequence.upper()
-base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-only/SP1_5p"
+read_fwd = True
+base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-only/SP4_5p"
+
 
 ############
 #read preprocessing for each sample: trim, record read counts before and after trimming, cluster the reads 
 #using starcode, calculate percentage, merge into the full dataframe containing read count-and percentage for
 #each sample.
-df_full=import_reads_process_mini(base_path, target_sequence, filterlitteral, lliteral, rliteral, read_fwd, direc)
-df_full
-df_trim_full2=calculate_perc_sd(df_full,3)
-df_trim_full2['percent_mean'].sum()
 
-result="unaligned/mCherry_5p_2+.fasta"
-save_fasta(result, df_trim_full2, target_sequence)
+df_full=import_reads_process_mini(base_path, target_sequence,filterlitteral,lliteral,rliteral,read_fwd, direc)
+df_trim_full=calculate_perc_sd(df_full,3)
+result="unaligned/HITI_mCherry_5p_10+.fasta"
+save_fasta(result, df_trim_full, target_sequence)
 
 csv_file="/".join(result.split("/")[:-1]) +"/"+ result.split("/")[-1].split(".")[0] + ".csv"
-df_trim_full2.to_csv(csv_file)
+df_trim_full.to_csv(csv_file)
+df_trim_full=pd.read_csv(csv_file,  index_col=[0])
 
 #NT
 ####################
 output_path="aligned/NT/"
-result=output_path+"mCherry_5p_2+_prim.fasta"
-test_res=aligner(df_trim_full2, target_sequence, "align_local2", result, output_path,lliteral, rliteral, 4,2)
+result=output_path + "HITI_mCherry_5p_10+_prim.fasta"
+
+aligner(df_trim_full, target_sequence, "align_local2", result, output_path, lliteral, rliteral,4,2,'5p')
 ####################
-
-
 
 #AA
-#446%3
-#need to make a reverse complement of an imported read?
+#484%3
 ####################
-# corr_frame=2
-# result="unaligned/mCherry_5p_2+.fasta"
-# output_html="aligned/AA/mCherry_5p_2+_AA.html"
-# out_csv="aligned/AA/mCherry_5p_2+_AA.csv"
-# translate_NT(result, corr_frame,direc, out_csv)
+corr_frame=0
+aa_primer_frame=2
+
+result="unaligned/HITI_mCherry_5p_10+.fasta"
+output_html="aligned/AA/HITI_mCherry_5p_10+_AA.html"
+out_csv="aligned/AA/HITI_mCherry_5p_10+_AA.csv"
+
+full_df_trim_AA=pd.read_csv(out_csv, index_col=[0])
+
+direc="5p"
+translate_NT(result, corr_frame,direc, out_csv, lliteral.split("=")[1],aa_primer_frame)
+
 ####################
