@@ -25,7 +25,7 @@ import os
 import math
 
 os.getcwd()
-os.chdir("/media/data/AtteR/projects/hiti/pipeline_output_reorg/hiti-arc-analysis")
+os.chdir("/media/data/AtteR/projects/hiti/pipeline_output_reorg/Arc-HITI")
 #from alignment_scripts import *
 import Bio.Align.Applications; dir(Bio.Align.Applications)
 from Bio.Align.Applications import MuscleCommandline#Read in unfiltered data
@@ -579,6 +579,13 @@ def add_primers_save2(aligned_data_trim,filename, target_sequence,lliteral, dir,
                 count = SeqIO.write(seq_obj, handle, "fasta")
                 id_f+=1
         else:
+            print("rev_compl value:" + str(rev_complement))
+            if rev_complement=="True" :
+                print("Assessing reverse complement")
+                target_sequence = str(target_sequence).translate(tab)[::-1]
+            else:
+                print("NOT reverse complement")
+
             whole_ref=target_sequence + "-" + lliteral.split("=")[1].translate(tab)[::-1] # reverse primer position as the 5p seq is sequenced in rev
             # whole_ref=target_sequence + "-" + lliteral.split("=")[1](tab)[::-1] # reverse primer position as the 5p seq is sequenced in rev
             seq_obj = SeqRecord(Seq(whole_ref), id=str(0), description=ref)
@@ -609,7 +616,7 @@ class gen_aligned_data():
         replace_chars = "TGCA"
         tab = str.maketrans(old_chars,replace_chars)
 
-        if rev_compl=="True":
+        if self.rev_compl=="True":
             target_sequence = str(target_sequence).translate(tab)[::-1]
         # else:
         #     target_sequence=target_sequence

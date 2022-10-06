@@ -10,7 +10,7 @@ import os
 #############
 #scripts_dir is the root directory of the analysis folder which contains the scripts_hiti.py script. All functions and classes
 #used in the analysis have been stored in this file.
-scripts_dir="/media/data/AtteR/projects/hiti/pipeline_output_reorg/hiti-arc-analysis"
+scripts_dir="/media/data/AtteR/projects/hiti/pipeline_output_reorg/Arc-HITI/"
 os.chdir(scripts_dir)
 from scripts_hiti import *
 #sample directory (inside which all the subdirectories exist)

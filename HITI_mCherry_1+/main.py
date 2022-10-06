@@ -8,7 +8,7 @@ import os
 #############
 #scripts_dir is the root directory of the analysis folder which contains the scripts_hiti.py script. All functions and classes
 #used in the analysis have been stored in this file.
-scripts_dir="/media/data/AtteR/projects/hiti/pipeline_output_reorg/hiti-arc-analysis"
+scripts_dir="/media/data/AtteR/projects/hiti/pipeline_output_reorg/Arc-HITI/"
 os.chdir(scripts_dir)
 from scripts_hiti import *
 from scripts_hiti import analyze_all
@@ -74,13 +74,14 @@ translate_NT(result, corr_frame,direc, out_csv, lliteral.split("=")[1], aa_prime
 ####################
 #SP1 5' 
 filterlitteral = 'GCCTAGGCTAAGAACTCCTCCGCGCCACCATGGTGAGCAAGGGCGAGGAGGATAACATGG'
+filterlitteral = 'CCATGTTATCCTCCTCGCCCTTGCTCACCATGGTGGCGCGGAGGAGTTCTTAGCCTAGGC'
 #rev compl of prev rliteral
 lliteral=' literal=CCATGTTATCCTCCTCGCCC'
 rliteral = ' literal=GTGTCTCCGGTCCCCAAAAT'
-read_fwd = True
+read_fwd = False
 direc="5p"
 #rev compl
-target_sequence="tgctcaccatggtggcgcggaggagttcttagcctAGGCTAAGAACTCCTCTGAGGCAGAAGCCGGAAGGGAGCAGAGCCGGCGGCTGCAGCG"
+target_sequence="ttgctcaccatggtggcgcggaggagttcttagcctAGGCTAAGAACTCCTCTGAGGCAGAAGCCGGAAGGGAGCAGAGCCGGCGGCTGCAGCG"
 target_sequence=target_sequence.upper()
 base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-only/SP1_5p"
 
@@ -93,7 +94,7 @@ df_full
 df_trim_full2=calculate_perc_sd(df_full,3)
 df_trim_full2['percent_mean'].sum()
 
-result="unaligned/mCherry_5p_2+.fasta"
+result="unaligned/mCherry_5p_1+.fasta"
 save_fasta(result, df_trim_full2, target_sequence)
 
 csv_file="/".join(result.split("/")[:-1]) +"/"+ result.split("/")[-1].split(".")[0] + ".csv"
@@ -104,8 +105,8 @@ df_trim_full2
 #NT
 ####################
 output_path="aligned/NT/"
-result=output_path+"mCherry_5p_2+_prim.fasta"
-test_res=aligner(df_trim_full2, target_sequence, "align_local2", result, output_path,lliteral, rliteral, 4,2, "True")
+result=output_path+"mCherry_5p_1+_prim.fasta"
+test_res=aligner(df_trim_full2, target_sequence, "align_local2", result, output_path,lliteral, rliteral, 4,2, "5p", "True")
 ####################
 
 
