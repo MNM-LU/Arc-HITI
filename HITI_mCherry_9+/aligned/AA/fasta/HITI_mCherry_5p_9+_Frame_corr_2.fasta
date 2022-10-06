@@ -1,142 +1,150 @@
->0_Ref_0
-MELDHMTSYGPARVSK-GEEDNM
+>0_Ref_2
+DGAGPYDVIWSSSGEQ-GEEDNM
 >1 CluSeq:0.80288_sd:0.04317
----------GP--VS--GEEDNM
+D--GP-------SG---GEEDNM
 >2 CluSeq:0.03101_sd:0.01107
----------GP---S--GEEDNM
+D--GP-------SG---GEEDNM
 >3 CluSeq:0.02247_sd:0.02343
----D----YGPARVSK-GEEDNM
+DG---------------GEEDNM
 >4 CluSeq:0.02178_sd:0.00324
----------GP--VS--GEEDNM
+D--GP-------SG---GEEDNM
 >5 CluSeq:0.01448_sd:0.01269
-----HM---G-A-----GEEDNM
+D-------IWSSS----GEEDNM
+>6 CluSeq:0.01445_sd:0.02503
+---GP-----S--GE--GEEDNM
 >7 CluSeq:0.01289_sd:0.02232
----DHM---G-A-----GEEDNM
+D------VIWSSS----GEEDNM
 >8 CluSeq:0.0096_sd:0.01109
----------GPARVSK-GEEDNM
+D-A----V--S---E--GEEDNM
 >9 CluSeq:0.00631_sd:0.01093
----------GP--VS--GEEDNM
+D--GP-------SG---GEEDNM
 >10 CluSeq:0.00606_sd:0.01049
--------SYGPARVSK-GEEDNM
+DG---------------GEEDNM
 >11 CluSeq:0.00445_sd:0.00771
--------SYGPARVSK-GEEDNM
+DGA--------------GEEDNM
 >12 CluSeq:0.00423_sd:0.00732
------------------GEEDNM
+-G-------------Q-GEEDNM
+>13 CluSeq:0.00352_sd:0.0061
+D---P------------GEEDNM
 >14 CluSeq:0.00294_sd:0.0051
----D---SYGPARVSK-GEEDNM
+D------V-------Q-GEEDNM
 >15 CluSeq:0.00245_sd:0.00424
-----HM---G-A-----GEEDNM
+D-------IWSS-----GEEDNM
 >16 CluSeq:0.00236_sd:0.00408
----------GP---S--GEEDNM
+D--GP-------SG---GEEDNM
 >17 CluSeq:0.00219_sd:0.00379
------------------GEEDNM
+--A-PY----SS-----GEEDNM
 >18 CluSeq:0.00215_sd:0.00373
----------GP---S--GEEDNM
+---GP-------SG---GEEDNM
+>19 CluSeq:0.00214_sd:0.0037
+D--GP-------SG---GEEDNM
 >20 CluSeq:0.00207_sd:0.00359
---------Y---RVS--GEEDNM
+D---P-----S------GEEDNM
 >21 CluSeq:0.00206_sd:0.00356
----------GPA-----GEEDNM
+D------VIWSSS----GEEDNM
 >22 CluSeq:0.00194_sd:0.00336
-----HM---G-A-----GEEDNM
+D-------IWSSS----GEEDNM
 >23 CluSeq:0.00189_sd:0.00327
----------GP---S--GEEDNM
+D--GP-------SG---GEEDNM
 >24 CluSeq:0.00185_sd:0.0032
----------GP--VSK-GEEDNM
+-GA-P------------GEEDNM
 >25 CluSeq:0.00166_sd:0.00287
----------GPARVSK-GEEDNM
+DGA-------S------GEEDNM
 >26 CluSeq:0.00161_sd:0.0028
----------GPARVSK-GEEDNM
+DGA--------------GEEDNM
 >27 CluSeq:0.00151_sd:0.00201
--E---------------GEEDNM
+D--GP-D----------GEEDNM
 >28 CluSeq:0.00133_sd:0.00231
----D---SYGPARVSK-GEEDNM
+D------V-------Q-GEEDNM
 >29 CluSeq:0.0013_sd:0.00226
----------GP---S--GEEDNM
+---GP-------SG---GEEDNM
 >30 CluSeq:0.00127_sd:0.00219
----------GPARVSK-GEEDNM
+DGA-P------------GEEDNM
 >31 CluSeq:0.00117_sd:0.00203
----D------PARVSK-GEEDNM
+-GA--------------GEEDNM
 >32 CluSeq:0.00111_sd:0.00192
----D-------A-----GEEDNM
+D--GP------------GEEDNM
 >33 CluSeq:0.00108_sd:0.00186
----------GP--VS--GEEDNM
+D--GP-------SG---GEEDNM
 >34 CluSeq:0.00101_sd:0.00175
----------GP--VS--GEEDNM
+DG-GP-----S------GEEDNM
 >35 CluSeq:0.0009_sd:0.00156
-----HM---G-A-----GEEDNM
+D-------IWSS-----GEEDNM
 >36 CluSeq:0.00087_sd:0.0015
----------GP--VS--GEEDNM
+DG-GP-----S------GEEDNM
 >37 CluSeq:0.00082_sd:0.00142
----------GP---S--GEEDNM
+D--GP-------SG---GEEDNM
 >38 CluSeq:0.00079_sd:0.00137
----------GPARVSK-GEEDNM
+D-A----V--S---E--GEEDNM
 >39 CluSeq:0.00061_sd:0.00075
--E---------------GEEDNM
+D--GP-D----------GEEDNM
 >40 CluSeq:0.0005_sd:0.00086
----------GPARVSK-GEEDNM
+D--GP--V---------GEEDNM
 >41 CluSeq:0.00048_sd:0.00083
----------GP---S--GEEDNM
+D--GP-------SG---GEEDNM
 >42 CluSeq:0.00046_sd:0.00079
----------GPARVSK-GEEDNM
+D-A-P-----S---E--GEEDNM
 >43 CluSeq:0.0004_sd:0.0007
----------GPARVSK-GEEDNM
+D------V---------GEEDNM
 >44 CluSeq:0.00031_sd:0.00053
---------Y---RVS--GEEDNM
+---GPY--------E--GEEDNM
 >45 CluSeq:0.00026_sd:0.00036
--E---------------GEEDNM
+D--GP-D----------GEEDNM
 >46 CluSeq:0.00022_sd:0.00038
----------GPA-----GEEDNM
+----P--VIWSSS----GEEDNM
 >47 CluSeq:0.0002_sd:0.00034
----------GPA-----GEEDNM
+----P--VIWSSS----GEEDNM
 >48 CluSeq:0.00019_sd:0.00033
----------GP--VS--GEEDNM
+DG-GP-----S------GEEDNM
 >49 CluSeq:0.00018_sd:0.00031
--E-------G-----K-GEEDNM
+--A-P--V---------GEEDNM
 >50 CluSeq:0.00015_sd:0.00026
-------TS-G-------GEEDNM
+-GA-------S------GEEDNM
 >51 CluSeq:0.00014_sd:0.00024
----------GP--VS--GEEDNM
+DG-GP-----S------GEEDNM
 >52 CluSeq:0.00013_sd:0.00023
----------GPARVSK-GEEDNM
+D----Y-V---------GEEDNM
 >53 CluSeq:0.00011_sd:0.0002
----------GPARVSK-GEEDNM
+D------V---------GEEDNM
 >54 CluSeq:0.00011_sd:0.00019
----D-----G-A-----GEEDNM
+----P--VIWSS-----GEEDNM
 >55 CluSeq:0.00011_sd:0.00019
--E-------G-----K-GEEDNM
+--A-P--V---------GEEDNM
 >56 CluSeq:0.0001_sd:0.00017
----------GPARVSK-GEEDNM
+DG-GP------------GEEDNM
 >57 CluSeq:8e-05_sd:0.00013
----------GPARVSK-GEEDNM
+D--GP--V---------GEEDNM
 >58 CluSeq:8e-05_sd:0.00013
----DH-------RVS--GEEDNM
+D--GP-----S------GEEDNM
 >59 CluSeq:8e-05_sd:0.00013
------------ARV---GEEDNM
+D-A-PY-------G---GEEDNM
 >60 CluSeq:7e-05_sd:0.00012
----------GPARVSK-GEEDNM
+D-A-P-----S---E--GEEDNM
 >61 CluSeq:7e-05_sd:0.00012
---------Y---RVS--GEEDNM
+---GPY--------E--GEEDNM
 >62 CluSeq:6e-05_sd:0.00011
--E-------G-----K-GEEDNM
+--A-P--V---------GEEDNM
 >63 CluSeq:6e-05_sd:0.0001
----------GPA-----GEEDNM
+----P--VIWSSS----GEEDNM
 >64 CluSeq:5e-05_sd:9e-05
----D-----G-A-----GEEDNM
+----P--VIWSS-----GEEDNM
 >65 CluSeq:4e-05_sd:8e-05
--E-------G-----K-GEEDNM
+--A-P--V---------GEEDNM
 >66 CluSeq:4e-05_sd:7e-05
------------------GEEDNM
+D-A-P-----S------GEEDNM
 >67 CluSeq:3e-05_sd:5e-05
--EL------------K-GEEDNM
+---GP------------GEEDNM
 >68 CluSeq:2e-05_sd:4e-05
----------GPARVSK-GEEDNM
+D----Y-V---------GEEDNM
+>69 CluSeq:2e-05_sd:4e-05
+--A-P---I-SS-G---GEEDNM
 >70 CluSeq:1e-05_sd:2e-05
----------GP-RVS--GEEDNM
+D--GP-----S------GEEDNM
 >71 CluSeq:1e-05_sd:2e-05
--E-----S---------GEEDNM
+D-A-P-----S------GEEDNM
 >72 CluSeq:1e-05_sd:2e-05
--EL------------K-GEEDNM
+---GP------------GEEDNM
 >73 CluSeq:1e-05_sd:2e-05
----D---SYGPARVSK-GEEDNM
+D------V---------GEEDNM
 >74 CluSeq:1e-05_sd:2e-05
----DHM---G-A-----GEEDNM
+D------VIWSSS----GEEDNM

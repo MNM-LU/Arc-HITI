@@ -137,15 +137,75 @@ direc="5p"
 translate_NT(result, corr_frame,direc, out_csv, lliteral.split("=")[1],aa_primer_frame)
 
 
-
+df_aa = pd.read_csv(out_csv, index_col=[0])
 ##################################################################################################
 # testing stuff
 
+class translate_5p:
+    def __init__(self, result, corr_frame, corr_primer_frame):
+        self.result=result
+        self.corr_frame=corr_frame
+        self.corr_primer_frame = corr_primer_frame
+
+    def translate_nt(self):
+        ref_aa_cor=dict()
+        aa_ampls=[]
+        seq_info=[] #this will be merged later with the final dict that has the aligned AAs against the ref at certain frame
+        alt_frames=[0,1,2]
+        alt_frames.remove(self.corr_frame)    
+        for record in SeqIO.parse(self.result, "fasta"):
+            if "Ref" in record.description:
+                #refs_aa_frames["Frame:" + str(alt_frame)]=str(Seq(record.seq[alt_frame:]).translate())
+                rev_compl_seq=Seq(record.seq).reverse_complement()
+#                ref_key="Frame_corr_" + str(self.corr_frame) +"|" +str(rev_compl_seq[rev_compl_seq.find("ATG"):][self.corr_frame:].translate())
+                #ref_key="Frame_corr_" + str(self.corr_frame) +"|" +str(rev_compl_seq[rev_compl_seq.find("ATG"):][self.corr_frame:].translate())
+
+                ref_key="Frame_corr_" + str(self.corr_frame) +"|" +str(rev_compl_seq[self.corr_frame:].translate())
+                print(ref_key)
+            else:
+                seq_info.append(record.description)
+                rev_compl_seq=Seq(str(record.seq)).reverse_complement()
+                #rev_compl_seqnc=Seq(n[0:(len(n)-8)]).reverse_complement()
+                #print(str(rev_compl_seq[rev_compl_seq.find("ATG"):][self.corr_frame:].translate()))
+                #aa_ampls.append(str(rev_compl_seq[rev_compl_seq.find("ATG"):][self.corr_frame:].translate()))
+                aa_ampls.append(str(rev_compl_seq[self.corr_frame:].translate()))
+
+        print("All translated in correct frame")
+        ref_aa_cor[ref_key]=aa_ampls
+        ref_aa=dict()
+        for alt_frame in alt_frames:
+            aa_ampls=[]
+            for record in SeqIO.parse(self.result, "fasta"):
+                if "Ref" in record.description:
+                    rev_compl_seq=Seq(record.seq).reverse_complement()
+                    #refs_aa_frames["Frame:" + str(alt_frame)]=str(Seq(record.seq[alt_frame:]).translate())
+                    #ref_key="Frame_" + str(alt_frame) +"|" +str(rev_compl_seq[rev_compl_seq.find("ATG"):][self.corr_frame:].translate())
+                    ref_key="Frame_" + str(alt_frame) +"|" +str(rev_compl_seq[alt_frame:].translate())
+
+                else:
+                    rev_compl_seq=Seq(record.seq).reverse_complement()
+                    #aa_ampls.append(str(rev_compl_seq[rev_compl_seq.find("ATG"):][alt_frame:].translate()))
+                    aa_ampls.append(str(rev_compl_seq[alt_frame:].translate()))
+
+            ref_aa[ref_key]=aa_ampls
+        seq_info_dic = {'Seq_stats': seq_info}
+        ref_aa_cor.update(ref_aa)
+        ref_aa_cor.update(seq_info_dic)
+        aa_df=pd.DataFrame(ref_aa_cor)
+        first_column = aa_df.pop('Seq_stats')
+        # insert column using insert(position,column_name,
+        # first_column) function
+        aa_df.insert(0, 'Seq_stats', first_column)
+        return(aa_df)
+
+
 s = Seq("CTTGCTCACCCGAGCTGGACCATATGACGTCATATGGTCCAGCTCCATCTGGTCGT").reverse_complement()
 s[2:].translate()
+df_aa = pd.read_csv(csv_file, index_col=[0])
+df_aa
 
-full_df_trim_AA=pd.read_csv(out_csv, index_col=[0])
-
+# full_df_trim_AA=pd.read_csv(out_csv, index_col=[0])
+dir = "5p"
 strand_dir= {"3p": translate_3p,
         "5p": translate_5p}  
 
