@@ -13,7 +13,7 @@ os.chdir(scripts_dir)
 from scripts_hiti import *
 from scripts_hiti import analyze_all
 #sample directory (inside which all the subdirectories exist)
-sample_dir=scripts_dir + "/HITI_mCherry_2+"
+sample_dir=scripts_dir + "/HITI_mCherry_1+"
 os.chdir(sample_dir)
 #path to the analysis folder
 base_path="/media/data/AtteR/projects/hiti/220426_NB502004_0185_AHKVHYAFX3_HITI-only/SP1_3p"
@@ -99,11 +99,13 @@ save_fasta(result, df_trim_full2, target_sequence)
 csv_file="/".join(result.split("/")[:-1]) +"/"+ result.split("/")[-1].split(".")[0] + ".csv"
 df_trim_full2.to_csv(csv_file)
 
+df_trim_full2=pd.read_csv(csv_file,index_col=[0])
+df_trim_full2
 #NT
 ####################
 output_path="aligned/NT/"
 result=output_path+"mCherry_5p_2+_prim.fasta"
-test_res=aligner(df_trim_full2, target_sequence, "align_local2", result, output_path,lliteral, rliteral, 4,2)
+test_res=aligner(df_trim_full2, target_sequence, "align_local2", result, output_path,lliteral, rliteral, 4,2, "True")
 ####################
 
 

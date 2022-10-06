@@ -239,10 +239,10 @@ def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral
     hdist = '3'
     param=" k="+kmer+" hdist="+hdist+" rcomp=f skipr2=t threads=32 overwrite=true"
     
-    # call_sequence = "bbduk.sh in="+animal_p7_cat+" in2="+animal_p5_cat+" outm1="+test_file_p7_out+" outm2="+test_file_p5_out+" literal="+filterlitteral+" stats="+stats_out + param
-#    call([call_sequence], shell=True)
-    call_sequence = "bbduk.sh in="+animal_p5_cat +" in2="+animal_p7_cat+" outm1="+ test_file_p5_out +" outm2="+test_file_p7_out+" literal="+filterlitteral+" stats="+stats_out + param
+    call_sequence = "bbduk.sh in="+animal_p7_cat+" in2="+animal_p5_cat+" outm1="+test_file_p7_out+" outm2="+test_file_p5_out+" literal="+filterlitteral+" stats="+stats_out + param
     call([call_sequence], shell=True)
+    #call_sequence = "bbduk.sh in="+animal_p5_cat +" in2="+animal_p7_cat+" outm1="+ test_file_p5_out +" outm2="+test_file_p7_out+" literal="+filterlitteral+" stats="+stats_out + param
+    #call([call_sequence], shell=True)
 
     call_sequence = "bbduk.sh in="+test_file_p5_out+" out="+test_file_p5_filter+ " literal=AAAAAAAAA,CCCCCCCCC,GGGGGGGGG,TTTTTTTTT k=9 mm=f overwrite=true minlength=40"
     call([call_sequence], shell=True)
@@ -255,7 +255,7 @@ def trimRead_hiti(animal_nr,base_path,transgene,filterlitteral,lliteral,rliteral
     # call([cutadapt_call], shell=True)
 
     test_file_p5_out_starcode = tempfile.NamedTemporaryFile(suffix = '.tsv').name
-    starcode_call= "starcode -i "+test_file_p5_filter2+" -t 32 -o "+test_file_p5_out_starcode
+    starcode_call= "/media/data/AtteR/Attes_bin/starcode/starcode -i "+test_file_p5_filter2+" -t 32 -o "+test_file_p5_out_starcode
 
     call([starcode_call], shell=True)
 
@@ -353,7 +353,7 @@ def import_reads_process_mini(base_path, ref,filterlitteral,lliteral,rliteral,re
 
             print("Cutadapt done! Performed on test_file_p5_filter2: "+ test_file_p5_filter2)
             test_file_p5_out_starcode = tempfile.NamedTemporaryFile(suffix = '.tsv').name
-            starcode_call= "starcode -i "+test_file_p5_filter2+" -t 32 -r 5 -o "+test_file_p5_out_starcode
+            starcode_call= "/media/data/AtteR/Attes_bin/starcode/starcode -i "+test_file_p5_filter2+" -t 32 -r 5 -o "+test_file_p5_out_starcode
             call([starcode_call], shell=True)
 
             df=pd.read_csv(test_file_p5_out_starcode, sep='\t', header=None)
@@ -559,9 +559,12 @@ def add_primers_save(aligned_data_trim,filename, target_sequence,lliteral):
 
 #takes into account whether the sample is 3p or 5p. if 5p, then reverse translate the primer and put on the other
 #end of the translated main seq
-def add_primers_save2(aligned_data_trim,filename, target_sequence,lliteral, dir):
+def add_primers_save2(aligned_data_trim,filename, target_sequence,lliteral, dir, rev_complement):
     id_f = 1
     ref="Ref"
+    old_chars = "ACGT"
+    replace_chars = "TGCA"
+    tab = str.maketrans(old_chars,replace_chars)
     with open(filename, "w") as handle:
         if '3' in dir:
             whole_ref=lliteral.split("=")[1] + "-" + target_sequence
@@ -576,25 +579,71 @@ def add_primers_save2(aligned_data_trim,filename, target_sequence,lliteral, dir)
                 count = SeqIO.write(seq_obj, handle, "fasta")
                 id_f+=1
         else:
-            whole_ref=target_sequence + "-" + lliteral.split("=")[1]
+            whole_ref=target_sequence + "-" + lliteral.split("=")[1].translate(tab)[::-1] # reverse primer position as the 5p seq is sequenced in rev
+            # whole_ref=target_sequence + "-" + lliteral.split("=")[1](tab)[::-1] # reverse primer position as the 5p seq is sequenced in rev
             seq_obj = SeqRecord(Seq(whole_ref), id=str(0), description=ref)
             count = SeqIO.write(seq_obj, handle, "fasta")
             for id, seq_prims in aligned_data_trim.items():
                 #descr=id.split("_")[0] + "_" + id.split("_")[1]
                 descr=id
-                whole_seq=seq_prims+ "-" + lliteral.split("=")[1]
+                whole_seq=seq_prims+ "-" + lliteral.split("=")[1].translate(tab)[::-1]
                 seq_obj = SeqRecord(Seq(whole_seq), id=str(id_f), description=descr)
                 print(seq_obj)
                 count = SeqIO.write(seq_obj, handle, "fasta")
                 id_f+=1
 
-    print("Saved!")
+
+    print(f'Saved to {filename}!')
+
+
+class gen_aligned_data():
+    # generate alignments by aligning each seq to the rev, either compl or not
+    def __init__(self, full_df, aligner_init, target_sequence, gop, gep, rev_compl):
+        self.full_df=full_df
+        self.aligner_init=aligner_init
+        self.target_sequence=target_sequence
+        self.gop=gop
+        self.gep=gep
+        self.rev_compl=rev_compl    
+        old_chars = "ACGT"
+        replace_chars = "TGCA"
+        tab = str.maketrans(old_chars,replace_chars)
+
+        if rev_compl=="True":
+            target_sequence = str(target_sequence).translate(tab)[::-1]
+        # else:
+        #     target_sequence=target_sequence
+
+    def align_data(self):
+        old_chars = "ACGT"
+        replace_chars = "TGCA"
+        tab = str.maketrans(old_chars,replace_chars)
+        headers=[]
+        aligned_seqs=[]
+        for seq_i in range(len(self.full_df.iloc[:,-1])):
+            #yield iteratively the header of the certain seq and the corresponding seq
+            #header=">"+ str(id_f)+"_CluSeq:" + str((round(full_df.iloc[seq_i,-4],5))) + "_var:"+str((round(full_df.iloc[seq_i,-2],5))) +"_sd:" + str((round(full_df.iloc[seq_i,-1],5)))
+            header="CluSeq:" + str((round(self.full_df.iloc[seq_i,-2], 5))) + "_sd:" + str((round(self.full_df.iloc[seq_i,-1],5)))
+            #seq_obj_align = aligner_init(full_df.iloc[seq_i,0], target_sequence, gop, gep).align()
+            seq_obj_align = self.aligner_init(str(self.full_df.iloc[seq_i,0]), self.target_sequence, self.gop, self.gep).align()
+            seq_obj_align = re.sub(r'[(\d|\s]', '', seq_obj_align) #remove digits from the string caused by the alignment and empty spaces from the start
+            print(f'seq_obj_normal: {seq_obj_align}')
+            headers.append(header)
+            if self.rev_compl=="True":
+                aligned_seqs.append(str(seq_obj_align).translate(tab)[::-1])
+                print(f'seq_obj_: {str(seq_obj_align).translate(tab)[::-1]}')
+
+            else:
+                aligned_seqs.append(seq_obj_align)
+        return(dict(zip(headers, aligned_seqs)))
+
 
 
 #takes in the df and the choice of the alignment method. methods are found in class
 #the class must be instantiated inside the function and the appropriate method is called
 #by index passed by the user into function
-def aligner(full_df, target_sequence, align_method, filename, output_path, lliteral, rliteral, gop=3, gep=1, dir="3p"):
+
+def aligner(full_df, target_sequence, align_method, filename, output_path, lliteral, rliteral, gop=3, gep=1, dir="3p", rev_complement="False"):
     align_class = {"align_local": align_local,
             "align_local2": align_local2,
             "align_local3":align_local3,
@@ -602,32 +651,22 @@ def aligner(full_df, target_sequence, align_method, filename, output_path, llite
             "align_global2":align_global2}  
     id_f=1
     aligner_init = align_class.get(str(align_method), None)  # Get the chosen class, or None if input is bad
-    aligner_init
-    aligned_data=dict()
-    #align all the data, save into dict, then ensure that all the seqs are same length (take the longest seq). IF not, then add padding!
-    headers=[]
-    aligned_seqs=[]
-    for seq_i in range(len(full_df.iloc[:,-1])):
-        #yield iteratively the header of the certain seq and the corresponding seq
-        #header=">"+ str(id_f)+"_CluSeq:" + str((round(full_df.iloc[seq_i,-4],5))) + "_var:"+str((round(full_df.iloc[seq_i,-2],5))) +"_sd:" + str((round(full_df.iloc[seq_i,-1],5)))
-        header="CluSeq:" + str((round(full_df.iloc[seq_i,-2], 5))) + "_sd:" + str((round(full_df.iloc[seq_i,-1],5)))
-        #seq_obj_align = aligner_init(full_df.iloc[seq_i,0], target_sequence, gop, gep).align()
-        seq_obj_align = aligner_init(full_df.iloc[seq_i,0], target_sequence, gop, gep).align()
-        seq_obj_align = re.sub(r'[(\d|\s]', '', seq_obj_align) #remove digits from the string caused by the alignment and empty spaces from the start
-        print(seq_obj_align)
-        headers.append(header)
-        aligned_seqs.append(seq_obj_align)
+    generate_alignments = gen_aligned_data(full_df, aligner_init, target_sequence, gop, gep, rev_complement) # generate alignments by aligning each seq to the rev, either compl or not
 
-    aligned_data=dict(zip(headers, aligned_seqs))
+    aligned_data=generate_alignments.align_data()
+
+    #align all the data, save into dict, then ensure that all the seqs are same length (take the longest seq). IF not, then add padding!
     aligned_data_trim=align_trimmer(aligned_data, target_sequence)
     #data_trim_nodupl=find_remove_duplicates(aligned_data_trim)
-    aligned_data_trim=reorganise_perc(aligned_data_trim)
+
+    aligned_data_reorg=reorganise_perc(aligned_data_trim)
     #Add primers to both ends of the seq and save
     #write_align(data_trim_nodupl, filename, target_sequence)
-    add_primers_save2(aligned_data_trim, filename, target_sequence, lliteral, dir)
+
+    add_primers_save2(aligned_data_reorg, filename, target_sequence, lliteral, dir, rev_complement)
     #Generate a visual alignment file using mview
     mview_file=output_path +filename.split("/")[-1].split(".")[-2] + ".html"
-    mview_command='mview -in fasta -html head -css on -reference 1 -coloring identity ' + filename + '>' + mview_file
+    mview_command='/media/data/AtteR/Attes_bin/mview -in fasta -html head -css on -reference 1 -coloring identity ' + filename + '>' + mview_file
     #mview_command='/media/data/AtteR/Attes_bin/mview -in fasta -html head -css on -reference 1 -coloring identity ' + filename + '>' + mview_file
     call([mview_command], shell=True)
     print("html file created as "+ mview_file)
@@ -739,16 +778,18 @@ class translate_5p:
             if "Ref" in record.description:
                 #refs_aa_frames["Frame:" + str(alt_frame)]=str(Seq(record.seq[alt_frame:]).translate())
                 rev_compl_seq=Seq(record.seq).reverse_complement()
-                ref_key="Frame_corr_" + str(self.corr_frame) +"|" +str(rev_compl_seq[rev_compl_seq.find("ATG"):][self.corr_frame:].translate())
-                #ref_key="Frame_corr:" + str(self.corr_frame) +"|" +str(rev_compl_seq[self.corr_frame:].translate())
+#                ref_key="Frame_corr_" + str(self.corr_frame) +"|" +str(rev_compl_seq[rev_compl_seq.find("ATG"):][self.corr_frame:].translate())
+                #ref_key="Frame_corr_" + str(self.corr_frame) +"|" +str(rev_compl_seq[rev_compl_seq.find("ATG"):][self.corr_frame:].translate())
 
+                ref_key="Frame_corr_" + str(self.corr_frame) +"|" +str(rev_compl_seq[self.corr_frame:].translate())
+                print(ref_key)
             else:
                 seq_info.append(record.description)
                 rev_compl_seq=Seq(str(record.seq)).reverse_complement()
                 #rev_compl_seqnc=Seq(n[0:(len(n)-8)]).reverse_complement()
                 #print(str(rev_compl_seq[rev_compl_seq.find("ATG"):][self.corr_frame:].translate()))
-                aa_ampls.append(str(rev_compl_seq[rev_compl_seq.find("ATG"):][self.corr_frame:].translate()))
-                #aa_ampls.append(str(rev_compl_seq[self.corr_frame:].translate()))
+                #aa_ampls.append(str(rev_compl_seq[rev_compl_seq.find("ATG"):][self.corr_frame:].translate()))
+                aa_ampls.append(str(rev_compl_seq[self.corr_frame:].translate()))
 
         print("All translated in correct frame")
         ref_aa_cor[ref_key]=aa_ampls
@@ -759,10 +800,14 @@ class translate_5p:
                 if "Ref" in record.description:
                     rev_compl_seq=Seq(record.seq).reverse_complement()
                     #refs_aa_frames["Frame:" + str(alt_frame)]=str(Seq(record.seq[alt_frame:]).translate())
-                    ref_key="Frame_" + str(alt_frame) +"|" +str(rev_compl_seq[rev_compl_seq.find("ATG"):][self.corr_frame:].translate())
+                    #ref_key="Frame_" + str(alt_frame) +"|" +str(rev_compl_seq[rev_compl_seq.find("ATG"):][self.corr_frame:].translate())
+                    ref_key="Frame_" + str(alt_frame) +"|" +str(rev_compl_seq[alt_frame:].translate())
+
                 else:
                     rev_compl_seq=Seq(record.seq).reverse_complement()
-                    aa_ampls.append(str(rev_compl_seq[rev_compl_seq.find("ATG"):][alt_frame:].translate()))
+                    #aa_ampls.append(str(rev_compl_seq[rev_compl_seq.find("ATG"):][alt_frame:].translate()))
+                    aa_ampls.append(str(rev_compl_seq[alt_frame:].translate()))
+
             ref_aa[ref_key]=aa_ampls
         seq_info_dic = {'Seq_stats': seq_info}
         ref_aa_cor.update(ref_aa)
@@ -774,18 +819,18 @@ class translate_5p:
         aa_df.insert(0, 'Seq_stats', first_column)
         return(aa_df)
 
-def write_AA_file(df_aa_align, result, primer, dir, aa_primer_frame):
+def write_AA_file(df_aa_align, result, primer, dir, aa_primer_frame, corr_frame):
     if "3" in dir:
         for i, ref_fr in enumerate(df_aa_align.columns[1:], start=1):
             aa_file="aligned/AA/fasta/" +result.split("/")[-1].split(".")[-2] + '_' +ref_fr.split("|")[0] + ".fasta"
             with open(aa_file, "w") as f:
-                f.write(">0_Ref_" + ref_fr.split("|")[0] + "\n")
+                f.write(">0_Ref_" + str(corr_frame) + "\n")
                 f.write(str(Seq(primer[aa_primer_frame:]).translate()) + "-" + ref_fr.split("|")[1] + "\n")
                 for a, aa_seq in enumerate(list(df_aa_align.iloc[:,i])):
                     f.write(">"+ df_aa_align.iloc[a,0] + "\n")
                     f.write(str(Seq(primer[aa_primer_frame:]).translate()) + "-" + aa_seq + "\n")
             mview_file= "aligned/AA/html/" +aa_file.split("/")[-1].split(".")[-2] + ".html"
-            mview_command='mview -in fasta -html head -css on -reference 1 -coloring identity ' + aa_file + '>' + mview_file
+            mview_command='/media/data/AtteR/Attes_bin/mview -in fasta -html head -css on -reference 1 -coloring identity ' + aa_file + '>' + mview_file
             call([mview_command], shell=True)
             print("Alignments created in html format! Files found inside aligned/AA directory")
 
@@ -793,17 +838,17 @@ def write_AA_file(df_aa_align, result, primer, dir, aa_primer_frame):
         for i, ref_fr in enumerate(df_aa_align.columns[1:], start=1):
             aa_file="aligned/AA/fasta/" +result.split("/")[-1].split(".")[-2] + '_' +ref_fr.split("|")[0] + ".fasta"
             with open(aa_file, "w") as f:
-                f.write(">0_Ref_" + ref_fr.split("|")[0] + "\n")
+                f.write(">0_Ref_" + str(corr_frame) + "\n")
                 f.write(ref_fr.split("|")[1] + "-" + str(Seq(primer).reverse_complement()[aa_primer_frame:].translate()) + "\n")
                 for a, aa_seq in enumerate(list(df_aa_align.iloc[:,i])):
                     f.write(">"+ df_aa_align.iloc[a,0] + "\n")
                     f.write(aa_seq + "-" + str(Seq(primer).reverse_complement()[aa_primer_frame:].translate()) + "\n")
             mview_file= "aligned/AA/html/" +aa_file.split("/")[-1].split(".")[-2] + ".html"
-            mview_command='mview -in fasta -html head -css on -reference 1 -coloring identity ' + aa_file + '>' + mview_file
+            mview_command='/media/data/AtteR/Attes_bin/mview -in fasta -html head -css on -reference 1 -coloring identity ' + aa_file + '>' + mview_file
             call([mview_command], shell=True)
             print("Alignments created in html format! Files found inside aligned/AA directory")
 
-def translate_NT(result, corr_frame, dir, out_csv, primer, aa_primer_frame):
+def translate_NT(result, corr_frame, dir, out_csv, primer, aa_primer_frame, align_method="align_local3"):
     strand_dir= {"3p": translate_3p,
             "5p": translate_5p}  
 
@@ -815,7 +860,7 @@ def translate_NT(result, corr_frame, dir, out_csv, primer, aa_primer_frame):
                 df_aa=df_aa.drop(df_aa.index[i]) 
             except IndexError: #indexing error that occured with gfp 3p
                 continue
-    align_method="align_local3"
+    # align_method="align_local3"
     align_class = {"align_local": align_local,
             "align_local2": align_local2,
             "align_local3":align_local3,
@@ -860,7 +905,7 @@ def translate_NT(result, corr_frame, dir, out_csv, primer, aa_primer_frame):
     # first_column) function
     df_aa_align.insert(0, 'Seq_stats', first_column)
     df_aa_align.to_csv(out_csv)
-    write_AA_file(df_aa_align, result, primer, dir,aa_primer_frame)
+    write_AA_file(df_aa_align, result, primer, dir,aa_primer_frame, corr_frame)
     #write into file, add translated primer
 
 #####################################################################################

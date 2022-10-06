@@ -1,5 +1,5 @@
-#File	/tmp/tmp8471mpla.fastq.gz	/tmp/tmpxkekc4jr.fastq.gz
+#File	/tmp/tmpsqwuizmu.fastq.gz	/tmp/tmpfatt_wt1.fastq.gz
 #Total	911890
-#Matched	78788	8.64008%
+#Matched	77205	8.46648%
 #Name	Reads	ReadsPct
-1	78788	8.64008%
+1	77205	8.46648%

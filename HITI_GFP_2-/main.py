@@ -13,7 +13,7 @@ os.chdir(scripts_dir)
 from scripts_hiti import *
 from scripts_hiti import analyze_all
 #sample directory (inside which all the subdirectories exist)
-sample_dir=scripts_dir + "/HITI_GFP_1-/"
+sample_dir=scripts_dir + "/HITI_GFP_2-/"
 os.chdir(sample_dir)
 #path to the analysis folder
 base_path = '/media/data/AtteR/projects/hiti/FASTQ_Generation_2020-03-09_08_30_27Z-13364364/'
@@ -34,11 +34,22 @@ animal_list = [20, 21, 22, 23, 24]
 read_fwd = True
 filterlitteral='CAGCTCCATCTGGTCGTCGGT'
 filterlitteral=filterlitteral.upper()
+lliteral = ' literal=GTGGTCATATGGTCCAGCTCC'
 lliteral = ' literal=GTGGTCATATGGTCCAGCTC'
 
+target_sequence='ATCTGGTCGTCGGTGCTGCGGCTCCGcggagccgcagcaccgaCCTTGTACAGCTCGTCCATGCCGAGAGTGATCCCGGCGGCGGTCACGAACTCCAGCAGGACCATGTGATCGCGCTTCTCGTTGGGGTCTTTGCTCAGGGCGGACTGGGTGCTCAGGTAGTGGTTGTCGGGCAGCAGCACGGGGCCGTCGCCGATGGGGGTGTTCTGCTGGTAGTGGTCGGCGAGCTGCACGCTGCCGTCCTCGATGTTGTGGCGGATCTTGAAGTTCACCTTGATGCCGTTCTTCTGCTTGTCGGCCATGATATAGACGTTGTGGCTGTTGTAGTTGTACTCCAGCTTGTGCCCCAGGATGTTGCCGTCCTCCTTGAAGTCGATGCCCTTCAGCTCGATGCGGTTCACCAGGGTGTCGCCCTCGAACTTCACCTCGGCGCGGG'
+#filterlitteral='GTGGTCATATGGTCCAGCTCCATCTGGTCGTCGGTGCTGCGGCTC'
 rliteral=''
+target_sequence='ATCTGGTCGTCGGTGCTGCGGCTCCGcggagccgcagcaccgaCCTTGTACAGCTCGTCCATGCCGAGAGTGATCCCGGCGGCGGTCACGAACTCCAGCAGGACCATGTGATCGCGCTTCTCGTTGGGGTCTTTGCTCAGGGCGGACTGGGTGCTCAGGTAGTGGTTGTCGGGCAGCAGCACGGGGCCGTCGCCGATGGGGGTGTTCTGCTGGTAGTGGTCGGCGAGCTGCACGCTGCCGTCCTCGATGTTGTGGCGGATCTTGAAGTTCACCTTGATGCCGTTCTTCTGCTTGTCGGCCATGATATAGACGTTGTGGCTGTTGTAGTTGTACTCCAGCTTGTGCCCCAGGATGTTGCCGTCCTCCTTGAAGTCGATGCCCTTCAGCTCGATGCGGTTCACCAGGGTGTCGCCCTCGAACTTCACCTCGGCGCGGG'
+target_sequence='ACCACTACCTGAGCACCCAGTCCGCCCTGAGCAAAGACCCCAACGAGAAGCGCGATCACATGGTCCTGCTGGAGTTCGTGACCGCCGCCGGGATCACTCTCGGCATGGACGAGCTGTACAAGGtcggtgctgcggctccgCGGAGCCGCAGCACCGACGACCAGAT'
 target_sequence='CATCTGGTCGTCGGTGCTGCGGCTCCGcggagccgcagcaccgaCCTTGTACAGCTCGTCCATGCCGAGAGTGATCCCGGCGGCGGTCACGAACTCCAGCAGGACCATGTGATCGCGCTTCTCGTTGGGGTCTTTGCTCAGGGCGGACTGGGTGCTCAGGTAGTGGTTGTCGGGCAGCAGCACGGGGCCGTCGCCGATGGGGGTGTTCTGCTGGTAGTGGTCGGCGAGCTGCACGCTGCCGTCCTC'
 target_sequence=target_sequence.upper()
+#original values
+animal_list = [20, 21, 22, 23, 24] 
+filterlitteral = 'CCCGCGCCGAGGTGAAGTTCGAGGGCGACACCCTGGTGAACCGCATCGAGCTGAAGG'
+lliteral = ' literal=GTGGTCATATGGTCCAGCTC'
+rliteral = ' literal=TCGTCCATGCCGAG'
+
 direc="3p"
 ####################
 
@@ -52,7 +63,7 @@ result="unaligned/HITI_GFP_3p_1-.fasta"
 csv_file="/".join(result.split("/")[:-1]) +"/"+ result.split("/")[-1].split(".")[0] + ".csv"
 full_df_trim.to_csv(csv_file)
 save_fasta(result, full_df_trim, target_sequence)
-#full_df_trim=pd.read_csv(csv_file,  index_col=[0])
+full_df_trim=pd.read_csv(csv_file,  index_col=[0])
 
 ####################
 #NT
@@ -60,14 +71,29 @@ save_fasta(result, full_df_trim, target_sequence)
 ####################
 output_path="aligned/NT/"
 result=output_path + "HITI_GFP_3p_1-_prim.fasta"
-aligner(full_df_trim, target_sequence, "align_local2", result, output_path, lliteral, rliteral, 3,1, "5p")
+aligner(full_df_trim, target_sequence, "align_local2", result, output_path, lliteral, rliteral, 3,1, "5p", "True")
 ####################
 
 
-#AA
 ####################
 corr_frame=0
 aa_primer_frame=0
+
+#had to make the dir as 5p as then the seq is translated correctly as the GFP sample's 3p is on the rev strand
+direc="5p"
+
+result="unaligned/HITI_GFP_3p_1-.fasta"
+out_csv="aligned/AA/HITI_GFP_3p_1-_AA.csv"
+output_html="aligned/AA/HITI_GFP_3p_1-_AA.html"
+translate_NT(result, corr_frame,direc, out_csv, lliteral.split("=")[1], aa_primer_frame)
+
+#############################
+
+#ref_key="Frame_corr:" + str(self.corr_frame) +"|" +str(rev_compl_seq[self.corr_frame:].translate())
+
+####################
+corr_frame=2
+aa_primer_frame=1
 
 #had to make the dir as 5p as then the seq is translated correctly as the GFP sample's 3p is on the rev strand
 direc="5p"
