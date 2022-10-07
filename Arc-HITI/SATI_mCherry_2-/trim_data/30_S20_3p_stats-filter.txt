@@ -1,0 +1,5 @@
+#File	/tmp/tmpkgelq_nf.fastq.gz	/tmp/tmpjexslifi.fastq.gz
+#Total	944104
+#Matched	464222	49.17064%
+#Name	Reads	ReadsPct
+1	464222	49.17064%

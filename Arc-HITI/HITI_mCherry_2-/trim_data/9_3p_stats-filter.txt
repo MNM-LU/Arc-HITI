@@ -1,0 +1,5 @@
+#File	/tmp/tmpiclanl3d.fastq.gz	/tmp/tmpru4p9k10.fastq.gz
+#Total	2126346
+#Matched	844904	39.73502%
+#Name	Reads	ReadsPct
+1	844904	39.73502%

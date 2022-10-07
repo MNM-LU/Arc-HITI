@@ -1,0 +1,5 @@
+#File	/tmp/tmpcyns3rd_.fastq.gz	/tmp/tmpgfr149uj.fastq.gz
+#Total	1985338
+#Matched	983866	49.55660%
+#Name	Reads	ReadsPct
+1	983866	49.55660%
